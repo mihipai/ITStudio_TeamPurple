@@ -4,3 +4,4 @@ from Course import Course
 from Program import Program
 from Semester import Semester
 from Student import Student
+import math
