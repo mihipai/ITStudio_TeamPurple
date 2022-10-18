@@ -47,7 +47,7 @@ class Student:
         return self.academic_history
     def print_academic_history(self):
         string = 'Your academic history: '
-        for i in range(len(self.academic_history)+1):
+        for i in range(len(self.academic_history[0])):
             string += '\n'
             for j in self.academic_history:
                 string += str(j[i]) + ' '
@@ -81,9 +81,9 @@ class Student:
 #Testing stuff
 student1 = Student()
 name = 'Kelvin'
-Subject_list = ['English', 'Math', 'Chemistry', 'Biology']
-Mark = [80, 82, 75, 90]
-Grade = ['A', 'A', 'B+', 'A+']
+Subject_list = ['English', 'Math', 'Chemistry', 'Biology', 'Psychology']
+Mark = [80, 82, 75, 90, 88]
+Grade = ['A', 'A', 'B+', 'A+', 'A']
 academic_history = []
 academic_history.append(Subject_list)
 academic_history.append(Mark)
