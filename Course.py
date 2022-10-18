@@ -37,7 +37,7 @@ class Course:
             stri += "\nPreRequirements = " + str(self.c_list[x][3])
             stri += "\nAvaivable Semster = " + str(self.c_list[x][4])
             stri += '\n\n'
-            print(x)
+            
         return stri
 
 def main():
