@@ -46,7 +46,12 @@ class Student:
     def get_academic_history(self):
         return self.academic_history
     def print_academic_history(self):
-        print(f'Your academic history: {self.academic_history}')
+        string = 'Your academic history: '
+        for i in range(len(self.academic_history)+1):
+            string += '\n'
+            for j in self.academic_history:
+                string += str(j[i]) + ' '
+        print(string)
 
     def set_current_enrollment(self, current_enrollment = []):
         self.current_enrollment = current_enrollment
@@ -77,7 +82,13 @@ class Student:
 student1 = Student()
 name = 'Kelvin'
 Subject_list = ['English', 'Math', 'Chemistry', 'Biology']
-
+Mark = [80, 82, 75, 90]
+Grade = ['A', 'A', 'B+', 'A+']
+academic_history = []
+academic_history.append(Subject_list)
+academic_history.append(Mark)
+academic_history.append(Grade)
 student1.set_name(name)
 student1.print_name()
-student1.set_academic_history()
+student1.set_academic_history(academic_history)
+student1.print_academic_history()
