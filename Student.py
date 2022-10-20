@@ -58,14 +58,24 @@ class Student:
     def get_current_enrollment(self):
         return self.current_enrollment
     def print_current_enrollment(self):
-        print(f'Your current enrollment: {self.current_enrollment}')
+        String = 'Your Current Enrollment:'
+        for i in self.current_enrollment:
+            String += '\n'
+            for j in i:
+                String += j + ' '
+        print(String)
 
     def set_study_plan(self, study_plan = []):
         self.study_plan = study_plan
     def get_study_plan(self):
         return self.study_plan
     def print_study_plan(self):
-        print(f'Your current study plan: {self.study_plan}')
+        String = 'Your Study Plan:'
+        for i in self.study_plan:
+            String += '\n'
+            for j in i:
+                String += j + ' '
+        print(String)
 
     def print_all(self):
         String = ''
