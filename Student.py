@@ -78,7 +78,7 @@ class Student:
         String += '\nStudy plan: ' + self.study_plan
         print(String)
 
-#Testing stuff
+#Testing stuff# testing again
 student1 = Student()
 name = 'Kelvin'
 Subject_list = ['English', 'Math', 'Chemistry', 'Biology', 'Psychology']
