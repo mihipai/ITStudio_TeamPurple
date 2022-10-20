@@ -73,14 +73,30 @@ class Student:
         String += '\nStudent ID: ' + self.student_id
         String += '\nDate of birth: ' + self.DOB
         String += '\nCurrently enrolled program: ' + self.program_code
-        String += '\nAcademic History: ' + self.academic_history
-        String += '\nCurrent enrollment: ' + self.current_enrollment
-        String += '\nStudy plan: ' + self.study_plan
+        String += '\nAcademic History: ' 
+        for i in range(len(self.academic_history[0])):
+            String += '\n'
+            for j in self.academic_history:
+                String += str(j[i]) + ' '
+        String += '\nCurrent enrollment: '
+        for i in self.current_enrollment:
+            String += '\n'
+            for j in i:
+                String += j + ' '
+        String += '\nStudy plan: '
+        for i in self.study_plan:
+            String += '\n'
+            for j in i:
+                String += j + ' '
+
         print(String)
 
 #Testing stuff# testing again
 student1 = Student()
 name = 'Kelvin'
+student_id = 's3953996'
+dob = '18/09/2001'
+program_code = 'BP094GEN8'
 Subject_list = ['English', 'Math', 'Chemistry', 'Biology', 'Psychology']
 Mark = [80, 82, 75, 90, 88]
 Grade = ['A', 'A', 'B+', 'A+', 'A']
@@ -88,7 +104,14 @@ academic_history = []
 academic_history.append(Subject_list)
 academic_history.append(Mark)
 academic_history.append(Grade)
+current_enrollment = [['Y2', 'S2', 'COSC2800', 'IT Studio 2'], ['Y2', 'S2', 'MATH2412', 'Mathematics for Computing 2']]
+study_plan = [['Y2', 'S2', 'COSC2800', 'IT Studio 2'],['Y3', 'S1', 'COSC2800', 'IT Studio 2']]
 student1.set_name(name)
+student1.set_student_id(student_id)
 student1.print_name()
+student1.set_DOB(dob)
+student1.set_program_code(program_code)
+student1.set_current_enrollment(current_enrollment)
+student1.set_study_plan(study_plan)
 student1.set_academic_history(academic_history)
-student1.print_academic_history()
+student1.print_all()
