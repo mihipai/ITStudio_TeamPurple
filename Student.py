@@ -4,7 +4,7 @@ from turtle import st
 
 
 class Student:
-    def _init_(self, name, student_id, DOB, program_code, academic_history, current_enrollment, study_plan):
+    def __init__(self, name, student_id, DOB, program_code, academic_history, current_enrollment, study_plan):
         self.name = name
         self.student_id = student_id
         self.DOB = DOB
@@ -41,8 +41,8 @@ class Student:
     def print_program_code(self):
         print(f'Currently enrolled program: {self.program_code}')
     
-    def set_academic_history(self, academic_history = []):
-        self.academic_history = academic_history
+    def set_academic_history(self, academic_history = ''):
+        self.academic_history = academic_history.strip()
     def get_academic_history(self):
         return self.academic_history
     def print_academic_history(self):
@@ -53,8 +53,8 @@ class Student:
                 string += str(j[i]) + ' '
         print(string)
 
-    def set_current_enrollment(self, current_enrollment = []):
-        self.current_enrollment = current_enrollment
+    def set_current_enrollment(self, current_enrollment = ''):
+        self.current_enrollment = current_enrollment.strip()
     def get_current_enrollment(self):
         return self.current_enrollment
     def print_current_enrollment(self):
@@ -65,8 +65,8 @@ class Student:
                 String += j + ' '
         print(String)
 
-    def set_study_plan(self, study_plan = []):
-        self.study_plan = study_plan
+    def set_study_plan(self, study_plan = ''):
+        self.study_plan = study_plan.strip()
     def get_study_plan(self):
         return self.study_plan
     def print_study_plan(self):
@@ -77,51 +77,45 @@ class Student:
                 String += j + ' '
         print(String)
 
-    def print_all(self):
+    def __str__(self):
         String = ''
         String += 'Name: ' + self.name
         String += '\nStudent ID: ' + self.student_id
         String += '\nDate of birth: ' + self.DOB
         String += '\nCurrently enrolled program: ' + self.program_code
         String += '\nAcademic History: ' 
-        for i in range(len(self.academic_history[0])):
+        for i in self.academic_history.split('!'):
             String += '\n'
-            for j in self.academic_history:
-                String += str(j[i]) + ' '
+            i.strip()
+            for j in i.split(','):
+                String += j.strip() + ' '
         String += '\nCurrent enrollment: '
-        for i in self.current_enrollment:
-            String += '\n'
+        for i in self.current_enrollment.split(','):
+            String += ' '
             for j in i:
-                String += j + ' '
+                String += j.strip()
         String += '\nStudy plan: '
-        for i in self.study_plan:
+        for i in self.study_plan.split('!'):
             String += '\n'
-            for j in i:
-                String += j + ' '
+            for j in i.split(','):
+                String += j.strip() + ' '
 
-        print(String)
+        return String
 
 #Testing stuff# testing again
-student1 = Student()
 name = 'Kelvin'
 student_id = 's3953996'
 dob = '18/09/2001'
 program_code = 'BP094GEN8'
-Subject_list = ['English', 'Math', 'Chemistry', 'Biology', 'Psychology']
-Mark = [80, 82, 75, 90, 88]
-Grade = ['A', 'A', 'B+', 'A+', 'A']
-academic_history = []
-academic_history.append(Subject_list)
-academic_history.append(Mark)
-academic_history.append(Grade)
-current_enrollment = [['Y2', 'S2', 'COSC2800', 'IT Studio 2'], ['Y2', 'S2', 'MATH2412', 'Mathematics for Computing 2']]
-study_plan = [['Y2', 'S2', 'COSC2800', 'IT Studio 2'],['Y3', 'S1', 'COSC2800', 'IT Studio 2']]
+academic_history = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
+current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
+study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
+student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
 student1.set_name(name)
 student1.set_student_id(student_id)
-student1.print_name()
 student1.set_DOB(dob)
 student1.set_program_code(program_code)
 student1.set_current_enrollment(current_enrollment)
 student1.set_study_plan(study_plan)
 student1.set_academic_history(academic_history)
-student1.print_all()
+print(student1)
