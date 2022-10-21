@@ -102,6 +102,8 @@ class Student:
                 String += j.strip() + ' '
 
         return String
+    def ammend_academic_history():
+        return None
 
 #Testing stuff# testing again
 name = 'Kelvin'
@@ -112,11 +114,4 @@ academic_history = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803
 current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
 study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
 student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
-student1.set_name(name)
-student1.set_student_id(student_id)
-student1.set_DOB(dob)
-student1.set_program_code(program_code)
-student1.set_current_enrollment(current_enrollment)
-student1.set_study_plan(study_plan)
-student1.set_academic_history(academic_history)
 print(student1)
