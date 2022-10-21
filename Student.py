@@ -42,7 +42,7 @@ class Student:
         print(f'Currently enrolled program: {self.program_code}')
     
     def set_academic_history(self, academic_history = ''):
-        self.academic_history = academic_history
+        self.academic_history = academic_history.strip()
     def get_academic_history(self):
         return self.academic_history
     def print_academic_history(self):
@@ -54,7 +54,7 @@ class Student:
         print(string)
 
     def set_current_enrollment(self, current_enrollment = ''):
-        self.current_enrollment = current_enrollment
+        self.current_enrollment = current_enrollment.strip()
     def get_current_enrollment(self):
         return self.current_enrollment
     def print_current_enrollment(self):
@@ -66,7 +66,7 @@ class Student:
         print(String)
 
     def set_study_plan(self, study_plan = ''):
-        self.study_plan = study_plan
+        self.study_plan = study_plan.strip()
     def get_study_plan(self):
         return self.study_plan
     def print_study_plan(self):
@@ -84,21 +84,21 @@ class Student:
         String += '\nDate of birth: ' + self.DOB
         String += '\nCurrently enrolled program: ' + self.program_code
         String += '\nAcademic History: ' 
-        for i in self.academic_history.split('! '):
+        for i in self.academic_history.split('!'):
             String += '\n'
             i.strip()
             for j in i.split(','):
-                String += j + ' '
+                String += j.strip() + ' '
         String += '\nCurrent enrollment: '
         for i in self.current_enrollment.split(','):
             String += ' '
             for j in i:
-                String += j
+                String += j.strip()
         String += '\nStudy plan: '
-        for i in self.study_plan.split('! '):
+        for i in self.study_plan.split('!'):
             String += '\n'
             for j in i.split(','):
-                String += j + ' '
+                String += j.strip() + ' '
 
         return String
 
