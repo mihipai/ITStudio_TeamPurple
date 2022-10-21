@@ -15,6 +15,12 @@ class InvLoginOption(Exception):
     def __init__(self, mssg):
         self.mssg = mssg
 
+class StuLogin:
+    def __init__(self,sname):
+        self.sname = sname
+
+        
+
 print('===============================================')
 print('          WELCOME TO ENROLMENT ONLINE          ')
 print('===============================================')
