@@ -19,7 +19,7 @@ class StuLogin:
     def __init__(self,sname):
         self.sname = sname
 
-        
+
 
 print('===============================================')
 print('          WELCOME TO ENROLMENT ONLINE          ')
@@ -32,6 +32,8 @@ logtype=input()
 if logtype == 'S':
     ##Something to redirect student to Student class
     print('Enter Student Number:')
+    snumb = input()
+    Stu1 = StuLogin(snumb)
 elif logtype == 'A':
     ##Redirects to Admin class 
     print('Enter Admin Number')
