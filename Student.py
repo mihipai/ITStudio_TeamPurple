@@ -89,11 +89,11 @@ class Student:
             i.strip()
             for j in i.split(','):
                 String += j.strip() + ' '
-        String += '\nCurrent enrollment: '
+        String += '\nCurrent enrollment: \n'
         for i in self.current_enrollment.split(','):
-            String += ' '
             for j in i:
                 String += j.strip()
+            String += ' '
         String += '\nStudy plan: '
         for i in self.study_plan.split('!'):
             String += '\n'
