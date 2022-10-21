@@ -46,12 +46,13 @@ class Student:
     def get_academic_history(self):
         return self.academic_history
     def print_academic_history(self):
-        string = 'Your academic history: '
-        for i in range(len(self.academic_history[0])):
-            string += '\n'
-            for j in self.academic_history:
-                string += str(j[i]) + ' '
-        print(string)
+        String = 'Your academic history: '
+        for i in self.academic_history.split('!'):
+            String += '\n'
+            i.strip()
+            for j in i.split(','):
+                String += j.strip() + ' '
+        print(String)
 
     def set_current_enrollment(self, current_enrollment = ''):
         self.current_enrollment = current_enrollment.strip()
@@ -59,10 +60,10 @@ class Student:
         return self.current_enrollment
     def print_current_enrollment(self):
         String = 'Your Current Enrollment:'
-        for i in self.current_enrollment:
-            String += '\n'
+        for i in self.current_enrollment.split(','):
             for j in i:
-                String += j + ' '
+                String += j.strip()
+            String += ' '
         print(String)
 
     def set_study_plan(self, study_plan = ''):
@@ -71,10 +72,10 @@ class Student:
         return self.study_plan
     def print_study_plan(self):
         String = 'Your Study Plan:'
-        for i in self.study_plan:
+        for i in self.study_plan.split('!'):
             String += '\n'
-            for j in i:
-                String += j + ' '
+            for j in i.split(','):
+                String += j.strip() + ' '
         print(String)
 
     def __str__(self):
