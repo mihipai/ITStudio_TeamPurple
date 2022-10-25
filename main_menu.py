@@ -16,10 +16,19 @@ class InvLoginOption(Exception):
         self.mssg = mssg
 
 class StuLogin:
-    def __init__(self,sname):
+    def __init__(self,snum, sname):
+        self.snum = snum
         self.sname = sname
 
+    def print_login_info(self):
+        print(self.sname)
+        print(self.snum)
+        print(self.getDOB())
+        print(self.get_program_code())
+        print(self.get_current_enrollment())
 
+
+#################################################################
 
 print('===============================================')
 print('          WELCOME TO ENROLMENT ONLINE          ')
@@ -33,7 +42,10 @@ if logtype == 'S':
     ##Something to redirect student to Student class
     print('Enter Student Number:')
     snumb = input()
-    Stu1 = StuLogin(snumb)
+    sname = input()
+    Stu1 = StuLogin(snumb,sname)
+    Stu1.print_login_info()
+
 elif logtype == 'A':
     ##Redirects to Admin class 
     print('Enter Admin Number')
