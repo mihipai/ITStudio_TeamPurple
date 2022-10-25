@@ -9,8 +9,13 @@ import sys
 
 class Admin():
 
-    def __init__(self, adm_num):
+    def __init__(self, adm_num,adm_nm):
         self.admin_num = adm_num
+        self.admin_name = adm_nm
+
+    def print_info(self):
+        print(self.admin_name)
+        print(self.admin_num)    
 
 class InvLoginOption(Exception):
     def __init__(self, mssg):
@@ -22,12 +27,18 @@ class StuLogin:
         self.sname = sname
 
     def print_login_info(self):
-        print(self.sname)
-        print(self.snum)
-        print(self.getDOB())
-        print(self.get_program_code())
-        print(self.get_current_enrollment())
-
+        print(f'Welcome {self.sname}', end = ' ')
+        print(f'\tStudent Number: {self.snum}')
+        print(f'D.O.B: {self.getDOB()}', end = ' ')
+        print(f'Program Code : {self.get_program_code()}')
+        print('Courses Currently Enrolled in:')
+        curr_enrol = self.get_current_enrollment()
+        enrol_str = ''
+        for i in self.current_enrollment.split(','):
+            for j in i:
+                enrol_str += j.strip()
+            enrol_str += ' '
+        print(enrol_str)
 
 #################################################################
 
