@@ -3,7 +3,17 @@ from Course import Course
 #from Program import Program
 import csv
 
-class CourseOffering: #adding/removing a student from a specific course offer
+class CourseFullError(Exception):
+    def __init__(self, mssg):
+        self.mssg = mssg
+
+class NonDuplicateError(Exception):
+    def __init__(self, mssg):
+        self.mssg = mssg
+
+class CourseOffering: 
+    #Add/Remove student from specific course 
+    #Returns course which includes list of student objects
     def __init__(self, course_code, year, semester, max_students, student_list):
         load_data1 = Load_data()
         self.course_code = course_code
@@ -11,7 +21,7 @@ class CourseOffering: #adding/removing a student from a specific course offer
         self.semester = semester
         self.max_students = max_students
         self.enrolled_students = load_data1.load_students(course_code, year, semester)
-        self.student_list = student_list #add new students in course
+        self.student_list = student_list #Add new students into course
 
     def set_CourseCode(self, course_code=''):
         self.course_code = course_code
@@ -43,21 +53,26 @@ class CourseOffering: #adding/removing a student from a specific course offer
     def get_EnrolledStudents(self):
         return self.set_EnrolledStudents
 
-    def add_student(self, student): #pass class objects
-        if len(self.enrolled_students) < self.max_students and (student not in self.enrolled_students):
-            self.student_list.append(student)
-        else:
-            self.student_list
-            #Student cannot be added, no places left for course enrollment
-        self.enrolled_students.extend(self.student_list)
-        return self.enrolled_students
-
-    def remove_student(self, student):            
-        if student in self.enrolled_students:
-            self.enrolled_students.remove(student)
-        else:
+    def add_student(self, student): #Pass student object
+        try:
+            if len(self.enrolled_students) < self.max_students and (student not in self.enrolled_students):
+                self.student_list.append(student)
+            else:
+                raise CourseFullError('Student cannot be added, the selected Course is full!\nPlease try another Course!')
+            self.enrolled_students.extend(self.student_list)
             return self.enrolled_students
-        return self.enrolled_students
+        except CourseFullError as error:
+            print(error.mssg)
+
+    def remove_student(self, student): #Remove student object that already exists
+        try:
+            if student in self.enrolled_students:
+                self.enrolled_students.remove(student)
+            else:
+                raise NonDuplicateError('This student does not exist in our list of enrolled students!\nPlease remove another student!')
+            return self.enrolled_students
+        except NonDuplicateError as error:
+            print(error.mssg)
 
     def __str__(self):
         formatted_str = ''
@@ -89,8 +104,8 @@ class Load_data:
                     all_courses.append(course_object)
         return all_courses #Returns a list of courses that belong to S1 or S2
 
-    def load_courses(self, filename): #Courses csv file
-        with open(filename, 'r', encoding='utf-8') as csvfile:
+    def load_courses(self): #Courses csv file
+        with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',')
             headings = next(csv_reader)
             list_of_csv = list(csv_reader)
@@ -210,7 +225,7 @@ class Semester:
     def print_EnrolledStudents(self):
         print('List of currently enrolled students:', self.enrolled_students)
     '''
-    
+
     def __str__(self):
         string = self.get_SemesterTitle() + '\n'
         for course in self.course_offerings:
@@ -219,37 +234,14 @@ class Semester:
 
 #Testing class
 def main():
+    '''
+    try:
+    except:
+    '''
+    #Manual input of semester data
     semester1 = Semester('Semester 1 2022', 250, 'Y1')
-    print(semester1) 
-
-    '''
-    #Manual input of student data
-    student_info = [
-        ['s386570','Alisha Goddard','29/12/2002','BP094','Y3,S2,COSC1127,COSC2408,COSC2378,MATH2237','NULL','Y1,S1,COSC2801,85,HD ! Y1,S1,MATH2411,65,CR !  Y1,S1,COSC2803,75,DI ! Y1,S2,COSC2802,72,DI !  Y1,S2,MATH2412,62,CR ! Y1,S2,COSC2804,53,PA ! Y2,S1,COSC2123,57,PA ! Y2,S1,COSC1076,72,DI !  Y2,S1,ISYS1118,63, CR ! Y2,S1,COSC1235,74,DI ! Y2,S2,COSC1107,52,PA ! Y2,S2,COSC1114,74,DI ! Y2,S2,COSC2299,65,CR ! Y2,S2,COSC2673,62,CR ! Y3,S1,COSC2626,73,DI ! Y3,S1,COSC1147,52,PA !  Y3,S1,INTE2402,63,CR ! Y3,S1,INTE2584,52,PA !'],
-        ['s386894','Arun Weaver','13/9/2000','BP096','Y1,S1,COSC2801,MATH2411,COSC2803','Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1147 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC1093 ! Y3,S1,INTE2376,INTE2374 ! Y3,S2,INTE2377,INTE2375 ! Y4,S1,ISYS1084,COSC1111,COSC2626,COSC2353 ! Y4,S2,COSC2410,COSC2972,INTE2511 !','NULL'],
-        ['s387218','Hugh Carr','27/7/1999','BP096','Y2,S2,COSC1107,COSC1114,COSC2299,COSC1226','Y3,S1,INTE2376,INTE2374 ! Y3,S2,INTE2377,INTE2375 ! Y4,S1,ISYS1084,INTE2547,COSC1127, ISYS1102 ! Y4,S2,COSC2410,COSC2626,COSC2673 !','Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA !'],
-        ['s387542','Alys Gilmore','22/11/1998','BP094','Y2,S1,COSC2123,COSC1076,ISYS1118,INTE2402','Y2,S2,COSC1107,COSC1114,COSC2299,INTE2547 ! Y3,S1,COSC2626,COSC1147,COSC2738,COSC2818 ! Y3,S2,COSC1127,COSC2408,COSC2815,MATH2237 !','Y2,S1,COSC2123, 75,DI ! Y2,S1,COSC1076, 60, CR ! Y2,S1,ISYS1118,55,PA ! Y2,S1,COSC1147,62,CR !'],
-        ['s387866','Winnie Carver','24/2/2002','BP094','Y1,S2,COSC2802,MATH2412,COSC2804','Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC1093 ! Y3,S1,COSC2626,COSC1147, COSC2471,INTE1113 ! Y3,S2,COSC1127,COSC2408,ISYS1087,COSC1235 !','Y1,S1,COSC2801,63,CR ! Y1,S1,MATH2411,72,DI ! Y1,S1,COSC2803,52,PA !']
-    ]
+    print(semester1)
     
-    student_list = []
-    for info in student_info:
-        name = info[1]
-        student_id = info[0]
-        dob = info[2]
-        program_code = info[3]
-        acad_history = info[6]
-        current_enrol = info[4]
-        study_plan = info[5]
-
-        student_object = Student(name, student_id, dob, program_code, acad_history, current_enrol, study_plan)
-        student_list.append(student_object)
-    
-    print('List of students')
-    for student in student_list:
-        print(f'\n{student}\n')
-    '''
-
     '''
     semester1 = Semester()
     name = 'Semester 2 2022 ISYS1057'
