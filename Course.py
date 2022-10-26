@@ -30,6 +30,30 @@ class Course:
     def getAvaivableSemester(self):
         return self.c_sem
 
+    def addCourse(self):
+        pass
+
+    def SearchCourse(self, C_code):
+        num = len(c_list)
+        stri = ""
+        for x in range(num):
+            
+            if c_list[x][0] == C_code:
+                stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
+                stri += "Course Code = " + str(c_list[x][0]) + '\n'
+                stri += "\nTitle = " + str(c_list[x][1]) + '\n'
+                stri += "\nCourse Description = " + str(c_list[x][2]) + '\n'
+                stri += "\nCredit Points = " + str(c_list[x][3]) + '\n'
+                stri += "\nPreRequirements = " + str(c_list[x][4]) + '\n'
+                stri += "\nAvaivable Semster = " + str(c_list[x][5])
+                stri += '\n\n'
+                stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
+        return print(stri)
+
+    def removeCourse(self):
+        pass        
+
+
     def load_courses(self, filename): #
         with open(filename, 'r', encoding='utf-8') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',')
@@ -65,8 +89,7 @@ class Course:
 
 def main():
     Course.load_courses(self="self",filename='Courses.csv')
-    Course.printinfo()
-    
+    Course.SearchCourse("self", "COSC2801")
 
 
 
