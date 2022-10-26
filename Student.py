@@ -110,12 +110,15 @@ class Student:
             if i_strip == '':
                 split.remove(split[i])
         for i in split:
+            count = 0
             i_split = i.split(',')
             if subject_to_ammend in i_split[2]:
                 i_split[3] = mark
                 i_split[4] = grade
-                print(i_split[3], i_split[4])
-        return None
+                split[count] = ','.join(i_split)
+                count+=1
+        self.academic_history = '!'.join(split)
+        return print('Academic history has been successfully ammended.')
     def ammend_study_plan(self, ):
         return None
 
@@ -130,3 +133,4 @@ study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS111
 student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
 print(student1)
 student1.ammend_academic_history('COSC2801', '80', 'HD')
+student1.print_academic_history()
