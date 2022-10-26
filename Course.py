@@ -1,4 +1,6 @@
 c_list = []
+
+import csv
 class Course:
     
     def __init__(self,course_code,title,credit_points,prerequisites,ava_sem):
@@ -6,7 +8,7 @@ class Course:
         self.c_title = title
         self.c_points = credit_points
         self.c_pre = prerequisites
-        self.c_sem =ava_sem   
+        self.c_sem =[ava_sem]
         c_list.append([course_code,title,credit_points,prerequisites,ava_sem])
     
     
@@ -24,6 +26,23 @@ class Course:
     
     def getAvaivableSemester(self):
         return self.c_sem
+
+    def load_courses(self, filename): #Courses csv file
+        with open(filename, 'r', encoding='utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=',')
+            headings = next(csv_reader)
+            list_of_csv = list(csv_reader)
+            
+            for info in list_of_csv:
+                course_code = info[0]
+                course_name = info[1]
+                credit_points = info[4]
+                prereq = info[3] #need to include course description too
+                ava_sem = info[5]
+                Course(course_name, course_code, credit_points, prereq, ava_sem)
+                
+            return c_list
+
     
 def printinfo():    
     stri = ""
@@ -37,16 +56,10 @@ def printinfo():
             
     print(stri)
 
+
 def main():
-    life = Course(3000,"Software",24,None,"S1")
-    life1 = Course(1342,"Bachelor of Engineering",200,None,"S1")
-    life2 = Course(1342,"Bachelor of Engineering",200,None,"S1")
-    life3 = Course(1342,"Bachelor of Engineering",200,None,"S1")
-    life4 = Course(2,"Bachelor of Engineering",200,None,"S1")
-    life5 = Course(1342,"Bachelor of Engineering",200,None,("S1","S2"))
-    
+    csv = Course.load_courses(self="self",filename='Course data.csv')
     printinfo()
-    print()
     
 
 
