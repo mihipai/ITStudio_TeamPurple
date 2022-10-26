@@ -6,7 +6,7 @@ class Course:
         self.c_title = title
         self.c_points = credit_points
         self.c_pre = prerequisites
-        self.c_sem =ava_sem   
+        self.c_sem =[ava_sem]
         c_list.append([course_code,title,credit_points,prerequisites,ava_sem])
     
     
