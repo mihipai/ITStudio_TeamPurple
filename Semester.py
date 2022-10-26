@@ -58,7 +58,7 @@ class CourseOffering:
             if len(self.enrolled_students) < self.max_students and (student not in self.enrolled_students):
                 self.student_list.append(student)
             else:
-                raise CourseFullError('Student cannot be added, the selected Course is full!\nPlease try another Course!')
+                raise CourseFullError('Student cannot be enrolled, the selected Course is full!\nPlease try another Course!')
             self.enrolled_students.extend(self.student_list)
             return self.enrolled_students
         except CourseFullError as error:
@@ -235,9 +235,22 @@ class Semester:
 #Testing class
 def main():
     '''
-    try:
-    except:
-    '''
+    print('=====================================================')
+    print('                Available Semesters                  ')
+    print('=====================================================')
+    print('To select Semester 1, type S1')
+    print('To select Semester 2, type S2')
+
+    print('=====================================================')
+    print('                 Available Years                     ')
+    print('=====================================================')
+    print('To select Year 1, type Y1')
+    print('To select Year 2, type Y2')
+    print('To select Year 3, type Y3')
+    print('To select Year 4, type Y4\n')
+
+    print('Choose a semester and year to access its list of course offerings!')
+    '''  
     #Manual input of semester data
     semester1 = Semester('Semester 1 2022', 250, 'Y1')
     print(semester1)
