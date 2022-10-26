@@ -30,8 +30,8 @@ class Course:
     def getAvaivableSemester(self):
         return self.c_sem
 
-    def addCourse(self):
-        pass
+    def addCourse(self,course_code,title, course_description,credit_points,prerequisites,ava_sem):
+        Course(course_code,title, course_description,credit_points,prerequisites,ava_sem)
 
     def SearchCourse(self, C_code):
         num = len(c_list)
