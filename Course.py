@@ -71,7 +71,7 @@ class Course:
                 Course(course_code, course_name, course_des, credit_points, prereq, ava_sem)
                 
             
-    def printinfo():    
+    def __str__():    
         stri = ""
         for x in range(len(c_list)):
             stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
@@ -83,7 +83,7 @@ class Course:
             stri += "\nAvaivable Semster = " + str(c_list[x][5])
             stri += '\n\n'
             stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
-        print(stri)
+        return stri
 
 
 def main():
