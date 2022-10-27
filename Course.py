@@ -83,13 +83,12 @@ class Course:
             stri += "\nAvaivable Semster = " + str(c_list[x][5])
             stri += '\n\n'
             stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
-        return stri
+        print(stri)
 
 
 def main():
-    Course.load_courses(self="self",filename='Courses.csv')
-    Course.SearchCourse("self", "COSC2801")
-
+    Course.load_courses(self="self", filename="Courses.csv")
+    print(Course.__str__())
 
 
     
