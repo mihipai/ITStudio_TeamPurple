@@ -1,5 +1,6 @@
 #Testing Commit Kelvin
 # This file will have the student class
+from os import remove
 from turtle import st
 
 
@@ -102,9 +103,9 @@ class Student:
                 String += j.strip() + ' '
 
         return String
+
     def ammend_academic_history(self, subject_to_ammend, mark, grade):
         split = self.academic_history.split('!')
-        print(split)
         for i in range(len(split)):
             i_strip = split[i].strip()
             if i_strip == '':
@@ -118,8 +119,28 @@ class Student:
                 split[count] = ','.join(i_split)
                 count+=1
         self.academic_history = '!'.join(split)
-        return print('Academic history has been successfully ammended.')
-    def ammend_study_plan(self, ):
+        return print('Academic History has been successfully ammended.')
+    
+    def ammend_study_plan(self, year, sem, remove_from_study_plan):
+        split = self.study_plan.split('!')
+        for i in split:
+            count = 0
+            split2 = i.split(',')
+            if year in split2[0] and sem in split2[1]:
+                for i in split2:
+                    if remove_from_study_plan in i:
+                        print(split2)
+                        split2.remove(i)
+                        print(split2)
+                        split[count] = ','.join(split2)
+                        count+=1
+        print(self.study_plan)
+        self.study_plan = '!'.join(split)
+        print(self.study_plan)
+
+        return print('Study Plan has been successfully ammended.')
+    
+    def load_students():
         return None
 
 #Testing stuff# testing again
@@ -134,3 +155,4 @@ student1 = Student(name, student_id, dob, program_code, academic_history, curren
 print(student1)
 student1.ammend_academic_history('COSC2801', '80', 'HD')
 student1.print_academic_history()
+student1.ammend_study_plan('Y1', 'S2', 'MATH2412')
