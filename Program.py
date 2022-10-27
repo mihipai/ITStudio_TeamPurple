@@ -61,8 +61,8 @@ class Program:
     '''''
     def remove_program(self,program_name):
         try:
-            if program_name in self.p_name:
-                self.p_name.remove(program_name)
+            if program_name == 'BP094':
+
             else:
                 raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
             return self.p_name
@@ -70,6 +70,7 @@ class Program:
             print(error.mssg)
         return None
     '''''
+    
 
     def load_welcome_page(self):
         print('')
