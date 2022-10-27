@@ -1,4 +1,5 @@
-#Author: Julia Ngoc Diem Tran Phan - s3948825
+#Student Name: Julia Ngoc Diem Tran Phan
+#Student ID: s3948825
 from Student import Student
 #from Course import Course
 #from Program import Program
@@ -15,9 +16,10 @@ class NonDuplicateError(Exception):
 class CourseOffering: 
     #Add/Remove student from specific course 
     #Returns course which includes list of student objects
-    def __init__(self, course_code, year, semester, max_students, student_list):
+    def __init__(self, course_code, course_name, year, semester, max_students, student_list):
         load_data1 = Load_data()
         self.course_code = course_code
+        self.course_name = course_name
         self.year = year
         self.semester = semester
         self.max_students = int(max_students)
@@ -29,6 +31,12 @@ class CourseOffering:
 
     def get_CourseCode(self):
         return self.course_code
+
+    def set_CourseName(self, course_name=''):
+        self.course_name = course_name
+
+    def get_CourseName(self):
+        return self.course_name
     
     def set_Year(self, year=''):
         self.year = year
@@ -58,13 +66,13 @@ class CourseOffering:
         try:
             for enrol in self.enrolled_students:
                 if student.get_student_id() == enrol.get_student_id():
-                    print('Student cannot be enrolled, they already exists in our list of enrolled students!\n')
+                    print('WARNING! Student cannot be enrolled, they already exists in our list of enrolled students!\n')
                 else:
                     self.student_list.append(student)
             if len(self.enrolled_students) < self.max_students:
                 self.student_list.append(student)
             else:
-                raise CourseFullError('Student cannot be enrolled, the selected Course is full!\nPlease try another Course!\n')
+                raise CourseFullError('WARNING! Student cannot be enrolled, the selected Course is full!\nPlease try another Course!\n')
             self.enrolled_students.extend(self.student_list)
             return self.enrolled_students
         except CourseFullError as error:
@@ -76,7 +84,7 @@ class CourseOffering:
                 if student.get_student_id() == enrol.get_student_id():
                     self.enrolled_students.remove(student)
                 else:
-                    raise NonDuplicateError('This student does not exist in our list of enrolled students!\nPlease remove another student!\n')
+                    raise NonDuplicateError('WARNING! This student does not exist in our list of enrolled students!\nPlease remove another student!\n')
             return self.enrolled_students
         except NonDuplicateError as error:
             print(error.mssg)
@@ -85,6 +93,7 @@ class CourseOffering:
     def __str__(self):
         formatted_str = ''
         formatted_str += 'Course Code: ' + self.get_CourseCode()
+        formatted_str += '\nCourse Name: ' + self.get_CourseName()
         formatted_str += '\nYear: ' + self.get_Year()
         formatted_str += '\nSemester Title: ' + self.get_Semester()
         formatted_str += '\nMaximum Number of Students: ' +  self.get_MaxStudents() + '\n'
@@ -92,26 +101,27 @@ class CourseOffering:
         formatted_str += '\nList of Enrolled Students:\n'
         formatted_str += '===============================\n'
         if len(self.get_EnrolledStudents()) == 0:
-            formatted_str += 'There are no students in this course!'
+            formatted_str += 'The selected course has no students!'
         else:
             for enrol in self.get_EnrolledStudents():
-                formatted_str += enrol.__str__() + '\n'
+                formatted_str += enrol.__str__() + '\n--------------------------------------\n'
         return formatted_str
 
     #Formats the Courses which will be displayed 
     def without_students(self):
         formatted_str = ''
-        formatted_str += '================================\n'
+        formatted_str += '========================================\n'
         formatted_str += 'Course Code: ' + self.get_CourseCode()
+        formatted_str += '\nCourse Name: ' + self.get_CourseName()
         formatted_str += '\nYear: ' + self.get_Year()
         formatted_str += '\nSemester Title: ' + self.get_Semester()
         formatted_str += '\nMaximum Number of Students: ' +  self.get_MaxStudents()
-        formatted_str += '\n================================'
+        formatted_str += '\n========================================'
         return formatted_str
 
 
 class Load_data:
-    #Returns a list of courses that belong to Semester or Year
+    #Returns a list of courses that belong to Semester and Year
     def load_allcourses(self, semester_title,year):
         with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',')
@@ -120,12 +130,13 @@ class Load_data:
             all_courses = []
             for row in list_of_csv:
                 course_code = row[0]
+                course_name = row[1]
                 max_students = row[6]
 
                 ava_sem = row[5]
                 single_sems = ava_sem.split(',')
                 if semester_title in single_sems:
-                    course_object = CourseOffering(course_code,year,semester_title, max_students, None)
+                    course_object = CourseOffering(course_code,course_name,year,semester_title, max_students, None)
                     all_courses.append(course_object)
         return all_courses
 
@@ -220,7 +231,7 @@ class Semester:
     def __init__(self, semester_title, year, max_students):
         load_data1 = Load_data()
         self.semester_title = semester_title
-        #load all offerings this semester
+        #Load all offerings this semester
         self.course_offerings = load_data1.load_allcourses(semester_title, year) #List object from Program class
         self.max_students = max_students
         #self.enrolled_students = None #List from student class (current student list)
@@ -228,7 +239,7 @@ class Semester:
     def set_SemesterTitle(self, semester_title=''):
         self.semester_title = semester_title
     def get_SemesterTitle(self):
-        return self.semester_title
+        return str(self.semester_title)
     def print_SemesterTitle(self):
         print('Current Semester:', self.semester_title)
 
@@ -258,34 +269,19 @@ class Semester:
     def __str__(self):
         string = 'Semester: ' + self.get_SemesterTitle() + '\n'
         if len(self.course_offerings) == 0:
-            string += 'There are no available course offerings in this Semester'
+            string += 'There are no available course offerings in this Semester!'
         else:
             for course in self.course_offerings:
                 string += course.without_students() + '\n\n' 
         return string
 
 #Testing class
-def main():
-    print('=====================================================')
-    print('                Available Semesters                  ')
-    print('=====================================================')
-    print('To select Semester 1, type S1')
-    print('To select Semester 2, type S2')
-
-    print('=====================================================')
-    print('                 Available Years                     ')
-    print('=====================================================')
-    print('To select Year 1, type Y1')
-    print('To select Year 2, type Y2')
-    print('To select Year 3, type Y3')
-    print('To select Year 4, type Y4\n')
-
-
-    '''
+def main():  
     #Manual input of semester data
+    '''
     #This section adds or removes a student object from course and displays the Course-offering/Course with list
     ###############################################################################
-    courseoffer1 = CourseOffering('COSC2801','Y1','S1', '250', None)
+    courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', '250', list())
     #Student object named Kelvin
     name = 'Kelvin'
     student_id = 's3953996'
@@ -300,14 +296,14 @@ def main():
     courseoffer1.remove_student(student1)
     print(courseoffer1)
     ###############################################################################
-
+    '''
+    
     #This section prints the list of Courses/Course-offerings for a specific Semester and Year
     ###############################################################################
-    semester1 = Semester('S2','Y1', 250)
+    semester1 = Semester('S1','Y1', 250)
     print(semester1)
     ###############################################################################
-    '''
-
+    
 
 main()
 
