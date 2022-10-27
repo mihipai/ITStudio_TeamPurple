@@ -392,13 +392,13 @@ def main():
     courseoffer1.remove_student(student1)
     print(courseoffer1)
     ###############################################################################
-    '''
     
     #This section prints the list of Courses/Course-offerings for a specific Semester and Year
     ###############################################################################
     semester1 = Semester('S1','Y1', 250)
     print(semester1)
     ###############################################################################
+    '''
 
 main()
 
