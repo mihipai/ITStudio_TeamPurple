@@ -1,10 +1,10 @@
-#Testing Commit Kelvin
+#Kelvin Duong Ly, s3953996
 # This file will have the student class
 from os import remove
-from turtle import st
-
+import csv
 
 class Student:
+    #dunder init method
     def __init__(self, name, student_id, DOB, program_code, academic_history, current_enrollment, study_plan):
         self.name = name
         self.student_id = student_id
@@ -13,6 +13,7 @@ class Student:
         self.academic_history = academic_history
         self.current_enrollment = current_enrollment
         self.study_plan = study_plan
+#Setter, getter and print methods
 
     def set_name(self, name = ''):
         self.name = name
@@ -79,6 +80,7 @@ class Student:
                 String += j.strip() + ' '
         print(String)
 
+#dunder string method
     def __str__(self):
         String = ''
         String += 'Name: ' + self.name
@@ -140,7 +142,23 @@ class Student:
         return print('Study Plan has been successfully ammended.')
     
     def load_students():
-        return None
+        with open('Students.csv', 'r', encoding = 'utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile)
+            headings = next(csv_reader)
+            list_of_csv = list(csv_reader)
+            student_list = []
+
+            for i in range(len(list_of_csv)):
+                name =  list_of_csv[i][1]
+                student_id = list_of_csv[i][0]
+                dob = list_of_csv[i][3]
+                program_code = list_of_csv[i][4]
+                academic_history = list_of_csv[i][7]
+                current_enrollment = list_of_csv[i][5]
+                study_plan = list_of_csv[i][6]
+                Student_object = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
+                student_list.append(Student_object)
+        return student_list
 
 #Testing stuff# testing again
 name = 'Kelvin'
@@ -159,3 +177,4 @@ student1.print_study_plan()
 student1.ammend_study_plan('Y1', 'S2', 'COSC2802')
 student1.ammend_study_plan('Y1', 'S2', 'COSC2804')
 student1.print_study_plan()
+(Student.load_students())
