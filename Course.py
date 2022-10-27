@@ -33,7 +33,7 @@ class Course:
     def addCourse(self,course_code,title, course_description,credit_points,prerequisites,ava_sem):
         Course(course_code,title, course_description,credit_points,prerequisites,ava_sem)
 
-    def SearchCourse(self, C_code):
+    def SearchCourse(self, C_code): ### Uses the Course Code to search for the Course
         num = len(c_list)
         stri = ""
         for x in range(num):
