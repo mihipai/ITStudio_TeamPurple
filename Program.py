@@ -58,7 +58,7 @@ class Program:
 
 #answer = input('Which course plan would you like to view?')
 #add and remove program for admin 
-
+    '''''
     def remove_program(self,program_name):
         try:
             if program_name in self.p_name:
@@ -69,6 +69,7 @@ class Program:
         except ProgramDoesNotExist as error:
             print(error.mssg)
         return None
+    '''''
 
     def load_welcome_page(self):
         print('')
@@ -106,8 +107,8 @@ class Program:
     #loading program with arguments
             
     
-    def easy_courses():
-        with open('BP094.csv', 'r') as csvfile:
+    def easy_courses(self):
+        with open('bp094.csv', 'r') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',')
             headings = next(csv_reader)
             list_of_csv = list(csv_reader)
@@ -122,7 +123,7 @@ class Program:
             cs_str += cs_row[3]
             comp_longlist = cs_str.split(',')
 
-        with open('BP096.csv', 'r') as csvfile:
+        with open('bp096_1.csv', 'r') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',')
             headings = next(csv_reader)
             list_of_csv = list(csv_reader)
@@ -164,7 +165,7 @@ class Program:
                     print('    List of Easiest Computer Science Courses   ')
                     print('                                               ')
                     print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
-                    print(computer_courses[0])
+                    print(len(computer_courses))
                     break
 
                 elif prog_name == 'BP096' or prog_name == 'bp096':
@@ -188,7 +189,7 @@ class Program:
                     print('    List of Easiest Software Engineering Courses   ')
                     print('                                                   ')
                     print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
-                    print(software_courses[0])
+                    print(len(software_courses))
                     break
                 else:
                     raise InvProgName('Invalid Program Option! Please try again.')
@@ -250,7 +251,9 @@ print('List of Electives:')
 for elective in electives:
     print(elective + ', ')
 
-se_program.remove_program('c')
+print(se_program.easy_courses())
+
+
 
 
     
