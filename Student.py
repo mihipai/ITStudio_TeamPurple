@@ -127,16 +127,15 @@ class Student:
             count = 0
             split2 = i.split(',')
             if year in split2[0] and sem in split2[1]:
-                for i in split2:
-                    if remove_from_study_plan in i:
-                        print(split2)
-                        split2.remove(i)
-                        print(split2)
-                        split[count] = ','.join(split2)
+                for j in split2:
+                    if remove_from_study_plan in j:
+                        split2.remove(j)
+                        if len(split2) == 2:
+                            split.remove(i)
+                        else:
+                            split[count] = ','.join(split2)
                         count+=1
-        print(self.study_plan)
         self.study_plan = '!'.join(split)
-        print(self.study_plan)
 
         return print('Study Plan has been successfully ammended.')
     
@@ -156,3 +155,7 @@ print(student1)
 student1.ammend_academic_history('COSC2801', '80', 'HD')
 student1.print_academic_history()
 student1.ammend_study_plan('Y1', 'S2', 'MATH2412')
+student1.print_study_plan()
+student1.ammend_study_plan('Y1', 'S2', 'COSC2802')
+student1.ammend_study_plan('Y1', 'S2', 'COSC2804')
+student1.print_study_plan()
