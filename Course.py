@@ -33,7 +33,7 @@ class Course:
     def addCourse(self,course_code,title, course_description,credit_points,prerequisites,ava_sem):
         Course(course_code,title, course_description,credit_points,prerequisites,ava_sem)
 
-    def SearchCourse(self, C_code):
+    def SearchCourse(self, C_code): ### Uses the Course Code to search for the Course
         num = len(c_list)
         stri = ""
         for x in range(num):
@@ -71,7 +71,7 @@ class Course:
                 Course(course_code, course_name, course_des, credit_points, prereq, ava_sem)
                 
             
-    def printinfo():    
+    def __str__():    
         stri = ""
         for x in range(len(c_list)):
             stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
@@ -87,9 +87,8 @@ class Course:
 
 
 def main():
-    Course.load_courses(self="self",filename='Courses.csv')
-    Course.SearchCourse("self", "COSC2801")
-
+    Course.load_courses(self="self", filename="Courses.csv")
+    print(Course.__str__())
 
 
     
