@@ -1,4 +1,4 @@
-#Thil is testing commit
+#Student Name: Thilyka Khorn, Student ID: s3888450
 # This file will have the program class
 import csv
 
@@ -50,11 +50,8 @@ class Program:
     
     def __str__(self):
         return '\nYear: ' +self.get_year() + '\nCore Coures: ' +  self.get_pre() 
-    
 
-#answer = input('Which course plan would you like to view?')
-#add and remove program for admin 
-
+    #admin mehtod: remove program
     def remove_program(self,program_name):
         try:
             if program_name in self.p_name:
