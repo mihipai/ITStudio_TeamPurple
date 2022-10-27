@@ -1,7 +1,6 @@
 #Kelvin Duong Ly, s3953996
 # This file will have the student class
 from os import remove
-from turtle import st
 import csv
 
 class Student:
@@ -142,7 +141,7 @@ class Student:
 
         return print('Study Plan has been successfully ammended.')
     
-    def load_students(self):
+    def load_students():
         with open('Students.csv', 'r', encoding = 'utf-8') as csvfile:
             csv_reader = csv.reader(csvfile)
             headings = next(csv_reader)
@@ -178,3 +177,4 @@ student1.print_study_plan()
 student1.ammend_study_plan('Y1', 'S2', 'COSC2802')
 student1.ammend_study_plan('Y1', 'S2', 'COSC2804')
 student1.print_study_plan()
+(Student.load_students())
