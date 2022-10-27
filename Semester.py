@@ -1,5 +1,6 @@
+#Author: Julia Ngoc Diem Tran Phan - s3948825
 from Student import Student
-from Course import Course
+#from Course import Course
 #from Program import Program
 import csv
 
@@ -279,7 +280,7 @@ def main():
     print('To select Year 3, type Y3')
     print('To select Year 4, type Y4\n')
 
-    print('Choose a semester and year to access its list of course offerings!')
+
     '''
     #Manual input of semester data
     #This section adds or removes a student object from course and displays the Course-offering/Course with list
