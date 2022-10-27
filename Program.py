@@ -1,12 +1,12 @@
-#Student Name: Thilyka Khorn, Student ID: s3888450
+#Thil is testing commit
 # This file will have the program class
 import csv
+from Course import Course #random comment
 
-<<<<<<< HEAD
 class InvProgName(Exception):
-=======
+    def __init__(self, mssg):
+        self.mssg = mssg
 class ProgramDoesNotExist(Exception):
->>>>>>> 03c0305076467b75aa1e59651caa84758b6d16ca
     def __init__(self, mssg):
         self.mssg = mssg
 
@@ -54,8 +54,11 @@ class Program:
     
     def __str__(self):
         return '\nYear: ' +self.get_year() + '\nCore Coures: ' +  self.get_pre() 
+    
 
-    #admin mehtod: remove program
+#answer = input('Which course plan would you like to view?')
+#add and remove program for admin 
+
     def remove_program(self,program_name):
         try:
             if program_name in self.p_name:
@@ -100,14 +103,8 @@ class Program:
         return info_string
 
 
-    #loading program with arguments 
-
-    def load_program_objects(self, filename): #
-        with open(filename, 'r', encoding='utf-8') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=',')
-            list_of_csv = list(csv_reader)
+    #loading program with arguments
             
-<<<<<<< HEAD
     
     def easy_courses():
         with open('BP094.csv', 'r') as csvfile:
@@ -198,7 +195,12 @@ class Program:
             except InvProgName as error:
                 print(error.mssg)
                 prog_name = input('Please enter a Program\'s code: ')
-=======
+
+
+    def load_program_objects(self, filename): #
+        with open(filename, 'r', encoding='utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=',')
+            list_of_csv = list(csv_reader)
             program_list =[]
             if filename == 'bp096_1.csv':
                 program_code = list_of_csv[1][0]
@@ -226,7 +228,6 @@ class Program:
             list_of_csv = list(csv_reader)
         
             elective_list = []
->>>>>>> 03c0305076467b75aa1e59651caa84758b6d16ca
 
             if filename == 'bp096_1.csv':
                 elective_list.append(list_of_csv[5][3])
