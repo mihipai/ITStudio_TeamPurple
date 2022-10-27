@@ -2,8 +2,12 @@
 # This file will have the program class
 import csv
 
+class ProgramDoesNotExist(Exception):
+    def __init__(self, mssg):
+        self.mssg = mssg
+
 class Program:
-    def _init_(self,program_code,program_name,program_year,program_core,program_elec,program_credits):
+    def __init__(self,program_code,program_name,program_year,program_core,program_elec,program_credits):
         self.p_code = program_code
         self.p_name = program_name
         self.p_year = program_year
@@ -21,10 +25,15 @@ class Program:
     def get_name(self):
         return self.p_name
 
+    def set_p_year(self, year=''):
+        self.p_year = year
+    def get_year(self):
+        return self.p_year
+
     def set_p_core(self, core=''):
         self.p_core = core
     def get_pre(self):
-        return self.p_pre
+        return self.p_core
 
     def set_p_elec(self, electives=''):
         self.p_elect = electives
@@ -34,14 +43,29 @@ class Program:
     def set_p_creds(self, credits=''):
         self.p_credits = credits
     def get_p_creds(self):
-        return self.p_creds
+        return self.p_credits
     
     def print_program_info(self):
         print(f'Program Code: {self.p_code}\nProgram Name: {self.p_name}' )
+    
+    def __str__(self):
+        return '\nYear: ' +self.get_year() + '\nCore Coures: ' +  self.get_pre() 
+    
 
 #answer = input('Which course plan would you like to view?')
+#add and remove program for admin 
 
-#if answer == 'BP096' or 'bp096':
+    def remove_program(self,program_name):
+        try:
+            if program_name in self.p_name:
+                self.p_name.remove(program_name)
+            else:
+                raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
+            return self.p_name
+        except ProgramDoesNotExist as error:
+            print(error.mssg)
+        return None
+
     def load_welcome_page(self):
         print('')
         print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
@@ -51,69 +75,87 @@ class Program:
         print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
         print('')
 
-    def load_program(self, file_name):
+    
+    def print_program_info(self,file_name):
         with open(file_name, 'r') as csv_se:
             reader = csv.reader(csv_se, delimiter=',')
             
             copy_list = [] 
-
             for row in reader:
                 if row != '':
                     copy_list.append(row)
-            
-            self.p_code = copy_list[2][0]
-            self.p_name = copy_list[2][1]
-            
-            #copies list from copy_list into year_list
-            year_list = copy_list
 
-            #years list is used to make adjustments from the csv
-            #such as removing program code and name so it's not repetitive
-            
-            years=[]
-            for i in range(len(year_list)):
-                years.append(year_list[i][2])
-            years.pop(0)
-
+            info_string = ''
             if file_name == 'bp096_1.csv':
-                self.p_credits = year_list[6][1]
-                years.pop(5)
+                info_string += "Program Code = " + copy_list[1][0] + '\n'
+                info_string += "Program Name = " + copy_list[1][1] + '\n'
+                info_string += "Total Credits = " + copy_list[6][1]
+       
             elif file_name == 'bp094.csv':
-                self.p_credits = year_list[5][1]
-                years.pop(4)
+                info_string += "Program Code = " + copy_list[1][0] + '\n'
+                info_string += "Program Name = " + copy_list[1][1] + '\n'
+                info_string += "Total Credits = " + copy_list[5][1]
 
-            #copies list from copy_list into course_list
-            course_list = copy_list
-            courses = []
-            for i in range(len(course_list)-1):
-                courses.append(course_list[i][3])
-            courses.pop(0)
-            courses_dict = dict(zip(years, courses))
+        return info_string
 
-            print('')
-            print('Program Code: ' + self.p_code)
-            print('Program Name: ' + self.p_name)
-            print('Program Total Credits: ' + self.p_credits)
-            print('')
 
-            for key,value in courses_dict.items():
-                print(key + ' : ' + value)
-                print('')
+    #loading program with arguments 
+
+    def load_program_objects(self, filename): #
+        with open(filename, 'r', encoding='utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=',')
+            list_of_csv = list(csv_reader)
             
-    
+            program_list =[]
+            if filename == 'bp096_1.csv':
+                program_code = list_of_csv[1][0]
+                program_name = list_of_csv[1][1]
+                program_elec = list_of_csv[5][3]
+                program_credits = list_of_csv[6][1]
+            
+            elif filename == 'bp094.csv':
+                program_code = list_of_csv[1][0]
+                program_name = list_of_csv[1][1]
+                program_elec = list_of_csv[4][3]
+                program_credits = list_of_csv[5][1]
 
+            for x in range(1,len(list_of_csv)-2):
+                program_year = list_of_csv[x][2]
+                program_core = list_of_csv[x][3]
+                program_object = Program(program_code,program_name,program_year,program_core,program_elec,program_credits)
+                program_list.append(program_object)
+            
+            return program_list
+        
+    def load_program_electives(self, filename):
+        with open(filename, 'r', encoding='utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=',')
+            list_of_csv = list(csv_reader)
+        
+            elective_list = []
 
-#else:
-    #print('goodbye')
+            if filename == 'bp096_1.csv':
+                elective_list.append(list_of_csv[5][3])
+            
+            elif filename == 'bp094.csv':
+                elective_list.append(list_of_csv[4][3])
+        
+        return elective_list
 
-se_program = Program()
-se_program.set_p_code()
-se_program.set_p_name()
-se_program.set_p_core('Math')
-se_program.set_p_elec('English')
-se_program.set_p_creds('9')
-#se_program.print_program_info()
-se_program.load_program('bp094.csv')
+se_program = Program('c','c','c','c','c','c')
+
+print(se_program.print_program_info('bp094.csv'))
+programs = se_program.load_program_objects('bp094.csv')
+for program in programs:
+    print(program)
+    print('')
+
+electives = se_program.load_program_electives('bp094.csv')
+print('List of Electives:')
+for elective in electives:
+    print(elective + ', ')
+
+se_program.remove_program('c')
 
 
     
