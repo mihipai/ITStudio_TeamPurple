@@ -373,7 +373,7 @@ def easy_courses():
 
 #Testing class
 def main():
-    #Manual input of semester data
+    #Manual input of semester data 
     '''
     #This section adds or removes a student object from course and displays the Course-offering/Course with list
     ###############################################################################
