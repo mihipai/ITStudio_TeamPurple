@@ -16,7 +16,7 @@ class NonDuplicateError(Exception):
 class CourseOffering: 
     #Add/Remove student from specific course 
     #Returns course which includes list of student objects
-    def __init__(self, course_code, course_name, year, semester, max_students, student_list):
+    def __init__(self, course_code, course_name, year, semester, max_students):
         load_data1 = Load_data()
         self.course_code = course_code
         self.course_name = course_name
@@ -24,7 +24,6 @@ class CourseOffering:
         self.semester = semester
         self.max_students = int(max_students)
         self.enrolled_students = load_data1.load_students(course_code, year, semester)
-        self.student_list = student_list
 
     def set_CourseCode(self, course_code=''):
         self.course_code = course_code
@@ -294,7 +293,7 @@ def main():
     '''
     #This section adds or removes a student object from course and displays the Course-offering/Course with list of students
     ###############################################################################
-    courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', '250', list())
+    courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', 4)
     #Student object named Kelvin
     name = 'Kelvin'
     student_id = 's3453976'
@@ -307,16 +306,16 @@ def main():
     name2 = 'Charlotte Jones'
     student_id2 = 's3553976'
     dob2 = '18/09/2001'
-    program_code2 = 'BP094GEN8'
+    program_code2 = 'BP096'
     academic_history2 = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
     current_enrollment2 = 'Y1,S1,COSC2801,MATH2411,COSC2803'
     study_plan2 = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
-    student3 = Student(name2, student_id2, dob2, program_code2, academic_history2, current_enrollment2, study_plan2)
-    student_id2 = 's386894' #Arun Weaver
+    student2 = Student(name2, student_id2, dob2, program_code2, academic_history2, current_enrollment2, study_plan2)
+    student_id3 = 's386894' #Arun Weaver
     #Add or Remove student object from specific course
-    #courseoffer1.add_student(student1)
-    courseoffer1.remove_student(student_id2)
-    courseoffer1.remove_student(student_id2)
+    courseoffer1.add_student(student1)
+    courseoffer1.add_student(student2)
+    courseoffer1.remove_student(student_id3)
     print(courseoffer1)
     ###############################################################################
     '''
@@ -328,5 +327,5 @@ def main():
     ###############################################################################
     '''
 
-
 main()
+
