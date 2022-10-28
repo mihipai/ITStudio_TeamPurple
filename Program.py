@@ -9,6 +9,9 @@ class InvProgName(Exception):
 class ProgramDoesNotExist(Exception):
     def __init__(self, mssg):
         self.mssg = mssg
+class ProgramAlreadyExists(Exception):
+    def __init__(self, mssg):
+        self.mssg = mssg
 
 class Program:
     def __init__(self,program_code,program_name,program_year,program_core,program_elec,program_credits):
@@ -49,28 +52,12 @@ class Program:
     def get_p_creds(self):
         return self.p_credits
     
-    def print_program_info(self):
-        print(f'Program Code: {self.p_code}\nProgram Name: {self.p_name}' )
-    
     def __str__(self):
         return '\nYear: ' +self.get_year() + '\nCore Coures: ' +  self.get_pre() 
     
 
 #answer = input('Which course plan would you like to view?')
 #add and remove program for admin 
-    '''''
-    def remove_program(self,program_name):
-        try:
-            if program_name == 'BP094':
-
-            else:
-                raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
-            return self.p_name
-        except ProgramDoesNotExist as error:
-            print(error.mssg)
-        return None
-    '''''
-    
 
     def load_welcome_page(self):
         print('')
@@ -125,15 +112,41 @@ class Program:
                 return print(f'Bachelor of Software Engineering successfully removed.\nRemaining Program:\n\n{cs_program}')
             else:
                 raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
-                
         except ProgramDoesNotExist as error:
             print(error.mssg)
 
+    def add_program(self, new_code,new_program,new_credit):
+        se_program = self.print_program_info('bp096_1.csv')
+        se_list = list(se_program.split(" "))
+        cs_program = self.print_program_info('bp094.csv')
+        cs_list = list(cs_program.split(" "))
+        
+        all_list = []
+        all_list.append(se_list)
+        all_list.append(cs_list)
 
-
-    #loading program with arguments
+        try:
+            if new_code == 'BP094' or new_code == 'bp094' or new_program.casefold() == 'bachelor of computer science':
+                raise ProgramAlreadyExists('This program already exists.\nPlease enter new program.')
             
-    
+            elif new_code == 'bp096' or new_code =='BP096' or new_program.casefold() == 'bachelor of software engineering':
+                raise ProgramAlreadyExists('This program already exists.\nPlease enter new program.')
+            else:
+                info_string = ''
+                info_string += "Program Code = " + new_code + '\n'
+                info_string += "Program Name = " + new_program + '\n'
+                info_string += "Total Credits = " + new_credit
+
+                info_list = list(info_string.split(" "))
+                all_list.append(info_list)
+
+                print(f'Succefully added {new_program}!' )
+                print('')
+
+        except ProgramAlreadyExists as error:
+            print(error.mssg)
+        return  all_list
+
     def easy_courses(self):
         with open('bp094.csv', 'r') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',')
@@ -242,7 +255,7 @@ class Program:
                 program_elec = list_of_csv[4][3]
                 program_credits = list_of_csv[5][1]
 
-            for x in range(1,len(list_of_csv)-2):
+            for x in range(1,len(list_of_csv)-3):
                 program_year = list_of_csv[x][2]
                 program_core = list_of_csv[x][3]
                 program_object = Program(program_code,program_name,program_year,program_core,program_elec,program_credits)
@@ -268,17 +281,19 @@ class Program:
 se_program = Program('c','c','c','c','c','c')
 
 '''''
-printing all info for each program
+#printing all info for each program
 print(se_program.print_program_info('bp094.csv'))
 programs = se_program.load_program_objects('bp094.csv')
 for program in programs:
     print(program)
     print('')
 
+
 electives = se_program.load_program_electives('bp094.csv')
 print('List of Electives:')
 for elective in electives:
     print(elective + ', ')
+
 '''''
 
 
@@ -286,7 +301,11 @@ for elective in electives:
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
-se_program.delete_program('BP09')
+testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
+for program in testing:
+    print(' '.join(program))
+    print('')
+
 
 
 #print(se_program.easy_courses())
