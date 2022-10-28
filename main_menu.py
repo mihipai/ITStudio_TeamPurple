@@ -57,7 +57,10 @@ if logtype == 'S':
     sname = input()
     Stu1 = StuLogin(snumb,sname)
     Stu1.print_login_info()
-
+    usr_inp = input()
+    while usr_inp != 'Q':
+        if usr_inp == 'A':
+            pass
 elif logtype == 'A':
     ##Redirects to Admin class 
     print('Enter Admin Number')
@@ -65,7 +68,9 @@ elif logtype == 'A':
     adm1 = Admin(adm)
 else:
     raise InvLoginOption('Invalid Login Option. Restart to Login again')
-       
+
+
+sys.exit('Log Out Successful')
 
 
 
