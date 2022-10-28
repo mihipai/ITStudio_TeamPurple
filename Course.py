@@ -1,5 +1,7 @@
 c_list = []
-
+class CourseDoesNotExsist(Exception):
+    def __init__(self, mssg):
+        self.mssg = mssg
 import csv
 class Course:
     
@@ -34,21 +36,29 @@ class Course:
         Course(course_code,title, course_description,credit_points,prerequisites,ava_sem)
 
     def SearchCourse(self, C_code): ### Uses the Course Code to search for the Course
+        
         num = len(c_list)
+        
         stri = ""
-        for x in range(num):
-            
-            if c_list[x][0] == C_code:
-                stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
-                stri += "Course Code = " + str(c_list[x][0]) + '\n'
-                stri += "\nTitle = " + str(c_list[x][1]) + '\n'
-                stri += "\nCourse Description = " + str(c_list[x][2]) + '\n'
-                stri += "\nCredit Points = " + str(c_list[x][3]) + '\n'
-                stri += "\nPreRequirements = " + str(c_list[x][4]) + '\n'
-                stri += "\nAvaivable Semster = " + str(c_list[x][5])
-                stri += '\n\n'
-                stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
-        return print(stri)
+        try:
+            for x in range(num):
+                
+                if c_list[x][0] == C_code:
+                    stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
+                    stri += "Course Code = " + str(c_list[x][0]) + '\n'
+                    stri += "\nTitle = " + str(c_list[x][1]) + '\n'
+                    stri += "\nCourse Description = " + str(c_list[x][2]) + '\n'
+                    stri += "\nCredit Points = " + str(c_list[x][3]) + '\n'
+                    stri += "\nPreRequirements = " + str(c_list[x][4]) + '\n'
+                    stri += "\nAvaivable Semster = " + str(c_list[x][5])
+                    stri += '\n\n'
+                    stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
+                elif x == (num-1):
+                    raise CourseDoesNotExsist("The Course you searched for does not exist!!")
+            return print(stri)
+        except CourseDoesNotExsist as error:
+            print(error.mssg)
+
 
     def removeCourse(self):
         pass        
@@ -88,7 +98,9 @@ class Course:
 
 def main():
     Course.load_courses(self="self", filename="Courses.csv")
-    print(Course.__str__())
+    Course.SearchCourse("self", "COSC2800")
+    Course.SearchCourse("self", "hey")
+
 
 
     
