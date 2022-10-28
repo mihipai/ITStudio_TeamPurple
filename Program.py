@@ -1,7 +1,7 @@
 #Thil is testing commit
 # This file will have the program class
 import csv
-#from Course import Course #random comment
+from Course import Course #random comment
 
 class InvProgName(Exception):
     def __init__(self, mssg):
