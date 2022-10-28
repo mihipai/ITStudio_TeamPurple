@@ -5,11 +5,6 @@ from Course import Course
 #from Program import Program
 import csv
 
-#Easiest Courses exception handling
-class InvProgName(Exception):
-    def __init__(self, mssg):
-        self.mssg = mssg
-
 class CourseFullError(Exception):
     def __init__(self, mssg):
         self.mssg = mssg
@@ -71,13 +66,15 @@ class CourseOffering:
         try:
             for enrol in self.enrolled_students:
                 if student.get_student_id() == enrol.get_student_id():
-                    print('WARNING! Student cannot be enrolled, they already exists in our list of enrolled students!\n')
+                    print(f'WARNING! \'{student.get_name()}\' cannot be enrolled, they already exists in our list of enrolled students!\n')
                 else:
                     self.student_list.append(student)
+                    print(f'Student \'{student.get_name()}\' has been successfully added!\n')
             if len(self.enrolled_students) < self.max_students:
                 self.student_list.append(student)
+                print(f'Student \'{student.get_name()}\' has been successfully added!\n')
             else:
-                raise CourseFullError('WARNING! Student cannot be enrolled, the selected Course is full!\nPlease try another Course!\n')
+                raise CourseFullError(f'WARNING! \'{student.get_name()}\' cannot be enrolled, the selected Course is full!\nPlease try another Course!\n')
             self.enrolled_students.extend(self.student_list)
             return self.enrolled_students
         except CourseFullError as error:
@@ -88,8 +85,9 @@ class CourseOffering:
             for enrol in self.enrolled_students:
                 if student.get_student_id() == enrol.get_student_id():
                     self.enrolled_students.remove(student)
+                    print(f'Student \'{student.get_name()}\' has been successfully removed!\n')
                 else:
-                    raise NonDuplicateError('WARNING! This student does not exist in our list of enrolled students!\nPlease remove another student!\n')
+                    raise NonDuplicateError(f'WARNING! \'{student.get_name()}\' does not exist in our list of enrolled students!\nPlease remove another student!\n')
             return self.enrolled_students
         except NonDuplicateError as error:
             print(error.mssg)
@@ -106,7 +104,7 @@ class CourseOffering:
         formatted_str += '\nList of Enrolled Students:\n'
         formatted_str += '===============================\n'
         if len(self.get_EnrolledStudents()) == 0:
-            formatted_str += 'The selected course has no students!'
+            formatted_str += 'ERROR! The selected course has no students!'
         else:
             for enrol in self.get_EnrolledStudents():
                 formatted_str += enrol.__str__() + '\n--------------------------------------\n'
@@ -274,108 +272,17 @@ class Semester:
     def __str__(self):
         string = 'Semester: ' + self.get_SemesterTitle() + '\n'
         if len(self.course_offerings) == 0:
-            string += 'There are no available course offerings in this Semester!'
+            string += 'ERROR! There are no available course offerings in this Semester!'
         else:
             for course in self.course_offerings:
                 string += course.without_students() + '\n\n' 
         return string
 
-def easy_courses():
-    with open('bp094.csv', 'r') as csvfile:
-        csv_reader = csv.reader(csvfile, delimiter=',')
-        headings = next(csv_reader)
-        list_of_csv = list(csv_reader)
-        copy_list = []
-        for row in list_of_csv:
-            if row != '':
-                copy_list.append(row)
-
-        cs_str = ''
-        computer_science = copy_list
-        cs_row = computer_science[5]
-        cs_str += cs_row[3]
-        comp_longlist = cs_str.split(',')
-
-    with open('bp096_1.csv', 'r') as csvfile:
-        csv_reader = csv.reader(csvfile, delimiter=',')
-        headings = next(csv_reader)
-        list_of_csv = list(csv_reader)
-        copy_list = []
-        for row in list_of_csv:
-            if row != '':
-                copy_list.append(row)
-
-        se_str = ''
-        software_engineer = copy_list
-        se_row = software_engineer[6]
-        se_str += se_row[3]
-        soft_longlist = se_str.split(',')
-
-    print('Which program\'s list of easiest courses would you like to view?')
-    print('Bachelor of Computer Science (BP094)         ||          Bachelor of Software Engineering (BP096)')
-    prog_name = input('Please enter a Program\'s code: ')
-    print()
-    while True:
-        try:
-            if prog_name == 'BP094' or prog_name == 'bp094':
-                with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
-                    csv_reader = csv.reader(csvfile, delimiter=',')
-                    headings = next(csv_reader)
-                    list_of_csv = list(csv_reader)
-                    computer_courses = []
-                    for info in list_of_csv:
-                        code = info[0]
-                        name = info[1]
-                        credits = info[4]
-                        prereq = info[3]
-                        ava_sem = info[5]
-                        for comp in comp_longlist:
-                            if comp == code:
-                                course_object = Course(code,name,credits,prereq,ava_sem)
-                                computer_courses.append(course_object)
-                print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
-                print('                                               ')
-                print('    List of Easiest Computer Science Courses   ')
-                print('                                               ')
-                print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
-                print(computer_courses[0])
-                break
-
-            elif prog_name == 'BP096' or prog_name == 'bp096':
-                with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
-                    csv_reader = csv.reader(csvfile, delimiter=',')
-                    headings = next(csv_reader)
-                    list_of_csv = list(csv_reader)
-                    software_courses = []
-                    for info in list_of_csv:
-                        code = info[0]
-                        name = info[1]
-                        credits = info[4]
-                        prereq = info[3]
-                        ava_sem = info[5]
-                        for soft in soft_longlist:
-                            if soft == code:
-                                course_object = Course(code,name,credits,prereq,ava_sem)
-                                software_courses.append(course_object)
-                print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
-                print('                                                   ')
-                print('    List of Easiest Software Engineering Courses   ')
-                print('                                                   ')
-                print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
-                print(software_courses[0])
-                break
-            else:
-                raise InvProgName('Invalid Program Option! Please try again.')
-        except InvProgName as error:
-            print(error.mssg)
-            prog_name = input('Please enter a Program\'s code: ')
-
-
 #Testing class
 def main():
-    #Manual input of semester data 
+    #Manual input of semester data
     '''
-    #This section adds or removes a student object from course and displays the Course-offering/Course with list
+    #This section adds or removes a student object from course and displays the Course-offering/Course with list of students
     ###############################################################################
     courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', '250', list())
     #Student object named Kelvin
@@ -399,6 +306,7 @@ def main():
     print(semester1)
     ###############################################################################
     '''
+
 
 main()
 
