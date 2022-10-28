@@ -81,7 +81,7 @@ class Course:
                 Course(course_code, course_name, course_des, credit_points, prereq, ava_sem)
                 
             
-    def __str__():    
+    def __str__(self):    
         stri = ""
         for x in range(len(c_list)):
             stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
