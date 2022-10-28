@@ -61,11 +61,11 @@ class Program:
 
     def load_welcome_page(self):
         print('')
-        print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
+        print('\t/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
         print('')
-        print('Welcome to Bachelor of Software Engineering!')
+        print('\tWelcome to Bachelor of Software Engineering!')
         print('')
-        print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
+        print('\t/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
         print('')
 
     
@@ -301,11 +301,14 @@ for elective in electives:
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
+se_program.load_welcome_page()
+
+
+
 testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
 for program in testing:
     print(' '.join(program))
     print('')
-
 
 
 #print(se_program.easy_courses())
