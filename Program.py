@@ -1,7 +1,7 @@
 #Thil is testing commit
 # This file will have the program class
 import csv
-from Course import Course #random comment
+#from Course import Course #random comment
 
 class InvProgName(Exception):
     def __init__(self, mssg):
@@ -103,6 +103,32 @@ class Program:
                 info_string += "Total Credits = " + copy_list[5][1]
 
         return info_string
+
+    def delete_program(self, unwanted_program):
+
+        se_program = self.print_program_info('bp096_1.csv')
+        se_list = list(se_program.split(" "))
+        cs_program = self.print_program_info('bp094.csv')
+        cs_list = list(cs_program.split(" "))
+        
+        all_list = []
+        all_list.append(se_list)
+        all_list.append(cs_list)
+
+        try:
+            if unwanted_program == 'BP094' or unwanted_program == 'bp094':
+                all_list.pop(0)
+                return print(f'Bachelor of Computer Science successfully removed.\n\nRemaining Program:\n\n{se_program}')
+            
+            elif unwanted_program == 'bp096' or unwanted_program =='BP096':
+                all_list.pop(1)
+                return print(f'Bachelor of Software Engineering successfully removed.\nRemaining Program:\n\n{cs_program}')
+            else:
+                raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
+                
+        except ProgramDoesNotExist as error:
+            print(error.mssg)
+
 
 
     #loading program with arguments
@@ -241,6 +267,8 @@ class Program:
 
 se_program = Program('c','c','c','c','c','c')
 
+'''''
+printing all info for each program
 print(se_program.print_program_info('bp094.csv'))
 programs = se_program.load_program_objects('bp094.csv')
 for program in programs:
@@ -251,8 +279,20 @@ electives = se_program.load_program_electives('bp094.csv')
 print('List of Electives:')
 for elective in electives:
     print(elective + ', ')
+'''''
 
-print(se_program.easy_courses())
+
+#print(se_program.print_program_info('bp094.csv'))
+#print('')
+#print(se_program.print_program_info('bp096_1.csv'))
+
+se_program.delete_program('BP09')
+
+
+#print(se_program.easy_courses())
+
+
+
 
 
 
