@@ -279,6 +279,34 @@ class Program:
             return program_list
     
 
+    def load_popElects(self): # Extended feature by Mihika (Popular Electives)
+        print('Enter Program Code to see list of popular electives:')
+        progCode = input()
+        if progCode == 'BP094':
+            with open('bp094.csv', 'r') as csvfile:
+                csv_reader = csv.reader(csvfile, delimiter=',')
+                csv_list = list(csv_reader)
+                popElects = csv_list[5][3].split(',')
+                pp_lects = []
+                for pop in popElects:
+                    pp_lects.append(pop)
+                print('Top 5 Electives in Computer Science:')
+                for pps in pp_lects:
+                    Course.SearchCourse(self, pps)
+        elif progCode == 'BP096':
+            with open('bp096_1.csv', 'r') as csvfile:
+                csv_reader = csv.reader(csvfile, delimiter=',')
+                csv_list = list(csv_reader)
+                popElects = csv_list[6][3].split(',')
+                pp_lects = []
+                for pop in popElects:
+                    pp_lects.append(pop)
+                print('Top 5 Electives in Software Engineering:')
+                for pps in pp_lects:
+                    Course.SearchCourse(self, pps)
+        else:
+            raise ProgramDoesNotExist('Program Does Not Exist')                        
+
 se_program = Program('c','c','c','c','c','c')
 
 
@@ -305,7 +333,7 @@ for elective in electives:
     print(elective + ', ')
 
 '''''
-
+#se_program.load_popElects() testing Popular Electives Extended Feature
 
 new_list = se_program.print_all_program_info()
 better_list = re.split(':|=|; |, |\n',new_list)
@@ -313,6 +341,14 @@ print(new_list)
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
+<<<<<<< HEAD
+=======
+#testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
+#for program in testing:
+#    print(' '.join(program))
+#    print('')
+se_program.load_welcome_page()
+>>>>>>> 08a9991b24ea8fa8ea8d96a9feaeac9c33265739
 
 
 

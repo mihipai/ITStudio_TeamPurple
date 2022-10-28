@@ -101,7 +101,7 @@ class StuLogin:
                 pass
             elif usr_inp == 'D':
                 pass
-            elif usr_inp == 'P':
+            elif usr_inp == 'PE':
                 pass 
             elif usr_inp == 'R':
                 pass     
