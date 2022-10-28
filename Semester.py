@@ -147,7 +147,7 @@ class Load_data:
                 ava_sem = row[5]
                 single_sems = ava_sem.split(',')
                 if semester_title in single_sems:
-                    course_object = CourseOffering(course_code,course_name,year,semester_title, max_students, None)
+                    course_object = CourseOffering(course_code,course_name,year,semester_title, max_students)
                     all_courses.append(course_object)
         return all_courses
 
