@@ -247,19 +247,7 @@ print(new_list)
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
-<<<<<<< HEAD
-=======
-#testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
-#for program in testing:
-#    print(' '.join(program))
-#    print('')
-se_program.load_welcome_page()
-
-
-
->>>>>>> 9ecdf478c0f7e2221a5670f86d60c1e2b798a349
 '''''
-
 
 
 testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
