@@ -64,25 +64,36 @@ class CourseOffering:
 
     def add_student(self, student): #Add new student object into course
         try:
+            student_exist = False
             for enrol in self.enrolled_students:
-                if not student.get_student_id() == enrol.get_student_id() or len(self.enrolled_students) < self.max_students:
-                    self.student_list.append(student)
-                    print(f'Student \'{student.get_name()}\' has been successfully added!\n')
-                else:
-                    raise CourseFullError(f'WARNING! \'{student.get_name()}\' cannot be enrolled, they already exists in our list of enrolled students and the selected Course is full!\nPlease try another Course!\n')
+                if student.get_student_id() == enrol.get_student_id():
+                    student_exist = True
+
+            if student_exist == False and len(self.enrolled_students) < self.max_students:
+                self.student_list.append(student)
+                print(f'Student \'{student.get_name()}\' has been successfully added!\n')
+            else:
+                raise CourseFullError(f'WARNING! \'{student.get_name()}\' cannot be enrolled, they already exists in our list of enrolled students and the selected Course is full!\nPlease try another Course!\n')
             self.enrolled_students.extend(self.student_list)
             return self.enrolled_students
         except CourseFullError as error:
             print(error.mssg)
 
-    def remove_student(self, student): #Remove student object that already exists in course
+    def remove_student(self, student_id): #Remove student object based on student ID
         try:
+            name_str = ''
+            student_exist = False
             for enrol in self.enrolled_students:
-                if student.get_student_id() == enrol.get_student_id():
-                    self.enrolled_students.remove(student)
-                    print(f'Student \'{student.get_name()}\' has been successfully removed!\n')
-                else:
-                    raise NonDuplicateError(f'WARNING! \'{student.get_name()}\' does not exist in our list of enrolled students!\nPlease remove another student!\n')
+                if student_id == enrol.get_student_id():
+                    student_exist = True
+                    name_str += enrol.get_name()
+                    break
+
+            if student_exist == True:
+                self.enrolled_students.remove(enrol)                
+                print(f'Student \'{name_str}\' has been successfully removed!\n')
+            else:      
+                raise NonDuplicateError(f'WARNING! \'{name_str}\' does not exist in our list of enrolled students!\nPlease remove another student!\n')
             return self.enrolled_students
         except NonDuplicateError as error:
             print(error.mssg)
@@ -289,18 +300,10 @@ def main():
     current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
     study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
     student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
-    #Student object Charlotte Jones
-    name = 'Charlotte Jones'
-    student_id = 's3354976'
-    dob = '29/04/2002'
-    program_code = 'BP096'
-    academic_history = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
-    current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
-    study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
-    student2 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
+    student_id2 = 's386894' #Arun Weaver
     #Add or Remove student object from specific course
-    courseoffer1.add_student(student1)
-    courseoffer1.remove_student(student1)
+    #courseoffer1.add_student(student1)
+    #courseoffer1.remove_student(student_id2)
     print(courseoffer1)
     ###############################################################################
     
