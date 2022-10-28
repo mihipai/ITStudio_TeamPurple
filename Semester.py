@@ -147,7 +147,7 @@ class Load_data:
                 ava_sem = row[5]
                 single_sems = ava_sem.split(',')
                 if semester_title in single_sems:
-                    course_object = CourseOffering(course_code,course_name,year,semester_title, max_students, None)
+                    course_object = CourseOffering(course_code,course_name,year,semester_title, max_students)
                     all_courses.append(course_object)
         return all_courses
 
@@ -277,6 +277,57 @@ class Semester:
         print('List of currently enrolled students:', self.enrolled_students)
     '''
 
+    def easy_courses(self): #Julia Ngoc Diem Tran Phan - Top 10 Easy Courses
+        courses_w_rankings = dict()
+        with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=',')
+            headings = next(csv_reader)
+            list_of_csv = list(csv_reader)
+            for info in list_of_csv:
+                code = info[0]
+                rank = int(info[8])
+                courses_w_rankings[code] = rank
+        
+        rank_list = list(courses_w_rankings.items())
+        for mx in range(len(rank_list)-1, -1, -1):
+            swapped = False
+            for i in range(mx):
+                if rank_list[i][1] < rank_list[i+1][1]:
+                    rank_list[i], rank_list[i+1] = rank_list[i+1], rank_list[i]
+                    swapped = True
+            if not swapped:
+                break
+
+        last_ten_courses = rank_list[:10]
+        new_list = [new[0] for new in last_ten_courses]
+        del last_ten_courses
+
+        print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
+        print('                                               ')
+        print('            Top 10 Easiest Courses             ')
+        print('                                               ')
+        print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
+        #['COSC1226', 'ISYS1126', 'COSC1147', 'COSC2802', 'ISYS2405', 
+        # 'MATH2412', 'INTE2376', 'COSC2799', 'COSC1183', 'COSC2471'] 
+        
+        with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=',')
+            headings = next(csv_reader)
+            list_of_csv = list(csv_reader)
+            course_list = []
+            for info in list_of_csv:
+                course_code = info[0]
+                course_name = info[1]
+                descr = info[2]
+                credit_points = int(info[4])
+                prereq = info[3] #need to include course description too
+                ava_sem = info[5]
+                for new in new_list:
+                    if new == course_code:
+                        course_object = Course(course_name, course_code, descr, credit_points, prereq, ava_sem)
+                        course_list.append(course_object) 
+        return course_list[0].__str__()
+
     def __str__(self):
         string = 'Semester: ' + self.get_SemesterTitle() + '\n'
         if len(self.course_offerings) == 0:
@@ -286,10 +337,18 @@ class Semester:
                 string += course.without_students() + '\n\n' 
         return string
 
-#Testing class
+#Testing classes
 def main():
     #Manual input of semester data
     '''
+    #This section prints top 10 easy courses, druv might need to add self parameter in dunder string method
+    ###############################################################################
+    semester1 = Semester('S1','Y1',250)
+    semester1.easy_courses()
+    ###############################################################################
+    '''
+    
+    '''    
     #This section adds or removes a student object from course and displays the Course-offering/Course with list of students
     ###############################################################################
     courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', 4)
@@ -318,6 +377,7 @@ def main():
     print(courseoffer1)
     ###############################################################################
     '''
+
     '''
     #This section prints the list of Courses/Course-offerings for a specific Semester and Year
     ###############################################################################
