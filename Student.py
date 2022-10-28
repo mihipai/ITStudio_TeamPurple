@@ -3,6 +3,10 @@
 from os import remove
 import csv
 
+class StudentDoesNotExist(Exception):
+    def __init__(self, mssg):
+        self.mssg = mssg
+
 class Student:
     #dunder init method
     def __init__(self, name, student_id, DOB, program_code, academic_history, current_enrollment, study_plan):
@@ -159,7 +163,40 @@ class Student:
                 Student_object = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
                 student_list.append(Student_object)
         return student_list
+    
+    def load_student_credit(search_number):
 
+        with open('Students.csv', 'r', encoding = 'utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile)
+            headings = next(csv_reader)
+            list_of_csv = list(csv_reader)
+            student_list = []
+
+            for i in range(len(list_of_csv)):
+                student_number = list_of_csv[i][0]
+                student_name = list_of_csv[i][1]
+                student_current_credit = list_of_csv[i][9]
+                student_required_credit = list_of_csv[i][10]
+                student_expected_credit = list_of_csv[i][11]
+                
+                info_string = student_number +" "+ student_name +" "+ student_current_credit +" "+ student_required_credit +" "+ student_expected_credit
+                info_string = list(info_string.split(" "))
+                student_list.append(info_string)
+            
+            for student in student_list:
+                for i in range(len(student)):
+                    if search_number == student[i]:
+                        info_string = ''
+                        info_string += "Student ID = " + student[0] + '\n'
+                        info_string += "Student Name = " + student[1] + ' ' + student[2] + '\n'
+                        info_string += "Current Credits = " + student[3] + '\n'
+                        info_string += "Required Credits = " + student[5] + '\n'
+                        if int(student[4]) < 50:
+                            info_string += 'Congratulations! You are graduating this year.'
+                        else:
+                            info_string += 'You are required to complete an overall amount of '+ student[4] +' credit points to graduate.'
+                        return info_string
+             
 #Testing stuff# testing again
 name = 'Kelvin'
 student_id = 's3953996'
@@ -178,3 +215,7 @@ student1.ammend_study_plan('Y1', 'S2', 'COSC2802')
 student1.ammend_study_plan('Y1', 'S2', 'COSC2804')
 student1.print_study_plan()
 (Student.load_students())
+
+#load student credit list
+credits = Student.load_student_credit('s386570')
+print(credits)
