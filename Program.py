@@ -2,7 +2,7 @@
 # This file will have the program class
 import csv
 import re
-#from Course import Course #random comment
+from Course import Course #random comment
 
 class InvProgName(Exception):
     def __init__(self, mssg):
@@ -125,14 +125,8 @@ class Program:
             print(error.mssg)
 
     def add_program(self, new_code,new_program,new_credit):
-        se_program = self.print_program_info('bp096_1.csv')
-        se_list = list(se_program.split(" "))
-        cs_program = self.print_program_info('bp094.csv')
-        cs_list = list(cs_program.split(" "))
-        
-        all_list = []
-        all_list.append(se_list)
-        all_list.append(cs_list)
+        programs = self.print_all_program_info()
+        programs_list = list(programs.split(" "))
 
         try:
             if new_code == 'BP094' or new_code == 'bp094' or new_program.casefold() == 'bachelor of computer science':
@@ -154,7 +148,7 @@ class Program:
 
         except ProgramAlreadyExists as error:
             print(error.mssg)
-        return  all_list
+        return  programs_list
 
     
 
@@ -246,26 +240,21 @@ for elective in electives:
 '''''
 #se_program.load_popElects() testing Popular Electives Extended Feature
 
+'''''
 new_list = se_program.print_all_program_info()
 better_list = re.split(':|=|; |, |\n',new_list)
 print(new_list)
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
-#testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
-#for program in testing:
-#    print(' '.join(program))
-#    print('')
-se_program.load_welcome_page()
-
-
-
 '''''
+
+
 testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
 for program in testing:
     print(' '.join(program))
     print('')
-'''''
+
 
 #print(se_program.easy_courses())
 
