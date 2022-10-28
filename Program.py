@@ -1,7 +1,7 @@
 #Thil is testing commit
 # This file will have the program class
 import csv
-from Course import Course #random comment
+#from Course import Course #random comment
 
 class InvProgName(Exception):
     def __init__(self, mssg):
@@ -61,11 +61,11 @@ class Program:
 
     def load_welcome_page(self):
         print('')
-        print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
+        print('\t/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
         print('')
-        print('Welcome to Bachelor of Software Engineering!')
+        print('\tWelcome to Bachelor of Software Engineering!')
         print('')
-        print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
+        print('\t/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
         print('')
 
     
@@ -329,11 +329,21 @@ for elective in electives:
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
+<<<<<<< HEAD
 #testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
 #for program in testing:
 #    print(' '.join(program))
 #    print('')
+=======
+se_program.load_welcome_page()
 
+
+
+testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
+for program in testing:
+    print(' '.join(program))
+    print('')
+>>>>>>> 1378f6f92837d5a1b7208436e87c7a0e6fe78b53
 
 
 #print(se_program.easy_courses())
