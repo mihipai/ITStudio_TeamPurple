@@ -127,7 +127,13 @@ class Student:
         self.academic_history = '!'.join(split)
         return print('Academic History has been successfully ammended.')
     
-    def ammend_study_plan(self, year, sem, remove_from_study_plan):
+    def ammend_current_enrollment_remove(self, year, sem, remove_from_current_enrollment):
+        return None
+    
+    def ammend_current_enrollment_add(self, year, sem, add_to_current_enrollment):
+        return None
+    
+    def ammend_study_plan_remove(self, year, sem, remove_from_study_plan):
         split = self.study_plan.split('!')
         for i in split:
             count = 0
@@ -142,6 +148,10 @@ class Student:
                             split[count] = ','.join(split2)
                         count+=1
         self.study_plan = '!'.join(split)
+
+        return print('Study Plan has been successfully ammended.')
+    
+    def ammend_study_plan_add(self, year, sem, add_to_study_plan):
 
         return print('Study Plan has been successfully ammended.')
     
@@ -209,12 +219,16 @@ student1 = Student(name, student_id, dob, program_code, academic_history, curren
 print(student1)
 student1.ammend_academic_history('COSC2801', '80', 'HD')
 student1.print_academic_history()
-student1.ammend_study_plan('Y1', 'S2', 'MATH2412')
+student1.ammend_study_plan_remove('Y1', 'S2', 'MATH2412')
 student1.print_study_plan()
-student1.ammend_study_plan('Y1', 'S2', 'COSC2802')
-student1.ammend_study_plan('Y1', 'S2', 'COSC2804')
+# student1.ammend_study_plan_remove('Y1', 'S2', 'COSC2802')
+# student1.ammend_study_plan_remove('Y1', 'S2', 'COSC2804')
 student1.print_study_plan()
-(Student.load_students())
+student1.ammend_study_plan_add('Y1', 'S2', 'MATH2412')
+student1.print_study_plan()
+# Student.load_students()
+student1.ammend_study_plan_add('Y1', 'S2', 'MATH2412')
+student1.print_study_plan()
 
 #load student credit list
 credits = Student.load_student_credit('s386570')
