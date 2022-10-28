@@ -70,11 +70,15 @@ class CourseOffering:
                     student_exist = True
 
             if student_exist == False and len(self.enrolled_students) < self.max_students:
-                self.student_list.append(student)
+                self.enrolled_students.append(student)
                 print(f'Student \'{student.get_name()}\' has been successfully added!\n')
-            else:
+            elif student_exist == True and len(self.enrolled_students) < self.max_students:
+                #self.enrolled_students.remove(student)
+                print(f'WARNING! \'{student.get_name()}\' cannot be enrolled, they already exists in our list of enrolled students\n')
+            elif student_exist == False and len(self.enrolled_students) == self.max_students:
+                print(f'WARNING! \'{student.get_name()}\' cannot be enrolled, the selected Course is full!\nPlease try another Course!\n')
+            else: #Student exists and course is full
                 raise CourseFullError(f'WARNING! \'{student.get_name()}\' cannot be enrolled, they already exists in our list of enrolled students and the selected Course is full!\nPlease try another Course!\n')
-            self.enrolled_students.extend(self.student_list)
             return self.enrolled_students
         except CourseFullError as error:
             print(error.mssg)
@@ -93,7 +97,7 @@ class CourseOffering:
                 self.enrolled_students.remove(enrol)                
                 print(f'Student \'{name_str}\' has been successfully removed!\n')
             else:      
-                raise NonDuplicateError(f'WARNING! \'{name_str}\' does not exist in our list of enrolled students!\nPlease remove another student!\n')
+                raise NonDuplicateError(f'WARNING! \'{student_id}\' does not exist in our list of enrolled students!\nPlease remove another student!\n')
             return self.enrolled_students
         except NonDuplicateError as error:
             print(error.mssg)
@@ -293,20 +297,30 @@ def main():
     courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', '250', list())
     #Student object named Kelvin
     name = 'Kelvin'
-    student_id = 's3953996'
+    student_id = 's3453976'
     dob = '18/09/2001'
     program_code = 'BP094GEN8'
     academic_history = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
     current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
     study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
     student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
+    name2 = 'Charlotte Jones'
+    student_id2 = 's3553976'
+    dob2 = '18/09/2001'
+    program_code2 = 'BP094GEN8'
+    academic_history2 = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
+    current_enrollment2 = 'Y1,S1,COSC2801,MATH2411,COSC2803'
+    study_plan2 = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
+    student3 = Student(name2, student_id2, dob2, program_code2, academic_history2, current_enrollment2, study_plan2)
     student_id2 = 's386894' #Arun Weaver
     #Add or Remove student object from specific course
     #courseoffer1.add_student(student1)
-    #courseoffer1.remove_student(student_id2)
+    courseoffer1.remove_student(student_id2)
+    courseoffer1.remove_student(student_id2)
     print(courseoffer1)
     ###############################################################################
-    
+    '''
+    '''
     #This section prints the list of Courses/Course-offerings for a specific Semester and Year
     ###############################################################################
     semester1 = Semester('S1','Y1', 250)
@@ -316,4 +330,3 @@ def main():
 
 
 main()
-
