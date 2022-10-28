@@ -329,12 +329,10 @@ for elective in electives:
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
-<<<<<<< HEAD
 #testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
 #for program in testing:
 #    print(' '.join(program))
 #    print('')
-=======
 se_program.load_welcome_page()
 
 
@@ -343,7 +341,6 @@ testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
 for program in testing:
     print(' '.join(program))
     print('')
->>>>>>> 1378f6f92837d5a1b7208436e87c7a0e6fe78b53
 
 
 #print(se_program.easy_courses())
