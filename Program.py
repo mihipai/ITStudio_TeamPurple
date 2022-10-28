@@ -156,96 +156,7 @@ class Program:
             print(error.mssg)
         return  all_list
 
-    def easy_courses(self):
-        with open('bp094.csv', 'r') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=',')
-            headings = next(csv_reader)
-            list_of_csv = list(csv_reader)
-            copy_list = []
-            for row in list_of_csv:
-                if row != '':
-                    copy_list.append(row)
-
-            cs_str = ''
-            computer_science = copy_list
-            cs_row = computer_science[5]
-            cs_str += cs_row[3]
-            comp_longlist = cs_str.split(',')
-
-        with open('bp096_1.csv', 'r') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=',')
-            headings = next(csv_reader)
-            list_of_csv = list(csv_reader)
-            copy_list = []
-            for row in list_of_csv:
-                if row != '':
-                    copy_list.append(row)
-
-            se_str = ''
-            software_engineer = copy_list
-            se_row = software_engineer[6]
-            se_str += se_row[3]
-            soft_longlist = se_str.split(',')
-
-        print('Which program\'s list of easiest courses would you like to view?')
-        print('Bachelor of Computer Science (BP094)         ||          Bachelor of Software Engineering (BP096)')
-        prog_name = input('Please enter a Program\'s code: ')
-        print()
-        while True:
-            try:
-                if prog_name == 'BP094' or prog_name == 'bp094':
-                    with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
-                        csv_reader = csv.reader(csvfile, delimiter=',')
-                        headings = next(csv_reader)
-                        list_of_csv = list(csv_reader)
-                        computer_courses = []
-                        for info in list_of_csv:
-                            code = info[0]
-                            name = info[1]
-                            credits = info[4]
-                            prereq = info[3]
-                            ava_sem = info[5]
-                            for comp in comp_longlist:
-                                if comp == code:
-                                    course_object = Course(code,name,credits,prereq,ava_sem)
-                                    computer_courses.append(course_object)
-                    print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
-                    print('                                               ')
-                    print('    List of Easiest Computer Science Courses   ')
-                    print('                                               ')
-                    print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
-                    print(len(computer_courses))
-                    break
-
-                elif prog_name == 'BP096' or prog_name == 'bp096':
-                    with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
-                        csv_reader = csv.reader(csvfile, delimiter=',')
-                        headings = next(csv_reader)
-                        list_of_csv = list(csv_reader)
-                        software_courses = []
-                        for info in list_of_csv:
-                            code = info[0]
-                            name = info[1]
-                            credits = info[4]
-                            prereq = info[3]
-                            ava_sem = info[5]
-                            for soft in soft_longlist:
-                                if soft == code:
-                                    course_object = Course(code,name,credits,prereq,ava_sem)
-                                    software_courses.append(course_object)
-                    print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
-                    print('                                                   ')
-                    print('    List of Easiest Software Engineering Courses   ')
-                    print('                                                   ')
-                    print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
-                    print(len(software_courses))
-                    break
-                else:
-                    raise InvProgName('Invalid Program Option! Please try again.')
-            except InvProgName as error:
-                print(error.mssg)
-                prog_name = input('Please enter a Program\'s code: ')
-
+    
 
     def load_program_objects(self, filename): #
         with open(filename, 'r', encoding='utf-8') as csvfile:
@@ -341,14 +252,11 @@ print(new_list)
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
-<<<<<<< HEAD
-=======
 #testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
 #for program in testing:
 #    print(' '.join(program))
 #    print('')
 se_program.load_welcome_page()
->>>>>>> 08a9991b24ea8fa8ea8d96a9feaeac9c33265739
 
 
 
