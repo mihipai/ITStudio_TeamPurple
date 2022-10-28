@@ -164,14 +164,20 @@ class Student:
                 student_list.append(Student_object)
         return student_list
     
+    #Thilyka's extended feature:  Checking eligibility of graduation of a student, 
+    #and print out detailed information about what is missing if not eligible. 
+
     def load_student_credit(search_number):
 
+        #opens, reads and adds data into list of csv
         with open('Students.csv', 'r', encoding = 'utf-8') as csvfile:
             csv_reader = csv.reader(csvfile)
             headings = next(csv_reader)
             list_of_csv = list(csv_reader)
             student_list = []
 
+            #add data from list of csv into variables and arranges the elements in order of number
+            #name,current credits,required credits and expected credits
             for i in range(len(list_of_csv)):
                 student_number = list_of_csv[i][0]
                 student_name = list_of_csv[i][1]
@@ -179,10 +185,13 @@ class Student:
                 student_required_credit = list_of_csv[i][10]
                 student_expected_credit = list_of_csv[i][11]
                 
+                #info_string is a string of all the variables in order and use split to turn into a list so
+                #it's easy to iterate
                 info_string = student_number +" "+ student_name +" "+ student_current_credit +" "+ student_required_credit +" "+ student_expected_credit
                 info_string = list(info_string.split(" "))
                 student_list.append(info_string)
             
+            #finding student based on their ID in the list and printing out their credit information 
             for student in student_list:
                 for i in range(len(student)):
                     if search_number == student[i]:
@@ -216,6 +225,6 @@ student1.ammend_study_plan('Y1', 'S2', 'COSC2804')
 student1.print_study_plan()
 (Student.load_students())
 
-#load student credit list
+
 credits = Student.load_student_credit('s386570')
 print(credits)
