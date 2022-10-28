@@ -300,10 +300,10 @@ def main():
     current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
     study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
     student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
-    student_id2 = 's384950' #Arun Weaver
+    student_id2 = 's386894' #Arun Weaver
     #Add or Remove student object from specific course
-    courseoffer1.add_student(student1)
-    courseoffer1.remove_student(student_id2)
+    #courseoffer1.add_student(student1)
+    #courseoffer1.remove_student(student_id2)
     print(courseoffer1)
     ###############################################################################
     
