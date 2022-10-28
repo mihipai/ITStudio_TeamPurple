@@ -72,7 +72,6 @@ class CourseOffering:
                 self.enrolled_students.append(student)
                 print(f'Student \'{student.get_name()}\' has been successfully added!\n')
             elif student_exist == True and len(self.enrolled_students) < self.max_students:
-                #self.enrolled_students.remove(student)
                 print(f'WARNING! \'{student.get_name()}\' cannot be enrolled, they already exists in our list of enrolled students\n')
             elif student_exist == False and len(self.enrolled_students) == self.max_students:
                 print(f'WARNING! \'{student.get_name()}\' cannot be enrolled, the selected Course is full!\nPlease try another Course!\n')
