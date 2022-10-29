@@ -108,7 +108,7 @@ class Course:
                     stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
                     stri += "Course Code = " + str(c_list[x][0]) + '\n'
                     stri += "\nTitle = " + str(c_list[x][1]) + '\n'
-                    stri += "Grade Distribution = " + str(c_list[x][6])
+                    stri += "\nGrade Distribution = " + str(c_list[x][6])
                     stri += '\n\n'
                     stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
                 elif x == (num-1):
@@ -157,7 +157,7 @@ class Course:
 
 def main():
     Course.load_courses(self="self", filename="Courses.csv")
-    Course.__str__("self")
+    Course.SearchCourseDistribution("self", "COSC2800")
 
 
     
