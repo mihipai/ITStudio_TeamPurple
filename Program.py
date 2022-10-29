@@ -151,6 +151,140 @@ class Program_by_year:
             courses_samp1 = [course_list1[i][3] for i in range(len(course_list1)-1)]
             courses_samp1.pop(0)
 
+        cs_list = [] #list of cs courses
+        for course in courses_samp1:
+            for i in course.split(','):
+                cs_list.append(i)
+    
+        with open('bp096_1.csv', 'r') as csvfile:
+            reader = csv.reader(csvfile, delimiter=',')
+            copy_list = [] 
+            for row in reader:
+                if row != '':
+                    copy_list.append(row)
+            cs_courses = copy_list
+            courses_samp = [cs_courses[i][3] for i in range(len(cs_courses)-1)]
+            courses_samp.pop(0)
+
+        se_list = [] #list of se courses
+        for course in courses_samp:
+            for i in course.split(','):
+                se_list.append(i)
+
+        cs_w_rankings = dict()
+        se_w_rankings = dict()
+        with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=',')
+            headings = next(csv_reader)
+            list_of_csv = list(csv_reader)
+            for i in range(len(list_of_csv)):
+                code = list_of_csv[i][0]
+                rank = int(list_of_csv[i][8])
+                for cs in cs_list:
+                    if cs== code:
+                        cs_w_rankings[code] = rank
+                for se in se_list:
+                    if se== code:
+                        se_w_rankings[code] = rank
+
+        sorted_cs = list(cs_w_rankings.items())
+        for mx in range(len(sorted_cs)-1, -1, -1):
+            swapped = False
+            for i in range(mx):
+                if sorted_cs[i][1] < sorted_cs[i+1][1]:
+                    sorted_cs[i], sorted_cs[i+1] = sorted_cs[i+1], sorted_cs[i]
+                    swapped = True
+            if not swapped:
+                break
+
+        sorted_se = list(se_w_rankings.items())
+        for mx in range(len(sorted_se)-1, -1, -1):
+            swapped = False
+            for i in range(mx):
+                if sorted_se[i][1] < sorted_se[i+1][1]:
+                    sorted_se[i], sorted_se[i+1] = sorted_se[i+1], sorted_se[i]
+                    swapped = True
+            if not swapped:
+                break
+    
+        last_cs_courses = sorted_cs[:10] #first ten elements since
+        last_se_courses = sorted_se[:10] #sorted in descending order
+    
+        new_cs = [new[0] for new in last_cs_courses]
+        new_se = [new[0] for new in last_se_courses]
+
+        del last_cs_courses
+        del last_se_courses
+       
+        print('Which Program\'s Top 10 Easiest Courses would you like to view?')
+        print('Bachelor of Computer Science (BP094)     ||      Bachelor of Software Engineering (BP096)')
+        prog_code = input('Please enter a Program\'s code: ')
+        while True:
+            if prog_code == 'BP094' or prog_code == 'bp094':
+                print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
+                print('                                               ')
+                print('    Top 10 Easiest Computer Science Courses    ')
+                print('                                               ')
+                print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
+                with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
+                    csv_reader = csv.reader(csvfile, delimiter=',')
+                    headings = next(csv_reader)
+                    list_of_csv = list(csv_reader)
+                    cs_courses = []
+                    for i in range(len(list_of_csv)):
+                        course_code = list_of_csv[i][0]
+                        course_name = list_of_csv[i][1]
+                        desc = list_of_csv[i][2]
+                        credit_points = list_of_csv[i][4]
+                        prereq = list_of_csv[i][3]
+                        ava_sem = list_of_csv[i][5]
+                        for new in new_cs:
+                            if new == course_code:
+                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem)
+                                cs_courses.append(course_object)     
+                cs_courses[0].__str__()
+                break
+            elif prog_code == 'BP096' or prog_code == 'bp096':
+                print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
+                print('                                               ')
+                print('  Top 10 Easiest Software Engineering Courses  ')
+                print('                                               ')
+                print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
+                with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
+                    csv_reader = csv.reader(csvfile, delimiter=',')
+                    headings = next(csv_reader)
+                    list_of_csv = list(csv_reader)
+                    se_courses = []
+                    for i in range(len(list_of_csv)):
+                        course_code = list_of_csv[i][0]
+                        course_name = list_of_csv[i][1]
+                        desc = list_of_csv[i][2]
+                        credit_points = list_of_csv[i][4]
+                        prereq = list_of_csv[i][3]
+                        ava_sem = list_of_csv[i][5]
+                        for new in new_se:
+                            if new == course_code:
+                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem)
+                                se_courses.append(course_object) 
+                se_courses[0].__str__()
+                break
+            else:
+                print('Invalid Program Code! Please try again!')
+                prog_code = input('Please enter a Program\'s code: ')
+
+
+##
+    def hard_courses(self): #Displays the top ten hardest courses for each program - Kelvin Duong Ly
+        with open('bp094.csv', 'r') as csvfile:
+            reader = csv.reader(csvfile, delimiter=',')
+            copy_list = [] 
+            for row in reader:
+                if row != '':
+                    copy_list.append(row)
+            course_list1 = copy_list
+            courses_samp1 = [course_list1[i][3] for i in range(len(course_list1)-1)]
+            courses_samp1.pop(0)
+
         cs_list = []
         for course in courses_samp1:
             for i in course.split(','):
@@ -191,7 +325,7 @@ class Program_by_year:
         for mx in range(len(sorted_cs)-1, -1, -1):
             swapped = False
             for i in range(mx):
-                if sorted_cs[i][1] < sorted_cs[i+1][1]:
+                if sorted_cs[i][1] > sorted_cs[i+1][1]:
                     sorted_cs[i], sorted_cs[i+1] = sorted_cs[i+1], sorted_cs[i]
                     swapped = True
             if not swapped:
@@ -201,7 +335,7 @@ class Program_by_year:
         for mx in range(len(sorted_se)-1, -1, -1):
             swapped = False
             for i in range(mx):
-                if sorted_se[i][1] < sorted_se[i+1][1]:
+                if sorted_se[i][1] > sorted_se[i+1][1]:
                     sorted_se[i], sorted_se[i+1] = sorted_se[i+1], sorted_se[i]
                     swapped = True
             if not swapped:
@@ -226,14 +360,14 @@ class Program_by_year:
         '''
         
         
-        print('Which Program\'s Top 10 Easiest Courses would you like to view?')
+        print('Which Program\'s Top 10 Hardest Courses would you like to view?')
         print('Bachelor of Computer Science (BP094)     ||      Bachelor of Software Engineering (BP096)')
         prog_code = input('Please enter a Program\'s code: ')
         while True:
             if prog_code == 'BP094' or prog_code == 'bp094':
                 print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
                 print('                                               ')
-                print('    Top 10 Easiest Computer Science Courses    ')
+                print('    Top 10 Hardest Computer Science Courses    ')
                 print('                                               ')
                 print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
                 with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
@@ -257,7 +391,7 @@ class Program_by_year:
             elif prog_code == 'BP096' or prog_code == 'bp096':
                 print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
                 print('                                               ')
-                print('  Top 10 Easiest Software Engineering Courses  ')
+                print('  Top 10 Hardest Software Engineering Courses  ')
                 print('                                               ')
                 print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
                 with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
@@ -281,6 +415,7 @@ class Program_by_year:
             else:
                 print('Invalid Program Code! Please try again!')
                 prog_code = input('Please enter a Program\'s code: ')
+                ##
     
     def load_popElects(self): # Extended feature by Mihika (Popular Electives)
         print('Enter Program Code to see list of popular electives:')
@@ -475,12 +610,8 @@ testing_deleting = se_program.delete_program((testing),'bp096')
 print(testing_deleting)#
 '''''
 
+#testing = se_program.easy_courses()
 #print(se_program.easy_courses())
-
-
-
-
-
 
 
     

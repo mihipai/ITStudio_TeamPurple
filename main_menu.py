@@ -191,6 +191,15 @@ else:
     raise InvLoginOption('Invalid Login Option. Restart to Login again')
 
 
+
+def main():
+    Student_list
+
+
+
+
+
+
 sys.exit('Log Out Successful')
 
 
