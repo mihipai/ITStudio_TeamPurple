@@ -62,9 +62,10 @@ class StuLogin:
     def __init__(self,snum, sname):
         self.snum = snum
         self.sname = sname
+        self.StuList = Student.load_students()
 
     def print_login_info(self):
-        if self.snum in Student.load_students() and self.sname in Student.load_students():
+        if self.snum in self.StuList and self.sname in self.StuList:
             print(f'Welcome {self.sname}', end = ' ')
             print(f'\tStudent Number: {self.snum}')
             print(f'D.O.B: {self.getDOB()}', end = ' ')
