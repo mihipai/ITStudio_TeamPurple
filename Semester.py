@@ -294,7 +294,7 @@ def main():
     '''
     #This section adds or removes a student object from course and displays the Course-offering/Course with list of students
     ###############################################################################
-    courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', 4)
+    courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', 4) #can use 250 or 4 as max no. students
     #Student object named Kelvin
     name = 'Kelvin'
     student_id = 's3453976'
