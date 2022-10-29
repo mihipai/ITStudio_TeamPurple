@@ -611,8 +611,10 @@ print(better_list)
 #print(se_program.print_program_info('bp096_1.csv'))
 
 
-
-testing = se_program.add_program('B096','Bacheltor of Compur Science','dsd')
+'''''
+se = Program_by_year('c','c','c','c','c','c')
+se_program = Program('c','c','c','c')
+testing = se.add_program('B096','Bacheltor of Compur Science','dsd')
 #print(testing)
 
 testing_deleting = se_program.delete_program((testing),'bp096')
@@ -622,7 +624,7 @@ print(testing_deleting)#
 #testing = se_program.easy_courses()
 #print(se_program.easy_courses())
 
-
+'''''
     
 
 

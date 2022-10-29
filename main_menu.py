@@ -37,7 +37,7 @@ class OptionNotExist(Exception):
     def __str__(self):
         print(self.mssg)    
 
-
+        
 class StuLogin:
     def __init__(self,snum, sname):
         self.snum = snum
