@@ -1,7 +1,7 @@
 #Student Name: Julia Ngoc Diem Tran Phan
 #Student ID: s3948825
 from Student import Student
-from Course import Course
+#from Course import Course
 #from Program import Program
 import csv
 
