@@ -215,17 +215,7 @@ class Program_by_year:
 
         del last_cs_courses
         del last_se_courses
-
-        '''
-        CS
-        ['COSC1147', 'COSC2802', 'MATH2412', 'COSC2276', 'COSC2408', 
-        'COSC2673', 'COSC1107', 'ISYS1118', 'COSC2299', 'COSC1076']
-        SE
-        ['COSC1226', 'ISYS1126', 'COSC1147', 'COSC2802', 'ISYS2405', 
-        'MATH2412', 'INTE2376', 'COSC2799', 'COSC1183', 'COSC2471']
-        '''
-        
-        
+       
         print('Which Program\'s Top 10 Easiest Courses would you like to view?')
         print('Bachelor of Computer Science (BP094)     ||      Bachelor of Software Engineering (BP096)')
         prog_code = input('Please enter a Program\'s code: ')
