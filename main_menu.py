@@ -30,32 +30,12 @@ class AdminNotExist(Exception):
     def __str__(self):
         print(self.mssg)       
 
-class Admin():
+class OptionNotExist(Exception):
+    def __init__(self, mssg):
+        self.mssg = mssg
 
-    def __init__(self, adm_num, adm_nm):
-        self.admin_num = adm_num
-        self.admin_name = adm_nm
-        self.adm_dict = {}
-
-    def load_admin_list(self, filename = 'Admin.csv'):
-        with open(filename, 'r') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=',') 
-            headings = next(csv_reader)
-            adms = list(csv_reader)
-            for adm in adms:
-               self.adm_dict[adm[0]] = adm[1]
-            #return self.adm_list                  
-
-    def print_info(self):
-        Admin.load_admin_list(self)
-        if self.admin_num in self.adm_dict.keys():
-            print('Welcome Admin')
-            print(f'Admin Number: {self.admin_name}', end = ' ')
-            print(f'\tAdmin Name: {self.admin_num}')
-        else:
-            raise AdminNotExist('Admin does not exist')
-            #sys.exit('Logged Out as Admin does not exist')
-
+    def __str__(self):
+        print(self.mssg)    
 
 
 class StuLogin:
@@ -82,31 +62,57 @@ class StuLogin:
             raise StudentNotExist('Student Does Not Exist in list.')
             #sys.exit('Student Does not exist')  
 
-    def display(self):
-        print('To See List of Courses, type C')
-        print('To Search a Courses, type S')
-        print('To See List of Easiest Courses, type E')
-        print('To See List of Most Difficult Courses, type D')
-        print('To See List of Popular Electives, type PE')
-        print('To Enrol/Unenrol from Program, type R')
-        print('To Exit, type Q')
-        usr_inp = input()
-        while usr_inp != 'Q':
-            if usr_inp == 'C':
-                print(Course.__str__())
-            elif usr_inp == 'S':
-                print('Enter course code to search:')
-                cr_code = input()
-                print(Course.SearchCourse(cr_code))
-            elif usr_inp == 'E':
-                pass
-            elif usr_inp == 'D':
-                pass
-            elif usr_inp == 'PE':
-                pass 
-            elif usr_inp == 'R':
-                pass     
+    def display(self, usr_inp):
+        if usr_inp == 'C':
+            print(Course.__str__())
+        elif usr_inp == 'S':
+            print('Enter course code to search:')
+            cr_code = input()
+            print(Course.SearchCourse(cr_code))
+        elif usr_inp == 'E':
+            pass
+        elif usr_inp == 'D':
+            pass
+        elif usr_inp == 'PE':
+            pass 
+        elif usr_inp == 'R':
+            pass 
+        else:
+            raise OptionNotExist('Chosen Option does not exist')
 
+#########################################
+#Admin menu class starts here
+class Admin():
+
+    def __init__(self, adm_num, adm_nm):
+        self.admin_num = adm_num
+        self.admin_name = adm_nm
+        self.adm_dict = {}
+
+    def load_admin_list(self, filename = 'Admin.csv'):
+        with open(filename, 'r') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=',') 
+            headings = next(csv_reader)
+            adms = list(csv_reader)
+            for adm in adms:
+               self.adm_dict[adm[0]] = adm[1]
+            #return self.adm_list                  
+
+    def print_info(self):
+        Admin.load_admin_list(self)
+        if self.admin_num in self.adm_dict.keys():
+            print('Welcome Admin')
+            print(f'Admin Number: {self.admin_name}', end = ' ')
+            print(f'\tAdmin Name: {self.admin_num}')
+        else:
+            raise AdminNotExist('Admin does not exist')
+            #sys.exit('Logged Out as Admin does not exist')
+
+    def display(self, usr_inp):
+        if usr_inp == 'D':
+            pass
+        elif usr_inp == '':
+            pass
 
 
 #################################################################
@@ -127,10 +133,25 @@ if logtype == 'S':
     sname = input()
     Stu1 = StuLogin(snumb,sname)
     Stu1.print_login_info()
-    usr_inp = input()
-    while usr_inp != 'Q':
-        if usr_inp == 'A':
-            pass
+    print('To See List of Courses, type C')
+    print('To See List of Courses, type C')
+    print('To Search a Courses, type S')
+    print('To See List of Easiest Courses, type E')
+    print('To See List of Most Difficult Courses, type D')
+    print('To See List of Popular Electives, type PE')
+    print('To Enrol/Unenrol from Program, type R')
+    print('To Exit, type Q')
+    usrinp = input()
+    while usrinp != 'Q':
+        Stu1.display(usrinp)
+        print('To See List of Courses, type C')
+        print('To Search a Courses, type S')
+        print('To See List of Easiest Courses, type E')
+        print('To See List of Most Difficult Courses, type D')
+        print('To See List of Popular Electives, type PE')
+        print('To Enrol/Unenrol from Program, type R')
+        print('To Exit, type Q')
+        usr_inp = input()
 elif logtype == 'A':
     ##Redirects to Admin class 
     print('Enter Admin Number')

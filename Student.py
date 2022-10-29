@@ -65,7 +65,7 @@ class Student:
     def get_current_enrollment(self):
         return self.current_enrollment
     def print_current_enrollment(self):
-        String = 'Your Current Enrollment:'
+        String = 'Your Current Enrollment:\n'
         for i in self.current_enrollment.split(','):
             for j in i:
                 String += j.strip()
@@ -126,8 +126,27 @@ class Student:
                 count+=1
         self.academic_history = '!'.join(split)
         return print('Academic History has been successfully ammended.')
+        
+    def ammend_current_enrollment_remove(self, sem, remove_from_curr_enrollment):
+        split = self.current_enrollment.split(',')
+        if sem in split[1]:
+            if remove_from_curr_enrollment in split:
+                split.remove(remove_from_curr_enrollment)
+                print(split)
+                if len(split) == 2:
+                    split = []
+                else:
+                    split_join = ''
+                    for i in range(len(split)):
+                        split_join = ','.join(split)
+        self.current_enrollment = split_join
+
+        return print('Current Enrollment has been successfully ammended.')
+
+    def ammend_current_enrollment_add():
+        return None
     
-    def ammend_study_plan(self, year, sem, remove_from_study_plan):
+    def ammend_study_plan_remove(self, year, sem, remove_from_study_plan):
         split = self.study_plan.split('!')
         for i in split:
             count = 0
@@ -218,12 +237,14 @@ student1 = Student(name, student_id, dob, program_code, academic_history, curren
 print(student1)
 student1.ammend_academic_history('COSC2801', '80', 'HD')
 student1.print_academic_history()
-student1.ammend_study_plan('Y1', 'S2', 'MATH2412')
+student1.ammend_study_plan_remove('Y1', 'S2', 'MATH2412')
 student1.print_study_plan()
-student1.ammend_study_plan('Y1', 'S2', 'COSC2802')
-student1.ammend_study_plan('Y1', 'S2', 'COSC2804')
+student1.ammend_study_plan_remove('Y1', 'S2', 'COSC2802')
+student1.ammend_study_plan_remove('Y1', 'S2', 'COSC2804')
 student1.print_study_plan()
-(Student.load_students())
+Student.load_students()
+student1.ammend_current_enrollment_remove('S1', 'COSC2801')
+student1.print_current_enrollment()
 
 
 credits = Student.load_student_credit('s386570')
