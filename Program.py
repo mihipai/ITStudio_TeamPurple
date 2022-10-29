@@ -11,7 +11,7 @@ class ProgramAlreadyExists(Exception):
     def __init__(self, mssg):
         self.mssg = mssg
 
-class Program:
+class Program_by_year:
     def __init__(self,program_code,program_name,program_year,program_core,program_elec,program_credits):
         self.p_code = program_code
         self.p_name = program_name
@@ -103,7 +103,8 @@ class Program:
             for i in range(len(new_program_list)):
                 if unwanted_program.casefold() == new_program_list[i].casefold().strip():
                     del new_program_list[i-1:i+6]
-                    return (f'Succesfully removed {unwanted_program}.')
+                    
+                    return (f'\nSuccesfully removed {unwanted_program}.')
             else:
                 raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
         except ProgramDoesNotExist as error:
@@ -135,7 +136,7 @@ class Program:
             print(error.mssg)
         return  ' '.join(programs_list)
 
-    def load_program_objects(self): #
+    def load_program_objects(self): 
         with open('bp096_1.csv', 'r', encoding='utf-8') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',')
             list_of_csv = list(csv_reader)
@@ -152,11 +153,11 @@ class Program:
                 if program_year == 'Elective Courses' or program_year == 'Top 5 Electives':
                     pass
                 elif program_year == 'Year 1':
-                    program_object = Program(program_code,program_name,program_year,program_core,'No Electives',program_credits)
-                    program_list.append(program_object)
+                    program_object = Program_by_year(program_code,program_name,program_year,program_core,'No Electives',program_credits)
+                    
                 else:
-                    program_object = Program(program_code,program_name,program_year,program_core,program_elec,program_credits)
-                    program_list.append(program_object)
+                    program_object = Program_by_year(program_code,program_name,program_year,program_core,program_elec,program_credits)
+                    
         
 
         with open('bp094.csv', 'r', encoding='utf-8') as csvfile:
@@ -174,13 +175,12 @@ class Program:
                 if program_year == 'Elective Courses' or program_year == 'Top 5 Electives':
                     pass
                 elif program_year == 'Year 1':
-                    program_object = Program(program_code,program_name,program_year,program_core,'No Electives',program_credits)
-                    program_list.append(program_object)
+                    program_object = Program_by_year(program_code,program_name,program_year,program_core,'No Electives',program_credits)
+                   
                 else:
-                    program_object = Program(program_code,program_name,program_year,program_core,program_elec,program_credits)
-                    program_list.append(program_object)
-            
-            return program_list
+                    program_object = Program_by_year(program_code,program_name,program_year,program_core,program_elec,program_credits)
+                    
+
     
 
     def easy_courses(self): #Displays the top ten easy courses for each program - Julia Phan
@@ -353,16 +353,44 @@ class Program:
         else:
             raise ProgramDoesNotExist('Program Does Not Exist')                        
 
-se_program = Program('c','c','c','c','c','c')
+class Program:
+    def __init__(self,small_program,program_code,program_name,program_credits):
+        yearly_program = Program_by_year()
+        self.program_code = program_code
+        self.program_name = program_name
+        self.program_credits = program_credits
+        program_list = yearly_program.load_program_objects()
+
+    def set_program_code(self, program_code =''):
+        self.program_code = program_code
+    def get_code(self):
+        return self.program_code
+
+    def set_program_name(self, program_name=''):
+        self.program_name = program_name
+    def get_name(self):
+        return self.program_name
+
+    def set_program_credits(self, program_credits=''):
+        self.program_credits = program_credits
+    def get_program_credits(self):
+        return self.program_credits
+    
+
+
+se_program = Program_by_year('c','c','c','c','c','c')
 
 
 #printing all info for each program
 #print(se_program.print_program_info('bp094.csv'))
 
+
+
 list_of_programs =[]
 programs = se_program.load_program_objects()
 for program in programs:
     print(program)
+
     
 '''''
 
@@ -381,14 +409,14 @@ print(better_list)
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
-'''''
+
 
 testing = se_program.add_program('B096','Bacheltor of Compur Science','dsd')
-print(testing)
+#print(testing)
 
 testing_deleting = se_program.delete_program((testing),'bp096')
-print(testing_deleting)
-
+print(testing_deleting)#
+'''''
 
 #print(se_program.easy_courses())
 
