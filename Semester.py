@@ -16,7 +16,7 @@ class NonDuplicateError(Exception):
 class CourseOffering: 
     #Add/Remove student from specific course 
     #Returns course which includes list of student objects
-    def __init__(self, course_code, course_name, year, semester, max_students, student_list):
+    def __init__(self, course_code, course_name, year, semester, max_students):
         load_data1 = Load_data()
         self.course_code = course_code
         self.course_name = course_name
@@ -24,7 +24,6 @@ class CourseOffering:
         self.semester = semester
         self.max_students = int(max_students)
         self.enrolled_students = load_data1.load_students(course_code, year, semester)
-        self.student_list = student_list
 
     def set_CourseCode(self, course_code=''):
         self.course_code = course_code
@@ -73,8 +72,7 @@ class CourseOffering:
                 self.enrolled_students.append(student)
                 print(f'Student \'{student.get_name()}\' has been successfully added!\n')
             elif student_exist == True and len(self.enrolled_students) < self.max_students:
-                #self.enrolled_students.remove(student)
-                print(f'WARNING! \'{student.get_name()}\' cannot be enrolled, they already exists in our list of enrolled students\n')
+                print(f'WARNING! \'{student.get_name()}\' cannot be enrolled, they already exists in our list of enrolled students!\n')
             elif student_exist == False and len(self.enrolled_students) == self.max_students:
                 print(f'WARNING! \'{student.get_name()}\' cannot be enrolled, the selected Course is full!\nPlease try another Course!\n')
             else: #Student exists and course is full
@@ -93,9 +91,11 @@ class CourseOffering:
                     name_str += enrol.get_name()
                     break
 
-            if student_exist == True:
+            if student_exist == True and len(self.enrolled_students) > 0:
                 self.enrolled_students.remove(enrol)                
                 print(f'Student \'{name_str}\' has been successfully removed!\n')
+            elif student_exist == False and len(self.enrolled_students) == 0:
+                print(f'WARNING! \'{student_id}\' does not exist in our list of enrolled students and there are no students left to remove!\n')
             else:      
                 raise NonDuplicateError(f'WARNING! \'{student_id}\' does not exist in our list of enrolled students!\nPlease remove another student!\n')
             return self.enrolled_students
@@ -149,7 +149,7 @@ class Load_data:
                 ava_sem = row[5]
                 single_sems = ava_sem.split(',')
                 if semester_title in single_sems:
-                    course_object = CourseOffering(course_code,course_name,year,semester_title, max_students, None)
+                    course_object = CourseOffering(course_code,course_name,year,semester_title, max_students)
                     all_courses.append(course_object)
         return all_courses
 
@@ -288,13 +288,13 @@ class Semester:
                 string += course.without_students() + '\n\n' 
         return string
 
-#Testing class
+#Testing classes
 def main():
-    #Manual input of semester data
+    #Manual input of semester data    
     '''
     #This section adds or removes a student object from course and displays the Course-offering/Course with list of students
     ###############################################################################
-    courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', '250', list())
+    courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', 4)
     #Student object named Kelvin
     name = 'Kelvin'
     student_id = 's3453976'
@@ -304,22 +304,34 @@ def main():
     current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
     study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
     student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
+    #Student object named Charlotte Jones
     name2 = 'Charlotte Jones'
     student_id2 = 's3553976'
     dob2 = '18/09/2001'
-    program_code2 = 'BP094GEN8'
+    program_code2 = 'BP096'
     academic_history2 = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
     current_enrollment2 = 'Y1,S1,COSC2801,MATH2411,COSC2803'
     study_plan2 = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
-    student3 = Student(name2, student_id2, dob2, program_code2, academic_history2, current_enrollment2, study_plan2)
-    student_id2 = 's386894' #Arun Weaver
+    student2 = Student(name2, student_id2, dob2, program_code2, academic_history2, current_enrollment2, study_plan2)
+    #Student named Claver Locksmith
+    name5 = 'Claver Locksmith'
+    student_id5 = 's3253876'
+    dob5 = '18/09/2001'
+    program_code5 = 'BP096'
+    academic_history5 = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
+    current_enrollment5 = 'Y1,S1,COSC2801,MATH2411,COSC2803'
+    study_plan5 = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
+    student5 = Student(name5, student_id5, dob5, program_code5, academic_history5, current_enrollment5, study_plan5)
+    student_id3 = 's386894' #Arun Weaver
+    student_id4 = 's384950' #Reginald Sweeney
     #Add or Remove student object from specific course
-    #courseoffer1.add_student(student1)
-    courseoffer1.remove_student(student_id2)
-    courseoffer1.remove_student(student_id2)
+    courseoffer1.add_student(student1)
+    courseoffer1.add_student(student2)
+    courseoffer1.remove_student(student_id3)
     print(courseoffer1)
     ###############################################################################
     '''
+
     '''
     #This section prints the list of Courses/Course-offerings for a specific Semester and Year
     ###############################################################################
@@ -328,5 +340,5 @@ def main():
     ###############################################################################
     '''
 
-
 main()
+
