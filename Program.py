@@ -623,7 +623,6 @@ print(testing_deleting)#
 #print(se_program.easy_courses())
 
 
-
     
 
 

@@ -108,7 +108,7 @@ class Course:
                     stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
                     stri += "Course Code = " + str(c_list[x][0]) + '\n'
                     stri += "\nTitle = " + str(c_list[x][1]) + '\n'
-                    stri += "Grade Distribution = " + str(c_list)
+                    stri += "Grade Distribution = " + str(c_list[x][6])
                     stri += '\n\n'
                     stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
                 elif x == (num-1):
