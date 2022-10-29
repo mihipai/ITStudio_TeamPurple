@@ -151,7 +151,7 @@ class Program_by_year:
             courses_samp1 = [course_list1[i][3] for i in range(len(course_list1)-1)]
             courses_samp1.pop(0)
 
-        cs_list = []
+        cs_list = [] #list of cs courses
         for course in courses_samp1:
             for i in course.split(','):
                 cs_list.append(i)
@@ -166,7 +166,7 @@ class Program_by_year:
             courses_samp = [cs_courses[i][3] for i in range(len(cs_courses)-1)]
             courses_samp.pop(0)
 
-        se_list = []
+        se_list = [] #list of se courses
         for course in courses_samp:
             for i in course.split(','):
                 se_list.append(i)
@@ -177,9 +177,9 @@ class Program_by_year:
             csv_reader = csv.reader(csvfile, delimiter=',')
             headings = next(csv_reader)
             list_of_csv = list(csv_reader)
-            for info in list_of_csv:
-                code = info[0]
-                rank = int(info[8])
+            for i in range(len(list_of_csv)):
+                code = list_of_csv[i][0]
+                rank = int(list_of_csv[i][8])
                 for cs in cs_list:
                     if cs== code:
                         cs_w_rankings[code] = rank
@@ -215,17 +215,7 @@ class Program_by_year:
 
         del last_cs_courses
         del last_se_courses
-
-        '''
-        CS
-        ['COSC1147', 'COSC2802', 'MATH2412', 'COSC2276', 'COSC2408', 
-        'COSC2673', 'COSC1107', 'ISYS1118', 'COSC2299', 'COSC1076']
-        SE
-        ['COSC1226', 'ISYS1126', 'COSC1147', 'COSC2802', 'ISYS2405', 
-        'MATH2412', 'INTE2376', 'COSC2799', 'COSC1183', 'COSC2471']
-        '''
-        
-        
+       
         print('Which Program\'s Top 10 Easiest Courses would you like to view?')
         print('Bachelor of Computer Science (BP094)     ||      Bachelor of Software Engineering (BP096)')
         prog_code = input('Please enter a Program\'s code: ')
@@ -241,13 +231,13 @@ class Program_by_year:
                     headings = next(csv_reader)
                     list_of_csv = list(csv_reader)
                     cs_courses = []
-                    for info in list_of_csv:
-                        course_code = info[0]
-                        course_name = info[1]
-                        desc = info[2]
-                        credit_points = int(info[4])
-                        prereq = info[3]
-                        ava_sem = info[5]
+                    for i in range(len(list_of_csv)):
+                        course_code = list_of_csv[i][0]
+                        course_name = list_of_csv[i][1]
+                        desc = list_of_csv[i][2]
+                        credit_points = list_of_csv[i][4]
+                        prereq = list_of_csv[i][3]
+                        ava_sem = list_of_csv[i][5]
                         for new in new_cs:
                             if new == course_code:
                                 course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem)
@@ -265,13 +255,13 @@ class Program_by_year:
                     headings = next(csv_reader)
                     list_of_csv = list(csv_reader)
                     se_courses = []
-                    for info in list_of_csv:
-                        course_code = info[0]
-                        course_name = info[1]
-                        desc = info[2]
-                        credit_points = int(info[4])
-                        prereq = info[3]
-                        ava_sem = info[5]
+                    for i in range(len(list_of_csv)):
+                        course_code = list_of_csv[i][0]
+                        course_name = list_of_csv[i][1]
+                        desc = list_of_csv[i][2]
+                        credit_points = list_of_csv[i][4]
+                        prereq = list_of_csv[i][3]
+                        ava_sem = list_of_csv[i][5]
                         for new in new_se:
                             if new == course_code:
                                 course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem)
@@ -281,6 +271,7 @@ class Program_by_year:
             else:
                 print('Invalid Program Code! Please try again!')
                 prog_code = input('Please enter a Program\'s code: ')
+
 
 ##
     def hard_courses(self): #Displays the top ten hardest courses for each program - Kelvin Duong Ly

@@ -1,9 +1,11 @@
 
 # This will be the main menu of our Enrolement System
 from fileinput import filename
+from re import U
 from Course import Course
 from Program import Program
 from Semester import Semester
+from Semester import Load_data
 from Student import Student, Student_list
 import math
 import sys
@@ -37,45 +39,56 @@ class OptionNotExist(Exception):
     def __str__(self):
         print(self.mssg)    
 
-        
-class StuLogin:
+
+class StuLogin(Student):
     def __init__(self,snum, sname):
         self.snum = snum
         self.sname = sname
+        Student.load_students()
         self.StuList = Student_list
+        self.AcadHist = ''
+        self.curr_enrol = ''
+        self.studplan = ''
 
     def print_login_info(self):
         #StuList = Student.load_students()
         for Stud in self.StuList:
             if self.snum in Stud:
-                print(f'Welcome {Student.get_name()}', end = ' ')
-                print(f'\tStudent Number: {Student.get_student_id()}')
-                print(f'D.O.B: {Student.getDOB()}', end = ' ')
-                print(f'\tProgram Code : {Student.get_program_code()}')
+                print(f'Welcome {self.sname}', end = ' ')
+                print(f'\tStudent ID Number: {self.snum}')
+                print(f'D.O.B: {Stud[2]}', end = ' ')
+                print(f'\tProgram Code : {Stud[3]}')
+                self.AcadHist = Stud[4]
                 print('Courses Currently Enrolled in:')
-                curr_enrol = Student.get_current_enrollment()
+                self.curr_enrol = Stud[5]
                 enrol_str = ''
-                for i in curr_enrol.split(','):
-                    for j in i:
+                for curr in self.curr_enrol.split(','):
+                    for j in curr:
                         enrol_str += j.strip()
                     enrol_str += ' '
                 print(enrol_str)
-            else:
-                raise StudentNotExist('Student Does Not Exist in list.')  
+                self.studplan = Stud[6] 
+                break   
+        else:
+            raise StudentNotExist('Student Does Not Exist in list.')  
 
     def display(self, usr_inp):
         if usr_inp == 'C':
-            print(Course.__str__())
+            Course.__str__(self)
+        elif usr_inp == 'SEM':
+            inpY = input('Enter Year: Y1/Y2\n')
+            inpS = input('Enter Semester: S1/S2\n')
+            print(Load_data.load_allcourses(self, inpS, inpY))   
         elif usr_inp == 'S':
             print('Enter course code to search:')
             cr_code = input().upper()
-            Course.SearchCourse(cr_code)
+            Course.SearchCourse(self,cr_code)
         elif usr_inp == 'E':
-            Program.easy_courses()
+            Program.easy_courses(self)
         elif usr_inp == 'D':
             pass
         elif usr_inp == 'PE':
-            Program.load_popElects()
+            Program.load_popElects(self)
         elif usr_inp == 'R':
             print('To Enrol in a course, type ADD')
             print('To Unenrol in from a course, press REM')
@@ -84,11 +97,11 @@ class StuLogin:
                 cr_code = input('Enter course code\n')
                 sem = input('Enter Current Semester: Y1 or Y2\n')
                 yrs = input('Enter Year of Current Enrollment:\n')
-                Student.ammend_current_enrollment_add(yrs, sem, cr_code)
+                Student.ammend_current_enrollment_add(self, yrs, sem, cr_code)
             elif inp == 'REM':
                 cr_code = input('Enter course code\n')
                 sem = input('Enter Semester: Y1 or Y2\n')
-                Student.ammend_current_enrollment_remove(sem, cr_code) 
+                Student.ammend_current_enrollment_remove(self, sem, cr_code) 
         else:
             raise OptionNotExist('Chosen Option does not exist')
 
@@ -100,6 +113,8 @@ class Admin():
         self.admin_num = adm_num
         self.admin_name = adm_nm
         self.adm_dict = {}
+        Student.load_students()
+        self.StuList = Student_list
 
     def load_admin_list(self, filename = 'Admin.csv'):
         with open(filename, 'r') as csvfile:
@@ -121,10 +136,26 @@ class Admin():
             #sys.exit('Logged Out as Admin does not exist')
 
     def display(self, usr_inp):
-        if usr_inp == 'D':
+        if usr_inp == 'D': # Display student list
             pass
-        elif usr_inp == '':
+        elif usr_inp == 'AP': #Add a program
             pass
+        elif usr_inp == 'AS': #Add a student in StuList
+            pass
+        elif usr_inp == 'ASC': #Add Student in a course
+            pass
+        elif usr_inp == 'RP': #Remove program
+            pass
+        elif usr_inp == 'RS': #Remove student from StuList
+            pass
+        elif usr_inp == 'RSC': #Remove student from course
+            pass
+        elif usr_inp == 'ASP': #Amend Study Plan
+            pass
+        elif usr_inp == 'AAH': #Amend Academic History
+            pass
+        elif usr_inp == 'AC': #Add course
+            pass 
 
 
 #################################################################
@@ -145,8 +176,9 @@ if logtype == 'S':
     sname = input()
     Stu1 = StuLogin(snumb,sname)
     Stu1.print_login_info()
+    print('===============Main Menu===============')
     print('To See List of Courses, type C')
-    print('To See List of Courses, type C')
+    print('To See a List of Courses by Semester, type SEM')
     print('To Search a Courses, type S')
     print('To See List of Easiest Courses, type E')
     print('To See List of Most Difficult Courses, type D')
@@ -156,7 +188,9 @@ if logtype == 'S':
     usrinp = input().upper()
     while usrinp != 'Q':
         Stu1.display(usrinp)
+        print('===============Main Menu===============')
         print('To See List of Courses, type C')
+        print('To See a List of Courses by Semester, type SEM')
         print('To Search a Courses, type S')
         print('To See List of Easiest Courses, type E')
         print('To See List of Most Difficult Courses, type D')
