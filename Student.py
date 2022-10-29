@@ -127,9 +127,9 @@ class Student:
         self.academic_history = '!'.join(split)
         return print('Academic History has been successfully ammended.')
         
-    def ammend_current_enrollment_remove(self, year, sem, remove_from_curr_enrollment):
+    def ammend_current_enrollment_remove(self, sem, remove_from_curr_enrollment):
         split = self.current_enrollment.split(',')
-        if year in split[0] and sem in split[1]:
+        if sem in split[1]:
             if remove_from_curr_enrollment in split:
                 split.remove(remove_from_curr_enrollment)
                 print(split)
@@ -243,7 +243,7 @@ student1.ammend_study_plan_remove('Y1', 'S2', 'COSC2802')
 student1.ammend_study_plan_remove('Y1', 'S2', 'COSC2804')
 student1.print_study_plan()
 Student.load_students()
-student1.ammend_current_enrollment_remove('Y1', 'S1', 'COSC2801')
+student1.ammend_current_enrollment_remove('S1', 'COSC2801')
 student1.print_current_enrollment()
 
 
