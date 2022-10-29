@@ -42,26 +42,26 @@ class StuLogin:
     def __init__(self,snum, sname):
         self.snum = snum
         self.sname = sname
-        #self.StuList = Student_list
+        self.StuList = Student_list
 
     def print_login_info(self):
         #StuList = Student.load_students()
-        if self.snum in Student_list and self.sname in Student_list:
-            print(f'Welcome {Student.get_name()}', end = ' ')
-            print(f'\tStudent Number: {Student.get_student_id()}')
-            print(f'D.O.B: {Student.getDOB()}', end = ' ')
-            print(f'\tProgram Code : {Student.get_program_code()}')
-            print('Courses Currently Enrolled in:')
-            curr_enrol = Student.get_current_enrollment()
-            enrol_str = ''
-            for i in curr_enrol.split(','):
-                for j in i:
-                   enrol_str += j.strip()
-                enrol_str += ' '
-            print(enrol_str)
-        else:
-            raise StudentNotExist('Student Does Not Exist in list.')
-            #sys.exit('Student Does not exist')  
+        for Stud in self.StuList:
+            if self.snum in Stud:
+                print(f'Welcome {Student.get_name()}', end = ' ')
+                print(f'\tStudent Number: {Student.get_student_id()}')
+                print(f'D.O.B: {Student.getDOB()}', end = ' ')
+                print(f'\tProgram Code : {Student.get_program_code()}')
+                print('Courses Currently Enrolled in:')
+                curr_enrol = Student.get_current_enrollment()
+                enrol_str = ''
+                for i in curr_enrol.split(','):
+                    for j in i:
+                        enrol_str += j.strip()
+                    enrol_str += ' '
+                print(enrol_str)
+            else:
+                raise StudentNotExist('Student Does Not Exist in list.')  
 
     def display(self, usr_inp):
         if usr_inp == 'C':
@@ -178,6 +178,15 @@ elif logtype == 'A':
     #        print(Student)
 else:
     raise InvLoginOption('Invalid Login Option. Restart to Login again')
+
+
+
+def main():
+    Student_list
+
+
+
+
 
 
 sys.exit('Log Out Successful')

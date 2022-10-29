@@ -8,14 +8,15 @@ class CourseDoesExist(Exception):
 import csv
 class Course:
     
-    def __init__(self,course_code,title, course_description,credit_points,prerequisites,ava_sem):
+    def __init__(self,course_code,title, course_description,credit_points,prerequisites,ava_sem, g_dis):
         self.c_code = course_code
         self.c_title = title
         self.c_des = course_description
         self.c_points = credit_points
         self.c_pre = prerequisites
         self.c_sem =[ava_sem]
-        c_list.append([course_code,title,course_description,credit_points,prerequisites,ava_sem])
+        self.c_dis = [g_dis]
+        c_list.append([course_code,title,course_description,credit_points,prerequisites,ava_sem, g_dis.split(",")])
     
     def getCourseDescription(self):
         return str(self.c_des)
@@ -35,7 +36,7 @@ class Course:
     def getAvaivableSemester(self):
         return self.c_sem
 
-    def addCourse(self,course_code,title, course_description,credit_points,prerequisites,ava_sem):
+    def addCourse(self,course_code,title, course_description,credit_points,prerequisites,ava_sem,g_dis): ### Uses the Course Code to search for the Course
         num = len(c_list)
         try:
             for x in range(num):
@@ -43,15 +44,15 @@ class Course:
                 if c_list[x][0] == course_code:
                     raise CourseDoesExist("The Course you want to add, already exist!!")
                 elif x == (num-1):
-                    Course(course_code,title, course_description,credit_points,prerequisites,ava_sem)
+                    Course(course_code,title, course_description,credit_points,prerequisites,ava_sem, g_dis)
                     return print("Course added!")
         except CourseDoesExist as error:
             print(error.mssg)
 
 
-        Course(course_code,title, course_description,credit_points,prerequisites,ava_sem)
+        
 
-    def removeCourse(self,C_code):
+    def removeCourse(self,C_code): ### Uses the Course Code to search for the Course
         num = len(c_list)
         
         try:
@@ -84,7 +85,8 @@ class Course:
                     stri += "\nCourse Description = " + str(c_list[x][2]) + '\n'
                     stri += "\nCredit Points = " + str(c_list[x][3]) + '\n'
                     stri += "\nPreRequirements = " + str(c_list[x][4]) + '\n'
-                    stri += "\nAvaivable Semster = " + str(c_list[x][5])
+                    stri += "\nAvaivable Semster = " + str(c_list[x][5]) + '\n'
+                    stri += "\nGrade Distribution = " + str(c_list[x][6]) 
                     stri += '\n\n'
                     stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
                 elif x == (num-1):
@@ -94,6 +96,29 @@ class Course:
             print(error.mssg)
 
 
+    def SearchCourseDistribution(self, C_code): ### Uses the Course Code to search for the Course
+        
+        num = len(c_list)
+        
+        stri = ""
+        try:
+            for x in range(num):
+                
+                if c_list[x][0] == C_code:
+                    stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
+                    stri += "Course Code = " + str(c_list[x][0]) + '\n'
+                    stri += "\nTitle = " + str(c_list[x][1]) + '\n'
+                    stri += "\nGrade Distribution = " + str(c_list[x][6])
+                    stri += '\n\n'
+                    stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
+                elif x == (num-1):
+                    raise CourseDoesNotExist("The Course you searched for does not exist!!")
+            return print(stri)
+        except CourseDoesNotExist as error:
+            print(error.mssg)
+
+    
+    
  
 
 
@@ -110,7 +135,8 @@ class Course:
                 credit_points = list_of_csv[x][4]
                 prereq = list_of_csv[x][3] 
                 ava_sem = list_of_csv[x][5]
-                Course(course_code, course_name, course_des, credit_points, prereq, ava_sem)
+                g_dis = list_of_csv[x][9]
+                Course(course_code, course_name, course_des, credit_points, prereq, ava_sem, g_dis)
                 
             
     def __str__(self):    
@@ -122,7 +148,8 @@ class Course:
             stri += "\nCourse Description = " + str(c_list[x][2]) + '\n'
             stri += "\nCredit Points = " + str(c_list[x][3]) + '\n'
             stri += "\nPreRequirements = " + str(c_list[x][4]) + '\n'
-            stri += "\nAvaivable Semster = " + str(c_list[x][5])
+            stri += "\nAvaivable Semster = " + str(c_list[x][5]) + '\n'
+            stri += "\nGrade Distribution = " + str(c_list[x][6]) 
             stri += '\n\n'
             stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
         print(stri)
@@ -130,9 +157,7 @@ class Course:
 
 def main():
     Course.load_courses(self="self", filename="Courses.csv")
-    Course.removeCourse("Self", "COSC2805")
-    Course.addCourse("Self","COSC2805","HEy","Hey","HEy","HEy",["S1,S2"])
-
+    Course.SearchCourseDistribution("self", "COSC2800")
 
 
     
