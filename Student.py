@@ -254,20 +254,24 @@ class Student:
                 info_string = list(info_string.split(" "))
                 student_list.append(info_string)
             
-            #finding student based on their ID in the list and printing out their credit information 
+            #finding student based on their ID in the list and printing out their credit information
+        try:
             for student in student_list:
-                for i in range(len(student)):
-                    if search_number == student[i]:
+                for i in range(len(student_list)):
+                    if search_number == student_list[i][0]:
                         info_string = ''
-                        info_string += "Student ID = " + student[0] + '\n'
-                        info_string += "Student Name = " + student[1] + ' ' + student[2] + '\n'
-                        info_string += "Current Credits = " + student[3] + '\n'
-                        info_string += "Required Credits = " + student[5] + '\n'
+                        info_string += "Student ID = " + student_list[i][0] + '\n'
+                        info_string += "Student Name = " + student_list[i][1] + ' ' + student_list[i][2] + '\n'
+                        info_string += "Current Credits = " + student_list[i][3] + '\n'
+                        info_string += "Required Credits = " + student_list[i][5] + '\n'
                         if int(student[4]) < 50:
                             info_string += 'Congratulations! You are graduating this year.'
                         else:
-                            info_string += 'You are required to complete an overall amount of '+ student[4] +' credit points to graduate.'
+                            info_string += 'You are required to complete an overall amount of '+ student_list[i][4] +' credit points to graduate.'
                         return info_string
+                raise StudentDoesNotExist('This student ID does not exist.\nPlease enter existing student ID.')
+        except StudentDoesNotExist as error:
+            print(error.mssg)
              
 #Testing stuff# testing again
 name = 'Kelvin'
@@ -297,6 +301,6 @@ student1.ammend_study_plan_add('Y2', 'S1', 'Testing')
 student1.ammend_study_plan_add('Y3', 'S1', 'Testing')
 student1.ammend_study_plan_add('Y2', 'S1', 'COSC2123')
 student1.print_study_plan()
-credits = Student.load_student_credit('s386570')
+credits = Student.load_student_credit('s387866')
 
 print(credits)
