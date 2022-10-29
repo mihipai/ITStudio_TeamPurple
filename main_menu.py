@@ -156,7 +156,6 @@ if logtype == 'S':
     Stu1.print_login_info()
     print('===============Main Menu===============')
     print('To See List of Courses, type C')
-    print('To See List of Courses, type C')
     print('To Search a Courses, type S')
     print('To See List of Easiest Courses, type E')
     print('To See List of Most Difficult Courses, type D')
