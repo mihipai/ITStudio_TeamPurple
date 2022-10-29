@@ -126,6 +126,8 @@ class Student:
                 i_split[4] = grade
                 split[count] = ','.join(i_split)
                 count+=1
+            else:
+                return print('The course you are trying to ammend can not be found in academic history')
         self.academic_history = '!'.join(split)
         return print('Academic History has been successfully ammended.')
         
@@ -140,6 +142,8 @@ class Student:
                     split_join = ''
                     for i in range(len(split)):
                         split_join = ','.join(split)
+            else:
+                return print('The course you want to remove can not be found in the current enrollment for the semester specified.')
         self.current_enrollment = split_join
 
         return print('Current Enrollment has been successfully ammended.')
@@ -174,6 +178,8 @@ class Student:
                         else:
                             split[count] = ','.join(split2)
                         count+=1
+                    else:
+                        return print('The course you want to remove can not be found in the study plan for the year and semester specified.')
         self.study_plan = '!'.join(split)
         return print('Study Plan has been successfully ammended.')
 
