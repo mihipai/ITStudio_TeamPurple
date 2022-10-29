@@ -1,6 +1,7 @@
 
 # This will be the main menu of our Enrolement System
 from fileinput import filename
+from re import U
 from Course import Course
 from Program import Program
 from Semester import Semester
@@ -135,10 +136,26 @@ class Admin():
             #sys.exit('Logged Out as Admin does not exist')
 
     def display(self, usr_inp):
-        if usr_inp == 'D':
+        if usr_inp == 'D': # Display student list
             pass
-        elif usr_inp == '':
+        elif usr_inp == 'AP': #Add a program
             pass
+        elif usr_inp == 'AS': #Add a student in StuList
+            pass
+        elif usr_inp == 'ASC': #Add Student in a course
+            pass
+        elif usr_inp == 'RP': #Remove program
+            pass
+        elif usr_inp == 'RS': #Remove student from StuList
+            pass
+        elif usr_inp == 'RSC': #Remove student from course
+            pass
+        elif usr_inp == 'ASP': #Amend Study Plan
+            pass
+        elif usr_inp == 'AAH': #Amend Academic History
+            pass
+        elif usr_inp == 'AC': #Add course
+            pass 
 
 
 #################################################################
