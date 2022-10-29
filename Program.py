@@ -4,9 +4,6 @@ import csv
 import re
 from Course import Course #random comment
 
-class InvProgName(Exception):
-    def __init__(self, mssg):
-        self.mssg = mssg
 class ProgramDoesNotExist(Exception):
     def __init__(self, mssg):
         self.mssg = mssg
