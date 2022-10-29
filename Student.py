@@ -78,8 +78,10 @@ class Student:
         return self.study_plan
     def print_study_plan(self):
         String = 'Your Study Plan:'
+        self.study_plan.strip()
         for i in self.study_plan.split('!'):
             String += '\n'
+            i.strip()
             for j in i.split(','):
                 String += j.strip() + ' '
         print(String)
@@ -151,7 +153,7 @@ class Student:
                 for i in range(len(split)):
                     split_join = ','.join(split)
             else:
-                return print('That subject already exists in Current Enrollment for that year and semester.')
+                return print('That course already exists in Current Enrollment for that year and semester.')
         else:
             split_join = ''
             split_join += f'{year}, {sem}, {add_to_curr_enrollment}'
@@ -173,9 +175,34 @@ class Student:
                             split[count] = ','.join(split2)
                         count+=1
         self.study_plan = '!'.join(split)
-
         return print('Study Plan has been successfully ammended.')
-    
+
+    def ammend_study_plan_add(self, year, sem, add_to_study_plan):
+        split = self.study_plan.split('!')
+        for i in split:
+            count=0
+            split2 = i.split(',')
+            if year in split2[0] and sem in split2[1]:
+                if add_to_study_plan not in split2:
+                    split2.append(add_to_study_plan)
+                    split_join = ''
+                    for i in range(len(split2)):
+                        split_join = ','.join(split2)   
+                    split[count] = split_join
+                    count+= 1
+                else:
+                    return print('That course already exists in Study Plan for that year and semester.')
+            else:
+                split_str = ''
+                split_str += f'{year}, {sem}, {add_to_study_plan}'
+                if split[-1][0] == None or split[-1][0] == ' ' or split[-1][0] == '':
+                    split[-1] = split_str
+            self.study_plan = '!'.join(split)
+            return print('Study Plan has been successfully ammended.')
+        self.study_plan = '!'.join(split)
+        return print('Study Plan has been successfully ammended.')
+
+
     def load_students():
         with open('Students.csv', 'r', encoding = 'utf-8') as csvfile:
             csv_reader = csv.reader(csvfile)
@@ -261,6 +288,10 @@ student1.ammend_current_enrollment_add('Y1', 'S1', 'COSC2801')
 student1.print_current_enrollment()
 student1.ammend_current_enrollment_add('Y2', 'S1', 'COSC2123')
 student1.print_current_enrollment()
+#student1.ammend_study_plan_add('Y2', 'S1', 'Testing')
+#student1.ammend_study_plan_add('Y3', 'S1', 'Testing')
+student1.ammend_study_plan_add('Y2', 'S1', 'COSC2123')
+student1.print_study_plan()
 credits = Student.load_student_credit('s386570')
 
 print(credits)
