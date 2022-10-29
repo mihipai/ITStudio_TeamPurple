@@ -91,9 +91,11 @@ class CourseOffering:
                     name_str += enrol.get_name()
                     break
 
-            if student_exist == True:
+            if student_exist == True and len(self.enrolled_students) > 0:
                 self.enrolled_students.remove(enrol)                
                 print(f'Student \'{name_str}\' has been successfully removed!\n')
+            elif student_exist == False and len(self.enrolled_students) == 0:
+                print(f'WARNING! \'{student_id}\' does not exist in our list of enrolled students and there are no students left to remove!\n')
             else:      
                 raise NonDuplicateError(f'WARNING! \'{student_id}\' does not exist in our list of enrolled students!\nPlease remove another student!\n')
             return self.enrolled_students
@@ -277,57 +279,6 @@ class Semester:
         print('List of currently enrolled students:', self.enrolled_students)
     '''
 
-    def easy_courses(self): #Julia Ngoc Diem Tran Phan - Top 10 Easy Courses
-        courses_w_rankings = dict()
-        with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=',')
-            headings = next(csv_reader)
-            list_of_csv = list(csv_reader)
-            for info in list_of_csv:
-                code = info[0]
-                rank = int(info[8])
-                courses_w_rankings[code] = rank
-        
-        rank_list = list(courses_w_rankings.items())
-        for mx in range(len(rank_list)-1, -1, -1):
-            swapped = False
-            for i in range(mx):
-                if rank_list[i][1] < rank_list[i+1][1]:
-                    rank_list[i], rank_list[i+1] = rank_list[i+1], rank_list[i]
-                    swapped = True
-            if not swapped:
-                break
-
-        last_ten_courses = rank_list[:10]
-        new_list = [new[0] for new in last_ten_courses]
-        del last_ten_courses
-
-        print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
-        print('                                               ')
-        print('            Top 10 Easiest Courses             ')
-        print('                                               ')
-        print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n')
-        #['COSC1226', 'ISYS1126', 'COSC1147', 'COSC2802', 'ISYS2405', 
-        # 'MATH2412', 'INTE2376', 'COSC2799', 'COSC1183', 'COSC2471'] 
-        
-        with open('Courses.csv', 'r', encoding='utf-8') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=',')
-            headings = next(csv_reader)
-            list_of_csv = list(csv_reader)
-            course_list = []
-            for info in list_of_csv:
-                course_code = info[0]
-                course_name = info[1]
-                descr = info[2]
-                credit_points = int(info[4])
-                prereq = info[3] #need to include course description too
-                ava_sem = info[5]
-                for new in new_list:
-                    if new == course_code:
-                        course_object = Course(course_name, course_code, descr, credit_points, prereq, ava_sem)
-                        course_list.append(course_object) 
-        return course_list[0].__str__()
-
     def __str__(self):
         string = 'Semester: ' + self.get_SemesterTitle() + '\n'
         if len(self.course_offerings) == 0:
@@ -339,16 +290,8 @@ class Semester:
 
 #Testing classes
 def main():
-    #Manual input of semester data
+    #Manual input of semester data    
     '''
-    #This section prints top 10 easy courses, druv might need to add self parameter in dunder string method
-    ###############################################################################
-    semester1 = Semester('S1','Y1',250)
-    semester1.easy_courses()
-    ###############################################################################
-    '''
-    
-    '''    
     #This section adds or removes a student object from course and displays the Course-offering/Course with list of students
     ###############################################################################
     courseoffer1 = CourseOffering('COSC2801', 'Programming Bootcamp 1','Y1','S1', 4)
@@ -361,6 +304,7 @@ def main():
     current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
     study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
     student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
+    #Student object named Charlotte Jones
     name2 = 'Charlotte Jones'
     student_id2 = 's3553976'
     dob2 = '18/09/2001'
@@ -369,7 +313,17 @@ def main():
     current_enrollment2 = 'Y1,S1,COSC2801,MATH2411,COSC2803'
     study_plan2 = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
     student2 = Student(name2, student_id2, dob2, program_code2, academic_history2, current_enrollment2, study_plan2)
+    #Student named Claver Locksmith
+    name5 = 'Claver Locksmith'
+    student_id5 = 's3253876'
+    dob5 = '18/09/2001'
+    program_code5 = 'BP096'
+    academic_history5 = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
+    current_enrollment5 = 'Y1,S1,COSC2801,MATH2411,COSC2803'
+    study_plan5 = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
+    student5 = Student(name5, student_id5, dob5, program_code5, academic_history5, current_enrollment5, study_plan5)
     student_id3 = 's386894' #Arun Weaver
+    student_id4 = 's384950' #Reginald Sweeney
     #Add or Remove student object from specific course
     courseoffer1.add_student(student1)
     courseoffer1.add_student(student2)
