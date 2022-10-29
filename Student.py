@@ -132,7 +132,6 @@ class Student:
         if sem in split[1]:
             if remove_from_curr_enrollment in split:
                 split.remove(remove_from_curr_enrollment)
-                print(split)
                 if len(split) == 2:
                     split = []
                 else:
@@ -143,8 +142,21 @@ class Student:
 
         return print('Current Enrollment has been successfully ammended.')
 
-    def ammend_current_enrollment_add():
-        return None
+    def ammend_current_enrollment_add(self, year, sem, add_to_curr_enrollment):
+        split = self.current_enrollment.split(',')
+        if year in split[0] and sem in split[1]:
+            if add_to_curr_enrollment not in split:
+                split.append(add_to_curr_enrollment)
+                split_join = ''
+                for i in range(len(split)):
+                    split_join = ','.join(split)
+            else:
+                return print('That subject already exists in Current Enrollment for that year and semester.')
+        else:
+            split_join = ''
+            split_join += f'{year}, {sem}, {add_to_curr_enrollment}'
+        self.current_enrollment = split_join
+        return print('Current Enrollment has been successfully ammended.')
     
     def ammend_study_plan_remove(self, year, sem, remove_from_study_plan):
         split = self.study_plan.split('!')
@@ -245,8 +257,10 @@ student1.print_study_plan()
 Student.load_students()
 student1.ammend_current_enrollment_remove('S1', 'COSC2801')
 student1.print_current_enrollment()
-
-
+student1.ammend_current_enrollment_add('Y1', 'S1', 'COSC2801')
+student1.print_current_enrollment()
+student1.ammend_current_enrollment_add('Y2', 'S1', 'COSC2123')
+student1.print_current_enrollment()
 credits = Student.load_student_credit('s386570')
 
 print(credits)
