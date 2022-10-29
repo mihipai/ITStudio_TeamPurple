@@ -42,7 +42,7 @@ class StuLogin:
     def __init__(self,snum, sname):
         self.snum = snum
         self.sname = sname
-        self.StuList = Student.Student_list
+        self.StuList = Student_list
 
     def print_login_info(self):
         #StuList = Student.load_students()
@@ -178,6 +178,15 @@ elif logtype == 'A':
     #        print(Student)
 else:
     raise InvLoginOption('Invalid Login Option. Restart to Login again')
+
+
+
+def main():
+    Student_list
+
+
+
+
 
 
 sys.exit('Log Out Successful')
