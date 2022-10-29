@@ -619,8 +619,8 @@ testing_deleting = se_program.delete_program((testing),'bp096')
 print(testing_deleting)#
 '''''
 
-#testing = se_program.hard_courses()
-#print(se_program.hard_courses())
+#testing = se_program.easy_courses()
+#print(se_program.easy_courses())
 
 
     
