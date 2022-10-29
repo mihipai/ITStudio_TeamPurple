@@ -1,5 +1,6 @@
 #Kelvin Duong Ly, s3953996
 # This file will have the student class
+Student_list = []
 from os import remove
 import csv
 
@@ -17,6 +18,7 @@ class Student:
         self.academic_history = academic_history
         self.current_enrollment = current_enrollment
         self.study_plan = study_plan
+        Student_list.append([name, student_id, DOB, program_code, academic_history, current_enrollment, study_plan])
 #Setter, getter and print methods
 
     def set_name(self, name = ''):
@@ -78,8 +80,10 @@ class Student:
         return self.study_plan
     def print_study_plan(self):
         String = 'Your Study Plan:'
+        self.study_plan.strip()
         for i in self.study_plan.split('!'):
             String += '\n'
+            i.strip()
             for j in i.split(','):
                 String += j.strip() + ' '
         print(String)
@@ -124,6 +128,8 @@ class Student:
                 i_split[4] = grade
                 split[count] = ','.join(i_split)
                 count+=1
+            else:
+                return print('The course you are trying to ammend can not be found in academic history')
         self.academic_history = '!'.join(split)
         return print('Academic History has been successfully ammended.')
         
@@ -132,19 +138,33 @@ class Student:
         if sem in split[1]:
             if remove_from_curr_enrollment in split:
                 split.remove(remove_from_curr_enrollment)
-                print(split)
                 if len(split) == 2:
                     split = []
                 else:
                     split_join = ''
                     for i in range(len(split)):
                         split_join = ','.join(split)
+            else:
+                return print('The course you want to remove can not be found in the current enrollment for the semester specified.')
         self.current_enrollment = split_join
 
         return print('Current Enrollment has been successfully ammended.')
 
-    def ammend_current_enrollment_add():
-        return None
+    def ammend_current_enrollment_add(self, year, sem, add_to_curr_enrollment):
+        split = self.current_enrollment.split(',')
+        if year in split[0] and sem in split[1]:
+            if add_to_curr_enrollment not in split:
+                split.append(add_to_curr_enrollment)
+                split_join = ''
+                for i in range(len(split)):
+                    split_join = ','.join(split)
+            else:
+                return print('That course already exists in Current Enrollment for that year and semester.')
+        else:
+            split_join = ''
+            split_join += f'{year}, {sem}, {add_to_curr_enrollment}'
+        self.current_enrollment = split_join
+        return print('Current Enrollment has been successfully ammended.')
     
     def ammend_study_plan_remove(self, year, sem, remove_from_study_plan):
         split = self.study_plan.split('!')
@@ -160,16 +180,42 @@ class Student:
                         else:
                             split[count] = ','.join(split2)
                         count+=1
+                    else:
+                        return print('The course you want to remove can not be found in the study plan for the year and semester specified.')
         self.study_plan = '!'.join(split)
-
         return print('Study Plan has been successfully ammended.')
-    
+
+    def ammend_study_plan_add(self, year, sem, add_to_study_plan):
+        split = self.study_plan.split('!')
+        for i in split:
+            count=0
+            split2 = i.split(',')
+            if year in split2[0] and sem in split2[1]:
+                if add_to_study_plan not in split2:
+                    split2.append(add_to_study_plan)
+                    split_join = ''
+                    for i in range(len(split2)):
+                        split_join = ','.join(split2)   
+                    split[count] = split_join
+                    count+= 1
+                else:
+                    return print('That course already exists in Study Plan for that year and semester.')
+            else:
+                split_str = ''
+                split_str += f'{year}, {sem}, {add_to_study_plan}'
+                if split[-1][0] == None or split[-1][0] == ' ' or split[-1][0] == '':
+                    split[-1] = split_str
+            self.study_plan = '!'.join(split)
+            return print('Study Plan has been successfully ammended.')
+        self.study_plan = '!'.join(split)
+        return print('Study Plan has been successfully ammended.')
+
+
     def load_students():
         with open('Students.csv', 'r', encoding = 'utf-8') as csvfile:
             csv_reader = csv.reader(csvfile)
             headings = next(csv_reader)
             list_of_csv = list(csv_reader)
-            student_list = []
 
             for i in range(len(list_of_csv)):
                 name =  list_of_csv[i][1]
@@ -179,9 +225,7 @@ class Student:
                 academic_history = list_of_csv[i][7]
                 current_enrollment = list_of_csv[i][5]
                 study_plan = list_of_csv[i][6]
-                Student_object = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
-                student_list.append(Student_object)
-        return student_list
+                Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
     
     #Thilyka's extended feature:  Checking eligibility of graduation of a student, 
     #and print out detailed information about what is missing if not eligible. 
@@ -245,8 +289,14 @@ student1.print_study_plan()
 Student.load_students()
 student1.ammend_current_enrollment_remove('S1', 'COSC2801')
 student1.print_current_enrollment()
-
-
+student1.ammend_current_enrollment_add('Y1', 'S1', 'COSC2801')
+student1.print_current_enrollment()
+student1.ammend_current_enrollment_add('Y2', 'S1', 'COSC2123')
+student1.print_current_enrollment()
+student1.ammend_study_plan_add('Y2', 'S1', 'Testing')
+student1.ammend_study_plan_add('Y3', 'S1', 'Testing')
+student1.ammend_study_plan_add('Y2', 'S1', 'COSC2123')
+student1.print_study_plan()
 credits = Student.load_student_credit('s386570')
 
 print(credits)

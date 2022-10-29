@@ -42,10 +42,11 @@ class StuLogin:
     def __init__(self,snum, sname):
         self.snum = snum
         self.sname = sname
-        self.StuList = Student.load_students()
+        #self.StuList = Student.load_students()
 
     def print_login_info(self):
-        if self.snum in self.StuList and self.sname in self.StuList:
+        StuList = Student.load_students()
+        if self.snum in StuList and self.sname in StuList:
             print(f'Welcome {self.sname}', end = ' ')
             print(f'\tStudent Number: {self.snum}')
             print(f'D.O.B: {self.getDOB()}', end = ' ')
@@ -67,16 +68,27 @@ class StuLogin:
             print(Course.__str__())
         elif usr_inp == 'S':
             print('Enter course code to search:')
-            cr_code = input()
-            print(Course.SearchCourse(cr_code))
+            cr_code = input().upper()
+            Course.SearchCourse(cr_code)
         elif usr_inp == 'E':
-            pass
+            Program.easy_courses()
         elif usr_inp == 'D':
             pass
         elif usr_inp == 'PE':
-            pass 
+            Program.load_popElects()
         elif usr_inp == 'R':
-            pass 
+            print('To Enrol in a course, type ADD')
+            print('To Unenrol in from a course, press REM')
+            inp = input().upper()
+            if inp == 'ADD':
+                cr_code = input('Enter course code\n')
+                sem = input('Enter Current Semester: Y1 or Y2\n')
+                yrs = input('Enter Year of Current Enrollment:\n')
+                Student.ammend_current_enrollment_add(yrs, sem, cr_code)
+            elif inp == 'REM':
+                cr_code = input('Enter course code\n')
+                sem = input('Enter Semester: Y1 or Y2\n')
+                Student.ammend_current_enrollment_remove(sem, cr_code) 
         else:
             raise OptionNotExist('Chosen Option does not exist')
 
@@ -124,7 +136,7 @@ print('===============================================')
 ##adm1 = Admin()
 print('To Login as Student, type S')
 print('To Login as Admin, type A')
-logtype=input()
+logtype=input().upper()
 if logtype == 'S':
     ##Something to redirect student to Student class
     print('Enter Student Number:')
@@ -141,7 +153,7 @@ if logtype == 'S':
     print('To See List of Popular Electives, type PE')
     print('To Enrol/Unenrol from Program, type R')
     print('To Exit, type Q')
-    usrinp = input()
+    usrinp = input().upper()
     while usrinp != 'Q':
         Stu1.display(usrinp)
         print('To See List of Courses, type C')
@@ -151,7 +163,7 @@ if logtype == 'S':
         print('To See List of Popular Electives, type PE')
         print('To Enrol/Unenrol from Program, type R')
         print('To Exit, type Q')
-        usr_inp = input()
+        usr_inp = input().upper()
 elif logtype == 'A':
     ##Redirects to Admin class 
     print('Enter Admin Number')
