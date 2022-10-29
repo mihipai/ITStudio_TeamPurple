@@ -4,6 +4,7 @@ from fileinput import filename
 from Course import Course
 from Program import Program
 from Semester import Semester
+from Semester import Load_data
 from Student import Student, Student_list
 import math
 import sys
@@ -73,6 +74,10 @@ class StuLogin(Student):
     def display(self, usr_inp):
         if usr_inp == 'C':
             Course.__str__(self)
+        elif usr_inp == 'SEM':
+            inpY = input('Enter Year: Y1/Y2\n')
+            inpS = input('Enter Semester: S1/S2\n')
+            print(Load_data.load_allcourses(self, inpS, inpY))   
         elif usr_inp == 'S':
             print('Enter course code to search:')
             cr_code = input().upper()
