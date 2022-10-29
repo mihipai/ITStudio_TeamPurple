@@ -264,7 +264,7 @@ class Student:
                         info_string += "Student Name = " + student_list[i][1] + ' ' + student_list[i][2] + '\n'
                         info_string += "Current Credits = " + student_list[i][3] + '\n'
                         info_string += "Required Credits = " + student_list[i][5] + '\n'
-                        if int(student[4]) < 50:
+                        if int(student_list[i][4]) < 50:
                             info_string += 'Congratulations! You are graduating this year.'
                         else:
                             info_string += 'You are required to complete an overall amount of '+ student_list[i][4] +' credit points to graduate.'
@@ -301,6 +301,6 @@ student1.ammend_study_plan_add('Y2', 'S1', 'Testing')
 student1.ammend_study_plan_add('Y3', 'S1', 'Testing')
 student1.ammend_study_plan_add('Y2', 'S1', 'COSC2123')
 student1.print_study_plan()
-credits = Student.load_student_credit('s387866')
+credits = Student.load_student_credit('s386570')
 
 print(credits)
