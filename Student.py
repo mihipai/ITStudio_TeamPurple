@@ -1,5 +1,6 @@
 #Kelvin Duong Ly, s3953996
 # This file will have the student class
+Student_list = []
 from os import remove
 import csv
 
@@ -17,6 +18,7 @@ class Student:
         self.academic_history = academic_history
         self.current_enrollment = current_enrollment
         self.study_plan = study_plan
+        Student_list.append([name, student_id, DOB, program_code, academic_history, current_enrollment, study_plan])
 #Setter, getter and print methods
 
     def set_name(self, name = ''):
@@ -214,7 +216,6 @@ class Student:
             csv_reader = csv.reader(csvfile)
             headings = next(csv_reader)
             list_of_csv = list(csv_reader)
-            student_list = []
 
             for i in range(len(list_of_csv)):
                 name =  list_of_csv[i][1]
@@ -224,9 +225,7 @@ class Student:
                 academic_history = list_of_csv[i][7]
                 current_enrollment = list_of_csv[i][5]
                 study_plan = list_of_csv[i][6]
-                Student_object = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
-                student_list.append(Student_object)
-        return student_list
+                Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
     
     #Thilyka's extended feature:  Checking eligibility of graduation of a student, 
     #and print out detailed information about what is missing if not eligible. 
