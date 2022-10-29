@@ -102,7 +102,6 @@ class Course:
             csv_reader = csv.reader(csvfile, delimiter=',')
             headings = next(csv_reader)
             list_of_csv = list(csv_reader)
-           
             
             for x in range(len(list_of_csv)):
                 course_code = list_of_csv[x][0]
