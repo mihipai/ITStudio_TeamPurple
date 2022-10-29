@@ -65,7 +65,6 @@ class Program:
         for i in self.p_elec.split(','):
             string += i + '\t'
         string += '\n'
-        string += '\n--------------------------------------'
         return string
     
 
@@ -100,25 +99,14 @@ class Program:
 
         return info_string
 
-    def delete_program(self, unwanted_program):
-
-        se_program = self.print_program_info('bp096_1.csv')
-        se_list = list(se_program.split(" "))
-        cs_program = self.print_program_info('bp094.csv')
-        cs_list = list(cs_program.split(" "))
-        
-        all_list = []
-        all_list.append(se_list)
-        all_list.append(cs_list)
-
+    def delete_program(self, program_list, unwanted_program):
         try:
-            if unwanted_program == 'BP094' or unwanted_program == 'bp094':
-                all_list.pop(0)
-                return print(f'Bachelor of Computer Science successfully removed.\n\nRemaining Program:\n\n{se_program}')
-            
-            elif unwanted_program == 'bp096' or unwanted_program =='BP096':
-                all_list.pop(1)
-                return print(f'Bachelor of Software Engineering successfully removed.\nRemaining Program:\n\n{cs_program}')
+            new_program_list = re.split(':|=|; |, |\n',program_list)
+
+            for i in range(len(new_program_list)):
+                if unwanted_program.casefold() == new_program_list[i].casefold().strip():
+                    del new_program_list[i-1:i+6]
+                    return (f'Succesfully removed {unwanted_program}.')
             else:
                 raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
         except ProgramDoesNotExist as error:
@@ -136,38 +124,52 @@ class Program:
                 raise ProgramAlreadyExists('This program already exists.\nPlease enter new program.')
             else:
                 info_string = ''
-                info_string += "Program Code = " + new_code + '\n'
+                info_string += "\n\nProgram Code = " + new_code + '\n'
                 info_string += "Program Name = " + new_program + '\n'
                 info_string += "Total Credits = " + new_credit
 
                 info_list = list(info_string.split(" "))
-                all_list.append(info_list)
-
+                programs_list.extend(info_list)
+                
                 print(f'Succefully added {new_program}!' )
                 print('')
 
         except ProgramAlreadyExists as error:
             print(error.mssg)
-        return  programs_list
+        return  ' '.join(programs_list)
 
-    
-
-    def load_program_objects(self, filename): #
-        with open(filename, 'r', encoding='utf-8') as csvfile:
+    def load_program_objects(self): #
+        with open('bp096_1.csv', 'r', encoding='utf-8') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',')
             list_of_csv = list(csv_reader)
             program_list =[]
-            if filename == 'bp096_1.csv':
-                program_code = list_of_csv[1][0]
-                program_name = list_of_csv[1][1]
-                program_elec = list_of_csv[5][3]
-                program_credits = list_of_csv[6][1]
             
-            elif filename == 'bp094.csv':
-                program_code = list_of_csv[1][0]
-                program_name = list_of_csv[1][1]
-                program_elec = list_of_csv[4][3]
-                program_credits = list_of_csv[5][1]
+            program_code = list_of_csv[1][0]
+            program_name = list_of_csv[1][1]
+            program_elec = list_of_csv[5][3]
+            program_credits = list_of_csv[6][1]
+
+            for x in range(1,len(list_of_csv)):
+                program_year = list_of_csv[x][2]
+                program_core = list_of_csv[x][3]
+                if program_year == 'Elective Courses' or program_year == 'Top 5 Electives':
+                    pass
+                elif program_year == 'Year 1':
+                    program_object = Program(program_code,program_name,program_year,program_core,'No Electives',program_credits)
+                    program_list.append(program_object)
+                else:
+                    program_object = Program(program_code,program_name,program_year,program_core,program_elec,program_credits)
+                    program_list.append(program_object)
+        
+
+        with open('bp094.csv', 'r', encoding='utf-8') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=',')
+            list_of_csv = list(csv_reader)
+
+            program_code = list_of_csv[1][0]
+            program_name = list_of_csv[1][1]
+            program_elec = list_of_csv[4][3]
+            program_credits = list_of_csv[5][1]
 
             for x in range(1,len(list_of_csv)):
                 program_year = list_of_csv[x][2]
@@ -217,19 +219,12 @@ se_program = Program('c','c','c','c','c','c')
 
 #printing all info for each program
 #print(se_program.print_program_info('bp094.csv'))
-programs = se_program.load_program_objects('bp094.csv')
+
+list_of_programs =[]
+programs = se_program.load_program_objects()
 for program in programs:
     print(program)
-    print('')
-
-programs = se_program.load_program_objects('bp096_1.csv')
-for program in programs:
-    print(program)
-    print('')
-
-
-
-
+    
 '''''
 
 electives = se_program.load_program_electives('bp094.csv')
@@ -243,17 +238,17 @@ for elective in electives:
 '''''
 new_list = se_program.print_all_program_info()
 better_list = re.split(':|=|; |, |\n',new_list)
-print(new_list)
+print(better_list)
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
 '''''
 
+testing = se_program.add_program('B096','Bacheltor of Compur Science','dsd')
+print(testing)
 
-testing = se_program.add_program('B096','Bachelor of Computer Science','dsd')
-for program in testing:
-    print(' '.join(program))
-    print('')
+testing_deleting = se_program.delete_program((testing),'bp096')
+print(testing_deleting)
 
 
 #print(se_program.easy_courses())
