@@ -81,8 +81,9 @@ class StuLogin:
             inp = input().upper()
             if inp == 'ADD':
                 cr_code = input('Enter course code\n')
-                sem = input('Enter Semester: Y1 or Y2\n')
-                Student.ammend_current_enrollment_add(sem, cr_code)
+                sem = input('Enter Current Semester: Y1 or Y2\n')
+                yrs = input('Enter Year of Current Enrollment:\n')
+                Student.ammend_current_enrollment_add(yrs, sem, cr_code)
             elif inp == 'REM':
                 cr_code = input('Enter course code\n')
                 sem = input('Enter Semester: Y1 or Y2\n')
