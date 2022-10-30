@@ -114,6 +114,7 @@ class Student:
 
         return String
 
+    #Allows for change of student marks and grade for a specified course that has already been completed
     def ammend_academic_history(self, subject_to_ammend, mark, grade):
         split = self.academic_history.split('!')
         for i in range(len(split)):
@@ -132,7 +133,8 @@ class Student:
                 return print('The course you are trying to ammend can not be found in academic history')
         self.academic_history = '!'.join(split)
         return print('Academic History has been successfully ammended.')
-        
+
+    #Allows for removal of a course in current enrollment for a specified semester    
     def ammend_current_enrollment_remove(self, sem, remove_from_curr_enrollment, current_enrollment):
         split = current_enrollment.split(',')
         if sem in split[1]:
@@ -151,6 +153,7 @@ class Student:
         self.current_enrollment = current_enrollment
         return current_enrollment
 
+    #Allows a course to be added into current enrollment for a specified year and semester
     def ammend_current_enrollment_add(self, year, sem, add_to_curr_enrollment, current_enrollment):
         split = current_enrollment.split(',')
         if year in split[0] and sem in split[1]:
@@ -169,6 +172,7 @@ class Student:
         self.current_enrollment = current_enrollment
         return current_enrollment
     
+    #Allows for removal of a course in study plan for a specified year and semester
     def ammend_study_plan_remove(self, year, sem, remove_from_study_plan):
         split = self.study_plan.split('!')
         for i in split:
@@ -188,6 +192,7 @@ class Student:
         self.study_plan = '!'.join(split)
         return print('Study Plan has been successfully ammended.')
 
+    #Allows a course to be added into study plan for a specified year and semester
     def ammend_study_plan_add(self, year, sem, add_to_study_plan):
         split = self.study_plan.split('!')
         for i in split:
@@ -277,14 +282,14 @@ class Student:
             print(error.mssg)
              
 #Testing stuff# testing again
-name = 'Kelvin'
-student_id = 's3953996'
-dob = '18/09/2001'
-program_code = 'BP094GEN8'
-academic_history = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
-current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
-study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
-student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
+#name = 'Kelvin'
+#student_id = 's3953996'
+#dob = '18/09/2001'
+#program_code = 'BP094GEN8'
+#academic_history = 'Y1,S1,COSC2801,89,HD ! Y1,S1,MATH2411,70,DI ! Y1,S1,COSC2803,63,CR ! Y1,S2,COSC2802,52,PA ! Y1,S2,MATH2412, 32, NN ! Y1,S2,COSC2804,55,PA ! '
+#current_enrollment = 'Y1,S1,COSC2801,MATH2411,COSC2803'
+#study_plan = 'Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235 ! Y2,S2,COSC1107,COSC1114,COSC2299,COSC2673 ! '
+#student1 = Student(name, student_id, dob, program_code, academic_history, current_enrollment, study_plan)
 #print(student1)
 #student1.ammend_academic_history('COSC2801', '80', 'HD')
 #student1.print_academic_history()
@@ -294,12 +299,12 @@ student1 = Student(name, student_id, dob, program_code, academic_history, curren
 #student1.ammend_study_plan_remove('Y1', 'S2', 'COSC2804')
 #student1.print_study_plan()
 Student.load_students()
-student1.ammend_current_enrollment_remove('S1', 'COSC2801', current_enrollment)
-student1.print_current_enrollment()
-student1.ammend_current_enrollment_add('Y1', 'S1', 'COSC2801', current_enrollment)
-student1.print_current_enrollment()
-student1.ammend_current_enrollment_add('Y2', 'S1', 'COSC2123', current_enrollment)
-student1.print_current_enrollment()
+#student1.ammend_current_enrollment_remove('S1', 'COSC2801', current_enrollment)
+#student1.print_current_enrollment()
+#student1.ammend_current_enrollment_add('Y1', 'S1', 'COSC2801', current_enrollment)
+#student1.print_current_enrollment()
+#student1.ammend_current_enrollment_add('Y2', 'S1', 'COSC2123', current_enrollment)
+#student1.print_current_enrollment()
 #student1.ammend_study_plan_add('Y2', 'S1', 'Testing')
 #student1.ammend_study_plan_add('Y3', 'S1', 'Testing')
 #student1.ammend_study_plan_add('Y2', 'S1', 'COSC2123')
