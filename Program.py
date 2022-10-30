@@ -450,7 +450,7 @@ class Program_by_year:
 
 #loads program_by_year object 
 class Program:
-    def __init__(self,program_code,program_name,program_credits,program_list):
+    def __init__(self,program_code='',program_name='',program_credits='',program_list=[]):
         yearly_program = LoadProgram()
         self.program_code = program_code
         self.program_name = program_name
@@ -476,6 +476,8 @@ class Program:
         self.program_list = program_list
     def get_program_list(self):
         return self.program_list
+
+
 
     def add_program(self,program):
         try:
@@ -506,15 +508,12 @@ class Program:
     
     def delete_program(self,program_code):
         try:
-            #fix string by making program_code an object 
-            #cant use get_code
-            
             code_exist = False
             for existing_program in self.program_list:
                 if program_code.get_code().casefold() == existing_program.get_code().casefold():
                     code_exist = True
             if code_exist == True:
-                self.program_list.remove(program_code)
+                self.program_list.remove(existing_program)
                 return self.program_list
             elif code_exist == False:
                 raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
