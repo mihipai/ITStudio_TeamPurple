@@ -153,13 +153,24 @@ class Admin(Student):
             p_credit = input('Enter Required Credits to Graduate: \n')
 
             new_program = Program_by_year(p_code,p_name,p_year,p_core,p_electives,p_credit)
-
-            add_program = Program.add_program(self,new_program)
+            new_prog = Program(p_code,p_name,p_credit)
+            add_program = new_prog.add_program(new_program)
             for program in add_program:
                 print(program)
+            print(f'Successfully added {new_program.get_name()}!\n')
 
         elif usr_inp == 'RP': #Remove program
-            pass
+            p_code = input('Please Enter the Program Code to Delete (bp094) or (bp096): \n')
+            #There is only two program objects in the default program list so it can 
+            #only remove either 'BP094' or 'BP096'
+            program_object = Program()
+            for program in Program_by_year.load_program_objects(self):
+                if p_code == program.get_code().casefold():
+                    delete_program = program_object.delete_program(program)
+            for program in delete_program:
+                print(program)
+            print(f'Successfully removed {program.get_name()}!\n')
+
         elif usr_inp == 'AS': #Add a student in StuList
             pass
         elif usr_inp == 'ASC': #Add Student in a course
