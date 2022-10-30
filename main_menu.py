@@ -4,8 +4,7 @@ from fileinput import filename
 from re import U
 from Course import Course
 from Program import Program, Program_by_year
-from Semester import Semester
-from Semester import Load_data, CourseOffering
+from Semester import Semester, Load_data, CourseOffering 
 from Student import Student, Student_list
 import math
 import sys
