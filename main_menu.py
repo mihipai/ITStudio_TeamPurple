@@ -194,7 +194,6 @@ class Admin(Student):
             #only remove either 'BP094' or 'BP096'
             program_object = Program()
             for program in Program_by_year.load_program_objects(self):
-                print('dumb')
                 if p_code == program.get_code().casefold():
                     program_name = program.get_name()
                     delete_program = program_object.delete_program(program)
