@@ -87,7 +87,8 @@ class StuLogin(Student):
         elif usr_inp == 'D':
             Program_by_year.hard_courses(self)
         elif usr_inp == 'SC':
-            print(Student.load_student_credit(self, self.snum))    
+            search_number = input('\nEnter Student Number to Access Your Credits: ')
+            print(Student.load_student_credit(search_number))
         elif usr_inp == 'PE':
             Program_by_year.load_popElects(self)
         elif usr_inp == 'R':
