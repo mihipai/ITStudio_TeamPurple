@@ -154,13 +154,13 @@ class Course:
             stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
         print(stri)
 
-'''''
+
 def main():
     Course.load_courses(self="self", filename="Courses.csv")
-    Course.SearchCourseDistribution("self", "COSC2800")
+    #Course.SearchCourseDistribution("self", "COSC2800")
 
-'''''
-    
+
+main()
         
 
 
