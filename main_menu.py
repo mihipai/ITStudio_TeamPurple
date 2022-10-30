@@ -77,7 +77,7 @@ class StuLogin(Student):
         elif usr_inp == 'SEM':
             inpY = input('Enter Year: Y1/Y2\n')
             inpS = input('Enter Semester: S1/S2\n')
-            print(Semester(self, inpS, inpY))   
+            print(Semester(inpS, inpY))   
         elif usr_inp == 'S':
             print('Enter course code to search:')
             cr_code = input().upper()
