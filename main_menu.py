@@ -86,7 +86,7 @@ class StuLogin(Student):
         elif usr_inp == 'E':
             Program.easy_courses(self)
         elif usr_inp == 'D':
-            pass
+            Program.hard_courses(self)
         elif usr_inp == 'PE':
             Program.load_popElects(self)
         elif usr_inp == 'R':
