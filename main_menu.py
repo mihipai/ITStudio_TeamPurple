@@ -87,6 +87,8 @@ class StuLogin(Student):
             Program.easy_courses(self)
         elif usr_inp == 'D':
             Program.hard_courses(self)
+        elif usr_inp == 'SC':
+            print(Student.load_student_credit(self, self.snum))    
         elif usr_inp == 'PE':
             Program.load_popElects(self)
         elif usr_inp == 'R':
@@ -107,7 +109,7 @@ class StuLogin(Student):
 
 #########################################
 #Admin menu class starts here
-class Admin():
+class Admin(Student):
 
     def __init__(self, adm_num, adm_nm):
         self.admin_num = adm_num
@@ -184,6 +186,7 @@ if logtype == 'S':
     print('To Search a Courses, type S')
     print('To See List of Easiest Courses, type E')
     print('To See List of Most Difficult Courses, type D')
+    print('To See your Remaining Course Credits, type SC')
     print('To See List of Popular Electives, type PE')
     print('To Enrol/Unenrol from Program, type R')
     print('To Exit, type Q')
@@ -196,6 +199,7 @@ if logtype == 'S':
         print('To Search a Courses, type S')
         print('To See List of Easiest Courses, type E')
         print('To See List of Most Difficult Courses, type D')
+        print('To See your Remaining Course Credits, type SC')
         print('To See List of Popular Electives, type PE')
         print('To Enrol/Unenrol from Program, type R')
         print('To Exit, type Q')
