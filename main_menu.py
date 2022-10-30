@@ -174,11 +174,34 @@ class Admin(Student):
         elif usr_inp == 'AS': #Add a student in StuList
             pass
         elif usr_inp == 'ASC': #Add Student in a course
-            pass
+            inpName = input('Enter Student Name: \n')
+            inpSno = input('Enter Student ID: E.g. s123456\n')
+            inpDOB = input('Enter Date of Birth: dd-mm-yyyy\n')
+            inpPCode = input('Enter Program Code: \n')
+            inpAca = input('Enter Academic History: E.g."Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235" or NULL\n')
+            inpCur = input('Enter Current Enrolment: E.g."Y1,S1,COSC1234,MATH1234,COSC4321"\n')
+            inpStu = input('Enter Study Plan: E.g. "Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235" or NULL\n')
+            student1 = Student(inpName, inpSno, inpDOB, inpPCode, inpAca, inpCur, inpStu)
+            inpCcode = input('Enter Course Code: \n')
+            inpCname = input('Enter Corresponding Course Name: \n')
+            inpYear = input('Enter Year: Y1/Y2\n')
+            inpSem = input('Enter Semester: S1/S2\n')
+            inpMax = input('Enter Maximum No. Students: \n')
+            courseoffer1 = CourseOffering(inpCcode, inpCname, inpYear, inpSem, inpMax)
+            courseoffer1.add_student(student1)
+            print(courseoffer1)
         elif usr_inp == 'RS': #Remove student from StuList
             pass
         elif usr_inp == 'RSC': #Remove student from course
-            pass
+            inpSno = input('Enter Student ID: E.g. s123456\n')
+            inpCcode = input('Enter Course Code: \n')
+            inpCname = input('Enter Corresponding Course Name: \n')
+            inpYear = input('Enter Year: Y1/Y2\n')
+            inpSem = input('Enter Semester: S1/S2\n')
+            inpMax = input('Enter Maximum No. Students: E.g. 250 or 4\n')
+            courseoffer1 = CourseOffering(inpCcode, inpCname, inpYear, inpSem, inpMax)
+            courseoffer1.remove_student(inpSno)
+            print(courseoffer1)
         elif usr_inp == 'ASP': #Amend Study Plan
             pass
         elif usr_inp == 'AAH': #Amend Academic History
