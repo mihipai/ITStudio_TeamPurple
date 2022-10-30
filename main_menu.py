@@ -236,7 +236,6 @@ class Admin(Student):
 
                 new_student.ammend_study_plan_remove(s_year, s_sem, s_course)
 
-            pass
         elif usr_inp == 'AAH': #Amend Academic History
             print('Please fill in the required attributes for the student')
             s_name = input('Enter Student Name: \n')
@@ -255,7 +254,6 @@ class Admin(Student):
             s_grade = input('Enter Grade: \n')
 
             new_student.ammend_academic_history(s_course, s_mark, s_grade)
-            pass
         elif usr_inp == 'AC': #Add course
             pass 
         else:
@@ -303,7 +301,7 @@ if logtype == 'S':
         print('To See List of Popular Electives, type PE')
         print('To Enrol/Unenrol from Program, type R')
         print('To Exit, type Q')
-        usr_inp = input().upper()
+        usrinp = input().upper()
 elif logtype == 'A':
     ##Redirects to Admin class 
     print('Enter Admin Number')
@@ -342,7 +340,7 @@ elif logtype == 'A':
         print('To Amend Academic History, type AAH')
         print('To Add Course, type AC')
         print('To Exit, type Q')
-        usr_inp = input().upper()
+        usrinp = input().upper()
 else:
     raise InvLoginOption('Invalid Login Option. Restart to Login again')
 
