@@ -475,7 +475,6 @@ class Program:
         return self.program_list
 
 
-
     def add_program(self,program):
         try:
             code_exist = False
@@ -514,7 +513,6 @@ class Program:
                 return self.program_list
             elif code_exist == False:
                 raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
-            return(f'Successfully removed {program_code.get_name()}')
         except ProgramDoesNotExist as error:
             print(error.mssg)
 
@@ -570,6 +568,8 @@ class LoadProgram():
 #testing code
 #example_program1 is a test program by year object with core and electives, used to use method load_program_object()
 
+'''''
+testing add and remove program objects
 
 example_program2 = Program_by_year('BP092','Bachelor of Beauty','Year 1','Cleaning Routine, Make-up, Hair Class','Pedicure,Manicure','124')
 program_objects = example_program2.load_program_objects()
@@ -587,7 +587,7 @@ test_delete = cs.delete_program(example_program2)
 for program in test_delete:
     print(program)
 
-
+'''''
 
 #everything down below was used to test methods in early stages and the methods were
 #deleted and wont be needed anymore
