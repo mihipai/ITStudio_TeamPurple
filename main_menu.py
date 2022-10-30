@@ -275,8 +275,8 @@ else:
 
 
 
-def main():
-    Student_list
+'''def main():
+    Student_list'''
 
 
 
