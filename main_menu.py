@@ -140,11 +140,10 @@ class Admin(Student):
 
     def display(self, usr_inp):
         if usr_inp == 'D': # Display student list
-            print(Student.__str__())
+            print(Student.__str__(self))
         elif usr_inp == 'ALL': #Display all programs
             for program in Program_by_year.load_program_objects(self):
                 print(program)
-            pass
         elif usr_inp == 'AP': #Add a program
             pass
         elif usr_inp == 'RP': #Remove program
@@ -216,9 +215,9 @@ elif logtype == 'A':
     print('Enter Admin Name')
     adm_name = input()
     adm1 = Admin(adm, adm_name)
-    adm1.print_info()
-    
+    adm1.print_info()   
     print('===============Main Menu===============')
+    print('To see List of Students, type D')
     print('To See List of All Programs, type ALL')
     print('To Add a Program, type AP')
     print('To Remove a Program, type RP')
@@ -233,7 +232,9 @@ elif logtype == 'A':
     usrinp = input().upper()
 
     while usrinp != 'Q':
+        adm1.display(usrinp)
         print('===============Main Menu===============')
+        print('To see List of Students, type D')
         print('To See List of All Programs, type ALL')
         print('To Add a Program, type AP')
         print('To Remove a Program, type RP')
@@ -245,7 +246,7 @@ elif logtype == 'A':
         print('To Amend Academic History, type AAH')
         print('To Add Course, type AC')
         print('To Exit, type Q')
-        usrinp = input().upper()
+        usr_inp = input().upper()
 else:
     raise InvLoginOption('Invalid Login Option. Restart to Login again')
 

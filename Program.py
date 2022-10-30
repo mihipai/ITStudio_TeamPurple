@@ -62,7 +62,7 @@ class Program_by_year:
         string += '\n\nElectives: '+ '\n'
         for i in self.p_elec.split(','):
             string += i + '\t'
-        string += '\n'
+        string += '\n\n----------------------------------------\n'
         return string
 
     #print program info with code,name,credit into strings, not useful in the end
