@@ -89,8 +89,8 @@ class Course:
                     stri += '\n\n'
                     stri += "|||||||||||||||||||||||||||||||||||||||||\n\n\n\n"
                     count += 1
-                elif count == 0:
-                    raise CourseDoesNotExist("The Course you searched for does not exist!!")
+            if count == 0:
+                raise CourseDoesNotExist("The Course you searched for does not exist!!")
             return print(stri)
         except CourseDoesNotExist as error:
             print(error.mssg)
