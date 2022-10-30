@@ -78,6 +78,7 @@ class StuLogin(Student):
             raise StudentNotExist('Student Does Not Exist in list.')  
 
     def display(self, usr_inp):
+        Course.load_courses(self,"Courses.csv")
         if usr_inp == 'C':
             Course.__str__(self)
         elif usr_inp == 'SEM':
