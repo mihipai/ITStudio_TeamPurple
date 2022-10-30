@@ -238,9 +238,10 @@ class Program_by_year:
                         credit_points = list_of_csv[i][4]
                         prereq = list_of_csv[i][3]
                         ava_sem = list_of_csv[i][5]
+                        g_dis = list_of_csv[i][9]
                         for new in new_cs:
                             if new == course_code:
-                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem)
+                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
                                 cs_courses.append(course_object)     
                 cs_courses[0].__str__()
                 break
@@ -262,9 +263,10 @@ class Program_by_year:
                         credit_points = list_of_csv[i][4]
                         prereq = list_of_csv[i][3]
                         ava_sem = list_of_csv[i][5]
+                        g_dis = list_of_csv[i][9]
                         for new in new_se:
                             if new == course_code:
-                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem)
+                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
                                 se_courses.append(course_object) 
                 se_courses[0].__str__()
                 break
@@ -273,7 +275,6 @@ class Program_by_year:
                 prog_code = input('Please enter a Program\'s code: ')
 
 
-##
     def hard_courses(self): #Displays the top ten hardest courses for each program - Kelvin Duong Ly
         with open('bp094.csv', 'r') as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
@@ -382,9 +383,10 @@ class Program_by_year:
                         credit_points = int(info[4])
                         prereq = info[3]
                         ava_sem = info[5]
+                        g_dis = list_of_csv[i][9]
                         for new in new_cs:
                             if new == course_code:
-                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem)
+                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
                                 cs_courses.append(course_object)     
                 cs_courses[0].__str__()
                 break
@@ -406,16 +408,17 @@ class Program_by_year:
                         credit_points = int(info[4])
                         prereq = info[3]
                         ava_sem = info[5]
+                        g_dis = list_of_csv[i][9]
                         for new in new_se:
                             if new == course_code:
-                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem)
+                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
                                 se_courses.append(course_object) 
                 se_courses[0].__str__()
                 break
             else:
                 print('Invalid Program Code! Please try again!')
                 prog_code = input('Please enter a Program\'s code: ')
-                ##
+                
     
     def load_popElects(self): # Extended feature by Mihika (Popular Electives)
         print('Enter Program Code to see list of popular electives:')
