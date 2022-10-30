@@ -155,17 +155,3 @@ class Course:
         print(stri)
 
 
-def main():
-    Course.load_courses(self="self", filename="Courses.csv")
-    Course.SearchCourse("self","COSC2803")
-
-
-
-main()
-        
-
-
-
-
-            
-        

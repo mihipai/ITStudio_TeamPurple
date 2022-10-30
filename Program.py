@@ -231,13 +231,13 @@ class Program_by_year:
                     headings = next(csv_reader)
                     list_of_csv = list(csv_reader)
                     cs_courses = []
-                    for i in range(len(list_of_csv)):
-                        course_code = list_of_csv[i][0]
-                        course_name = list_of_csv[i][1]
-                        desc = list_of_csv[i][2]
-                        credit_points = list_of_csv[i][4]
-                        prereq = list_of_csv[i][3]
-                        ava_sem = list_of_csv[i][5]
+                    for info in list_of_csv:
+                        course_code = info[0]
+                        course_name = info[1]
+                        desc = info[2]
+                        credit_points = int(info[4])
+                        prereq = info[3]
+                        ava_sem = info[5]
                         g_dis = list_of_csv[i][9]
                         for new in new_cs:
                             if new == course_code:
@@ -256,14 +256,14 @@ class Program_by_year:
                     headings = next(csv_reader)
                     list_of_csv = list(csv_reader)
                     se_courses = []
-                    for i in range(len(list_of_csv)):
-                        course_code = list_of_csv[i][0]
-                        course_name = list_of_csv[i][1]
-                        desc = list_of_csv[i][2]
-                        credit_points = list_of_csv[i][4]
-                        prereq = list_of_csv[i][3]
-                        ava_sem = list_of_csv[i][5]
-                        g_dis = list_of_csv[i][9]
+                    for info in list_of_csv:
+                        course_code = info[0]
+                        course_name = info[1]
+                        desc = info[2]
+                        credit_points = int(info[4])
+                        prereq = info[3]
+                        ava_sem = info[5]
+                        g_dis = info[9]
                         for new in new_se:
                             if new == course_code:
                                 course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
