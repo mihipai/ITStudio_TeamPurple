@@ -241,14 +241,13 @@ class Load_data:
 
 # This file will have the Semester class
 class Semester:
-    def __init__(self, semester_title, year, max_students):
+    def __init__(self, semester_title, year):
         load_data1 = Load_data()
         self.semester_title = semester_title
         #Load all offerings this semester
-        self.course_offerings = load_data1.load_allcourses(semester_title, year) #List object from Program class
-        self.max_students = max_students
-        #self.enrolled_students = None #List from student class (current student list)
-
+        self.course_offerings = load_data1.load_allcourses(semester_title, year)
+        #self.max_students = max_students #self.enrolled_students = None #Not needed in this class anymore
+        
     def set_SemesterTitle(self, semester_title=''):
         self.semester_title = semester_title
     def get_SemesterTitle(self):
@@ -263,6 +262,7 @@ class Semester:
     def print_CourseOfferings(self):
         print('List of available Course Offerings:', self.course_offerings)
 
+    '''
     def set_MaxStudents(self, max_students=0):
         self.max_students = max_students
     def get_MaxStudents(self):
@@ -270,7 +270,7 @@ class Semester:
     def print_MaxStudents(self):
         print('Maximum number of students:', self.max_students)
 
-    '''
+    
     def set_EnrolledStudents(self, enrolled_students=[]):
         self.enrolled_students = enrolled_students
     def get_EnrolledStudents(self):
@@ -331,14 +331,15 @@ def main():
     print(courseoffer1)
     ###############################################################################
     '''
-
-    '''
+    
+    '''    
     #This section prints the list of Courses/Course-offerings for a specific Semester and Year
     ###############################################################################
-    semester1 = Semester('S1','Y1', 250)
+    semester1 = Semester('S1','Y1')
     print(semester1)
     ###############################################################################
     '''
+
 
 main()
 
