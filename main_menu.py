@@ -137,7 +137,7 @@ class Admin():
 
     def display(self, usr_inp):
         if usr_inp == 'D': # Display student list
-            pass
+            print(Student.__str__())
         elif usr_inp == 'AP': #Add a program
             pass
         elif usr_inp == 'AS': #Add a student in StuList
@@ -156,6 +156,8 @@ class Admin():
             pass
         elif usr_inp == 'AC': #Add course
             pass 
+        else:
+            raise OptionNotExist('Chosen Option does not exist') 
 
 
 #################################################################
