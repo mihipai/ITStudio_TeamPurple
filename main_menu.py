@@ -145,7 +145,20 @@ class Admin(Student):
             for program in Program_by_year.load_program_objects(self):
                 print(program)
         elif usr_inp == 'AP': #Add a program
-            pass
+            print('Please fill in the required attributes to add new program')
+            p_code = input('Enter Program Code: \n')
+            p_name = input('Enter Program Name: \n')
+            p_year = input('Enter duration of the Program: \n')
+            p_core = input('Enter Core Courses with , to Seperate Each Courses: \n')
+            p_electives = input('Enter Elective Courses with , to Seperate Each Courses: \n')
+            p_credit = input('Enter Required Credits to Graduate: \n')
+
+            new_program = Program_by_year(p_code,p_name,p_year,p_core,p_electives,p_credit)
+
+            add_program = Program.add_program(self,new_program)
+            for program in add_program:
+                print(program)
+
         elif usr_inp == 'RP': #Remove program
             pass
         elif usr_inp == 'AS': #Add a student in StuList
