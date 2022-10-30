@@ -263,7 +263,7 @@ class Program_by_year:
                         credit_points = int(info[4])
                         prereq = info[3]
                         ava_sem = info[5]
-                        g_dis = info[9]
+                        g_dis = list_of_csv[i][9]
                         for new in new_se:
                             if new == course_code:
                                 course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
@@ -617,7 +617,6 @@ print(better_list)
 #print(se_program.easy_courses())
 
 '''''
-    
 
 
 
