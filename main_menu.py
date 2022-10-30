@@ -99,7 +99,9 @@ class StuLogin(Student):
                 cr_code = input('Enter course code\n')
                 sem = input('Enter Current Semester: Y1 or Y2\n')
                 yrs = input('Enter Year of Current Enrollment:\n')
-                Student.ammend_current_enrollment_add(self, yrs, sem, cr_code)
+                self.curr_enrol = Student.ammend_current_enrollment_add(self, yrs, sem, cr_code, self.curr_enrol)
+                print('Updated Current Enrolment')
+                print(self.curr_enrol)
             elif inp == 'REM':
                 cr_code = input('Enter course code\n')
                 sem = input('Enter Semester: Y1 or Y2\n')
