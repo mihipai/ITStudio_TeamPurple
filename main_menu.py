@@ -111,7 +111,7 @@ class StuLogin(Student):
             elif inp == 'REM':
                 cr_code = input('Enter course code\n')
                 sem = input('Enter Semester: Y1 or Y2\n')
-                Student.ammend_current_enrollment_remove(self, sem, cr_code) 
+                Student.ammend_current_enrollment_remove(self, sem, cr_code,  self.curr_enrol) 
         else:
             raise OptionNotExist('Chosen Option does not exist')
 
