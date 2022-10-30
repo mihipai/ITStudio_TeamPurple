@@ -38,6 +38,12 @@ class OptionNotExist(Exception):
     def __str__(self):
         print(self.mssg)    
 
+class StudentAlreadyExist(Exception):
+    def __init__(self, mssg):
+        self.mssg = mssg
+
+    def __str__(self):
+        print(self.mssg)
 
 class StuLogin(Student):
     def __init__(self,snum, sname):
@@ -140,7 +146,29 @@ class Admin(Student):
 
     def display(self, usr_inp):
         if usr_inp == 'D': # Display student list
-            print(Student.__str__(self))
+            for stud in self.StuList:
+                String = ''
+                String += 'Name: ' + stud[0]
+                String += '\nStudent ID: ' + stud[1]
+                String += '\nDate of birth: ' + stud[2]
+                String += '\nCurrently enrolled program: ' + stud[3]
+                String += '\nAcademic History: ' 
+                for i in stud[4].split('!'):
+                    String += '\n'
+                    i.strip()
+                    for j in i.split(','):
+                        String += j.strip() + ' '
+                String += '\nCurrent enrollment: \n'
+                for i in stud[5].split(','):
+                    for j in i:
+                        String += j.strip()
+                    String += ' '
+                String += '\nStudy plan: '
+                for i in stud[6].split('!'):
+                    String += '\n'
+                    for j in i.split(','):
+                        String += j.strip() + ' '
+                print(String)        
         elif usr_inp == 'ALL': #Display all programs
             for program in Program_by_year.load_program_objects(self):
                 print(program)
@@ -177,7 +205,17 @@ class Admin(Student):
             print(f'Successfully removed {program_name}!\n')
 
         elif usr_inp == 'AS': #Add a student in StuList
-            pass
+            s_name = input('Enter Student Name:\n')
+            for stud in self.StuList:
+                if s_name == stud[0]:
+                    raise StudentAlreadyExist('Student already in Student Roster')
+            s_id = input('Enter Student ID Number:\n')
+            s_DOB = input('Enter Student Date of Birth in DD-MM-YYYY format:\n')  
+            s_progcode = input('Enter Student\'s Program code:\n')
+            s_acadhist = input('Enter Student\'s Academic History[Eg.: "Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235" or NULL]:\n')
+            s_currenrol = input('Enter Student\'s Current Enrolment[Eg.: "Y1,S1,COSC1234,MATH1234,COSC4321"]:\n') 
+            s_stuplan = input('Enter Student\'s Study Plan[Eg.: "Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235" or NULL]') 
+            Student([s_name, s_id, s_DOB, s_progcode, s_acadhist, s_currenrol, s_stuplan])    
         elif usr_inp == 'ASC': #Add Student in a course
             inpName = input('Enter Student Name: \n')
             inpSno = input('Enter Student ID: E.g. s123456\n')
@@ -196,7 +234,10 @@ class Admin(Student):
             courseoffer1.add_student(student1)
             print(courseoffer1)
         elif usr_inp == 'RS': #Remove student from StuList
-            pass
+            inpStuName = input('Enter Student Name to remove:\n')
+            for stud in self.StuList:
+                if inpStuName == stud[0]:
+                    self.StuList.remove(stud)
         elif usr_inp == 'RSC': #Remove student from course
             inpSno = input('Enter Student ID: E.g. s123456\n')
             inpCcode = input('Enter Course Code: \n')
