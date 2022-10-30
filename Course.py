@@ -71,7 +71,7 @@ class Course:
         
 
     def SearchCourse(self, C_code): ### Uses the Course Code to search for the Course
-        Course.load_courses(self,"Courses.csv")
+        
         num = len(c_list)
         count = 0
         stri = ""
@@ -102,8 +102,7 @@ class Course:
         count = 0
         stri = ""
         try:
-            for x in range(num):
-                
+            for x in range(num):                
                 if c_list[x][0] == C_code:
                     stri += "|||||||||||||||||||||||||||||||||||||||||\n\n"            
                     stri += "Course Code = " + str(c_list[x][0]) + '\n'
@@ -137,6 +136,7 @@ class Course:
                 ava_sem = list_of_csv[x][5]
                 g_dis = list_of_csv[x][9]
                 Course(course_code, course_name, course_des, credit_points, prereq, ava_sem, g_dis)
+            print(len(c_list))
                 
             
     def __str__(self):    
@@ -157,7 +157,8 @@ class Course:
 
 def main():
     Course.load_courses(self="self", filename="Courses.csv")
-    Course.SearchCourseDistribution("self", "COSC2353")
+    Course.SearchCourse("self","COSC2803")
+
 
 
 main()
