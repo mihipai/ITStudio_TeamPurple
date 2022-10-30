@@ -303,7 +303,7 @@ if logtype == 'S':
         print('To See List of Popular Electives, type PE')
         print('To Enrol/Unenrol from Program, type R')
         print('To Exit, type Q')
-        usrinp = input().upper()
+        usr_inp = input().upper()
 elif logtype == 'A':
     ##Redirects to Admin class 
     print('Enter Admin Number')
@@ -342,7 +342,7 @@ elif logtype == 'A':
         print('To Amend Academic History, type AAH')
         print('To Add Course, type AC')
         print('To Exit, type Q')
-        usrinp = input().upper()
+        usr_inp = input().upper()
 else:
     raise InvLoginOption('Invalid Login Option. Restart to Login again')
 
