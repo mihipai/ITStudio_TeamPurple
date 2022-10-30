@@ -134,7 +134,7 @@ class Student:
         return print('Academic History has been successfully ammended.')
         
     def ammend_current_enrollment_remove(self, sem, remove_from_curr_enrollment, current_enrollment):
-        split = self.current_enrollment.split(',')
+        split = current_enrollment.split(',')
         if sem in split[1]:
             if remove_from_curr_enrollment in split:
                 split.remove(remove_from_curr_enrollment)
@@ -152,7 +152,7 @@ class Student:
         return current_enrollment
 
     def ammend_current_enrollment_add(self, year, sem, add_to_curr_enrollment, current_enrollment):
-        split = self.current_enrollment.split(',')
+        split = current_enrollment.split(',')
         if year in split[0] and sem in split[1]:
             if add_to_curr_enrollment not in split:
                 split.append(add_to_curr_enrollment)
