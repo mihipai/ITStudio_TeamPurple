@@ -179,14 +179,82 @@ class Admin(Student):
         elif usr_inp == 'AS': #Add a student in StuList
             pass
         elif usr_inp == 'ASC': #Add Student in a course
-            pass
+            inpName = input('Enter Student Name: \n')
+            inpSno = input('Enter Student ID: E.g. s123456\n')
+            inpDOB = input('Enter Date of Birth: dd-mm-yyyy\n')
+            inpPCode = input('Enter Program Code: \n')
+            inpAca = input('Enter Academic History: E.g."Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235" or NULL\n')
+            inpCur = input('Enter Current Enrolment: E.g."Y1,S1,COSC1234,MATH1234,COSC4321"\n')
+            inpStu = input('Enter Study Plan: E.g. "Y1,S2,COSC2802,MATH2412,COSC2804 ! Y2,S1,COSC2123,COSC1076,ISYS1118,COSC1235" or NULL\n')
+            student1 = Student(inpName, inpSno, inpDOB, inpPCode, inpAca, inpCur, inpStu)
+            inpCcode = input('Enter Course Code: \n')
+            inpCname = input('Enter Corresponding Course Name: \n')
+            inpYear = input('Enter Year: Y1/Y2\n')
+            inpSem = input('Enter Semester: S1/S2\n')
+            inpMax = input('Enter Maximum No. Students: \n')
+            courseoffer1 = CourseOffering(inpCcode, inpCname, inpYear, inpSem, inpMax)
+            courseoffer1.add_student(student1)
+            print(courseoffer1)
         elif usr_inp == 'RS': #Remove student from StuList
             pass
         elif usr_inp == 'RSC': #Remove student from course
-            pass
+            inpSno = input('Enter Student ID: E.g. s123456\n')
+            inpCcode = input('Enter Course Code: \n')
+            inpCname = input('Enter Corresponding Course Name: \n')
+            inpYear = input('Enter Year: Y1/Y2\n')
+            inpSem = input('Enter Semester: S1/S2\n')
+            inpMax = input('Enter Maximum No. Students: E.g. 250 or 4\n')
+            courseoffer1 = CourseOffering(inpCcode, inpCname, inpYear, inpSem, inpMax)
+            courseoffer1.remove_student(inpSno)
+            print(courseoffer1)
         elif usr_inp == 'ASP': #Amend Study Plan
+            print('Please fill in the required attributes for the student')
+            s_name = input('Enter Student Name: \n')
+            s_student_ID = input('Enter Student ID: \n')
+            s_DOB = input('Enter D.O.B \n')
+            s_program_code = input('Enter Program Code: \n')
+            s_academic_history = input('Enter Academic History: \n')
+            s_current_enrollment = input('Enter Current Enrollment: \n')
+            s_study_plan = input('Enter Study Plan: \n')
+
+            new_student = Student(s_name, s_student_ID, s_DOB, s_program_code, s_academic_history, s_current_enrollment, s_study_plan)
+
+            A_or_R = input('Would you like to add or remove a course from study plan?\n Enter A for add and R for Remove.\n')
+            if A_or_R == 'A':
+                print('Please fill in the required attributes to amend your study plan')
+                s_year = input('Enter Year: \n')
+                s_sem = input('Enter Semester: \n')
+                s_course = input('Enter Course to add: \n')
+
+                new_student.ammend_study_plan_add(s_year, s_sem, s_course)
+
+            elif A_or_R == 'R':
+                print('Please fill in the required attributes to amend your study plan')
+                s_year = input('Enter Year: \n')
+                s_sem = input('Enter Semester: \n')
+                s_course = input('Enter Course to remove: \n')
+
+                new_student.ammend_study_plan_remove(s_year, s_sem, s_course)
+
             pass
         elif usr_inp == 'AAH': #Amend Academic History
+            print('Please fill in the required attributes for the student')
+            s_name = input('Enter Student Name: \n')
+            s_student_ID = input('Enter Student ID: \n')
+            s_DOB = input('Enter D.O.B \n')
+            s_program_code = input('Enter Program Code: \n')
+            s_academic_history = input('Enter Academic History: \n')
+            s_current_enrollment = input('Enter Current Enrollment: \n')
+            s_study_plan = input('Enter Study Plan: \n')
+
+            new_student = Student(s_name, s_student_ID, s_DOB, s_program_code, s_academic_history, s_current_enrollment, s_study_plan)
+
+            print('Please fill in the required attributes to amend your academic history.')
+            s_course = input('Enter Course to ammend: \n')
+            s_mark = input('Enter Mark: \n')
+            s_grade = input('Enter Grade: \n')
+
+            new_student.ammend_academic_history(s_course, s_mark, s_grade)
             pass
         elif usr_inp == 'AC': #Add course
             pass 
