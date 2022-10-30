@@ -503,15 +503,17 @@ class Program:
     
     def delete_program(self,program_code):
         try:
+            #fix string by making program_code an object 
+            #cant use get_code
+            
             code_exist = False
             for existing_program in self.program_list:
                 if program_code.get_code().casefold() == existing_program.get_code().casefold():
                     code_exist = True
             if code_exist == True:
                 self.program_list.remove(program_code)
+                return self.program_list
             elif code_exist == False:
-                raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
-            else:
                 raise ProgramDoesNotExist('This program does not exist.\nPlease enter existing program.')
             return(f'Successfully removed {program_code.get_name()}')
         except ProgramDoesNotExist as error:
@@ -567,20 +569,26 @@ class LoadProgram():
 
 
 #testing code
-example_program1 = Program_by_year('c','c','c','c','c','c')
-program_objects = example_program1.load_program_objects()
+#example_program1 is a test program by year object with core and electives, used to use method load_program_object()
+
+
+example_program2 = Program_by_year('BP092','Bachelor of Beauty','Year 1','Cleaning Routine, Make-up, Hair Class','Pedicure,Manicure','124')
+program_objects = example_program2.load_program_objects()
 for program in program_objects:
     print(program)
 
-example_program2 = Program_by_year('BP092','Bachelor of Beauty','Year 1','Cleaning Routine, Make-up, Hair Class','Pedicure,Manicure','124')
+#cs is a Program object used to load the list of program by year objects   
 cs = Program('BP094','Bachelor of Computer Science','288',program_objects)
+#testing add by adding example_program2
 test_add = cs.add_program(example_program2)
 for example in test_add:
     print(example)
 
-test_delete = cs.delete_program(example_program1)
+test_delete = cs.delete_program(example_program2)
+for program in test_delete:
+    print(program)
 
-print(test_delete)
+
 
 #everything down below was used to test methods in early stages and the methods were
 #deleted and wont be needed anymore
@@ -591,25 +599,16 @@ print('List of Electives:')
 for elective in electives:
     print(elective + ', ')
 
-'''''
-#se_program.load_popElects() testing Popular Electives Extended Feature
-
-'''''
 new_list = se_program.print_all_program_info()
 better_list = re.split(':|=|; |, |\n',new_list)
 print(better_list)
 #print('')
 #print(se_program.print_program_info('bp096_1.csv'))
 
-
 '''''
-se = Program_by_year('c','c','c','c','c','c')
-se_program = Program('c','c','c','c')
-testing = se.add_program('B096','Bacheltor of Compur Science','dsd')
-#print(testing)
+#se_program.load_popElects() testing Popular Electives Extended Feature
 
-testing_deleting = se_program.delete_program((testing),'bp096')
-print(testing_deleting)#
+#
 '''''
 
 #testing = se_program.easy_courses()

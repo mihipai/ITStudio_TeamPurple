@@ -3,9 +3,9 @@
 from fileinput import filename
 from re import U
 from Course import Course
-from Program import Program
+from Program import Program, Program_by_year
 from Semester import Semester
-from Semester import Load_data
+from Semester import Load_data, CourseOffering
 from Student import Student, Student_list
 import math
 import sys
@@ -84,13 +84,13 @@ class StuLogin(Student):
             cr_code = input().upper()
             Course.SearchCourse(self,cr_code)
         elif usr_inp == 'E':
-            Program.easy_courses(self)
+            Program_by_year.easy_courses(self)
         elif usr_inp == 'D':
-            Program.hard_courses(self)
+            Program_by_year.hard_courses(self)
         elif usr_inp == 'SC':
             print(Student.load_student_credit(self, self.snum))    
         elif usr_inp == 'PE':
-            Program.load_popElects(self)
+            Program_by_year.load_popElects(self)
         elif usr_inp == 'R':
             print('To Enrol in a course, type ADD')
             print('To Unenrol in from a course, press REM')
@@ -112,7 +112,6 @@ class StuLogin(Student):
 #########################################
 #Admin menu class starts here
 class Admin(Student):
-
     def __init__(self, adm_num, adm_nm):
         self.admin_num = adm_num
         self.admin_name = adm_nm
@@ -142,13 +141,17 @@ class Admin(Student):
     def display(self, usr_inp):
         if usr_inp == 'D': # Display student list
             print(Student.__str__())
+        elif usr_inp == 'ALL': #Display all programs
+            for program in Program_by_year.load_program_objects(self):
+                print(program)
+            pass
         elif usr_inp == 'AP': #Add a program
+            pass
+        elif usr_inp == 'RP': #Remove program
             pass
         elif usr_inp == 'AS': #Add a student in StuList
             pass
         elif usr_inp == 'ASC': #Add Student in a course
-            pass
-        elif usr_inp == 'RP': #Remove program
             pass
         elif usr_inp == 'RS': #Remove student from StuList
             pass
@@ -214,10 +217,35 @@ elif logtype == 'A':
     adm_name = input()
     adm1 = Admin(adm, adm_name)
     adm1.print_info()
-    #usr_inp = input()
-    #while usr_inp != 'Q':
-    #    if usr_inp == 'D':
-    #        print(Student)
+    
+    print('===============Main Menu===============')
+    print('To See List of All Programs, type ALL')
+    print('To Add a Program, type AP')
+    print('To Remove a Program, type RP')
+    print('To Add Student in Student List, type AS')
+    print('To Add Student in a Course, type ASC')
+    print('To Remove Student from Student List, type RS')
+    print('To Remove Student from Course, type RSC')
+    print('To Amend Study Plan, type ASP')
+    print('To Amend Academic History, type AAH')
+    print('To Add Course, type AC')
+    print('To Exit, type Q')
+    usrinp = input().upper()
+
+    while usrinp != 'Q':
+        print('===============Main Menu===============')
+        print('To See List of All Programs, type ALL')
+        print('To Add a Program, type AP')
+        print('To Remove a Program, type RP')
+        print('To Add Student in Student List, type AS')
+        print('To Add Student in a Course, type ASC')
+        print('To Remove Student from Student List, type RS')
+        print('To Remove Student from Course, type RSC')
+        print('To Amend Study Plan, type ASP')
+        print('To Amend Academic History, type AAH')
+        print('To Add Course, type AC')
+        print('To Exit, type Q')
+        usrinp = input().upper()
 else:
     raise InvLoginOption('Invalid Login Option. Restart to Login again')
 
