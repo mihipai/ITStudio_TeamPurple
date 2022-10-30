@@ -431,7 +431,7 @@ class Program_by_year:
                 pp_lects = []
                 for pop in popElects:
                     pp_lects.append(pop)
-                print('Top 5 Electives in Computer Science:')
+                print('Top 4 Electives in Computer Science:')
                 for pps in pp_lects:
                     Course.SearchCourse(self, pps)
         elif progCode == 'BP096':
