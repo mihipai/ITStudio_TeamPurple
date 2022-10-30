@@ -303,6 +303,9 @@ class Admin(Student):
             c_sem = input('Enter available semesters of new course[Eg. "Y1,Y2" or Y1 or Y2]:\n')
             c_gdis = "HD:80-100,DI:70-79,CR:60-69,PA:50-59,NN:0-49"
             Course.addCourse(self, c_code, c_title, c_desc, c_creds, c_prereq, c_sem, c_gdis)
+        elif usr_inp == 'RC':
+            c_code = input('Enter course code of course to be removed:\n')
+            Course.removeCourse(self,c_code)
         else:
             raise OptionNotExist('Chosen Option does not exist') 
 
@@ -369,6 +372,7 @@ elif logtype == 'A':
     print('To Amend Study Plan, type ASP')
     print('To Amend Academic History, type AAH')
     print('To Add Course, type AC')
+    print('To Remove Course, type RC')
     print('To Exit, type Q')
     usrinp = input().upper()
 
@@ -386,6 +390,7 @@ elif logtype == 'A':
         print('To Amend Study Plan, type ASP')
         print('To Amend Academic History, type AAH')
         print('To Add Course, type AC')
+        print('To Remove Course, type RC')
         print('To Exit, type Q')
         usrinp = input().upper()
 else:
