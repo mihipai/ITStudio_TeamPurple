@@ -1,7 +1,7 @@
 
 # This will be the main menu of our Enrolement System
 from fileinput import filename
-from re import U
+from re import S, U
 from Course import Course
 from Program import Program, Program_by_year
 from Semester import Semester, Load_data, CourseOffering 
