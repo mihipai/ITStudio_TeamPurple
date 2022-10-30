@@ -140,7 +140,7 @@ class Admin(Student):
 
     def display(self, usr_inp):
         if usr_inp == 'D': # Display student list
-            print(Student.__str__(self))
+            Student.__str__(self)
         elif usr_inp == 'ALL': #Display all programs
             for program in Program_by_year.load_program_objects(self):
                 print(program)
