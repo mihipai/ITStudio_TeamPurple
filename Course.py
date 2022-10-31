@@ -136,7 +136,7 @@ class Course:
                 ava_sem = list_of_csv[x][5]
                 g_dis = list_of_csv[x][9]
                 Course(course_code, course_name, course_des, credit_points, prereq, ava_sem, g_dis)
-            print(len(c_list))
+            
                 
             
     def __str__(self):    

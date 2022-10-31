@@ -238,12 +238,13 @@ class Program_by_year:
                         credit_points = int(info[4])
                         prereq = info[3]
                         ava_sem = info[5]
-                        g_dis = list_of_csv[i][9]
+                        g_dis = info[9]
                         for new in new_cs:
                             if new == course_code:
                                 course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
                                 cs_courses.append(course_object)     
                 cs_courses[0].__str__()
+                cs_courses.clear()
                 break
             elif prog_code == 'BP096' or prog_code == 'bp096':
                 print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
@@ -263,12 +264,13 @@ class Program_by_year:
                         credit_points = int(info[4])
                         prereq = info[3]
                         ava_sem = info[5]
-                        g_dis = list_of_csv[i][9]
+                        g_dis = info[9]
                         for new in new_se:
                             if new == course_code:
                                 course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
                                 se_courses.append(course_object) 
                 se_courses[0].__str__()
+                se_courses.clear()
                 break
             else:
                 print('Invalid Program Code! Please try again!')
@@ -375,7 +377,7 @@ class Program_by_year:
                     csv_reader = csv.reader(csvfile, delimiter=',')
                     headings = next(csv_reader)
                     list_of_csv = list(csv_reader)
-                    cs_courses = []
+                    cp_courses = []
                     for info in list_of_csv:
                         course_code = info[0]
                         course_name = info[1]
@@ -383,12 +385,12 @@ class Program_by_year:
                         credit_points = int(info[4])
                         prereq = info[3]
                         ava_sem = info[5]
-                        g_dis = list_of_csv[i][9]
+                        g_dis = info[9]
                         for new in new_cs:
                             if new == course_code:
-                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
-                                cs_courses.append(course_object)     
-                cs_courses[0].__str__()
+                                cp_courses.append(Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis))     
+                cp_courses[0].__str__()
+                cp_courses.clear()
                 break
             elif prog_code == 'BP096' or prog_code == 'bp096':
                 print('/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/')
@@ -400,7 +402,7 @@ class Program_by_year:
                     csv_reader = csv.reader(csvfile, delimiter=',')
                     headings = next(csv_reader)
                     list_of_csv = list(csv_reader)
-                    se_courses = []
+                    sp_courses = []
                     for info in list_of_csv:
                         course_code = info[0]
                         course_name = info[1]
@@ -408,12 +410,13 @@ class Program_by_year:
                         credit_points = int(info[4])
                         prereq = info[3]
                         ava_sem = info[5]
-                        g_dis = list_of_csv[i][9]
+                        g_dis = info[9]
                         for new in new_se:
                             if new == course_code:
-                                course_object = Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis)
-                                se_courses.append(course_object) 
-                se_courses[0].__str__()
+                                sp_courses.append(Course(course_name, course_code, desc, credit_points, prereq, ava_sem, g_dis))
+                sp_courses[0].__str__()
+                sp_courses.clear()
+                
                 break
             else:
                 print('Invalid Program Code! Please try again!')
@@ -617,8 +620,4 @@ print(better_list)
 #print(se_program.easy_courses())
 
 '''''
-
-
-
-
 
