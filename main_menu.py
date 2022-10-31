@@ -78,21 +78,24 @@ class StuLogin(Student):
             raise StudentNotExist('Student Does Not Exist in list.')  
 
     def display(self, usr_inp):
-        Course.load_courses(self,"Courses.csv")
+        Course.load_courses("self","Courses.csv")
         if usr_inp == 'C':
+            
             Course.__str__(self)
         elif usr_inp == 'SEM':
             inpY = input('Enter Year: Y1/Y2\n')
             inpS = input('Enter Semester: S1/S2\n')
             print(Semester(inpS, inpY))   
         elif usr_inp == 'S':
+            
             print('Enter course code to search:')
             cr_code = input().upper()
             Course.SearchCourse(self,cr_code)
         elif usr_inp == 'E':
-            Program_by_year.easy_courses(self)
+            
+            Program_by_year.easy_courses('self')
         elif usr_inp == 'D':
-            Program_by_year.hard_courses(self)
+            Program_by_year.hard_courses('self')
         elif usr_inp == 'SC':
             search_number = input('\nEnter Student Number to Access Your Credits: ')
             print(Student.load_student_credit(search_number))
@@ -296,6 +299,7 @@ class Admin(Student):
 
             new_student.ammend_academic_history(s_course, s_mark, s_grade)
         elif usr_inp == 'AC': #Add course
+            
             c_code = input('Enter code of new course[Eg.: COSC2555 or ISYS1212]:\n')
             c_title = input('Enter name of new course:\n')
             c_desc = input('Enter a description of new course:\n')
@@ -305,6 +309,7 @@ class Admin(Student):
             c_gdis = "HD:80-100,DI:70-79,CR:60-69,PA:50-59,NN:0-49"
             Course.addCourse(self, c_code, c_title, c_desc, c_creds, c_prereq, c_sem, c_gdis)
         elif usr_inp == 'RC':
+            
             c_code = input('Enter course code of course to be removed:\n')
             Course.removeCourse(self,c_code)
         else:
