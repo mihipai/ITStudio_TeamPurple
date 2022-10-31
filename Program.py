@@ -619,6 +619,9 @@ print(better_list)
 '''''
 
 
+def main():
+    Program_by_year.easy_courses("self")
 
+main()
 
 
